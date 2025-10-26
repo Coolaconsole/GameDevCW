@@ -34,7 +34,7 @@ public class globalGrid : MonoBehaviour
             for (int y = 0; y < length; y = y + cellSize)
             {
                 Gizmos.color = Color.red;
-                Gizmos.DrawCube(grid[x, y], new Vector3(cellSize/2, cellSize/2, cellSize/2));
+                Gizmos.DrawCube(new Vector3(transform.position.x + x, 0f,transform.position.z + y), new Vector3(cellSize/2, cellSize/2, cellSize/2));
             }
         }
     }
