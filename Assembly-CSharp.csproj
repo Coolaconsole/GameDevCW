@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/EnemyPathfinding.cs" />
+    <Compile Include="Assets/cubeGenerator.cs" />
     <Compile Include="Assets/Scripts/Enemy/EnemyInfo.cs" />
     <Compile Include="Assets/globalGrid.cs" />
     <Compile Include="Assets/Scripts/Player/PlayerController.cs" />
