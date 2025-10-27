@@ -1467,12 +1467,11 @@ GameObject:
   - component: {fileID: 1688191726}
   - component: {fileID: 1688191725}
   - component: {fileID: 1688191724}
-  - component: {fileID: 1688191723}
   - component: {fileID: 1688191721}
   - component: {fileID: 1688191728}
   m_Layer: 6
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1489,7 +1488,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d949ae1e357aa17478a2951d58565d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
+<<<<<<< HEAD
   speed: 4
+=======
+  speed: 3
+  tower1: {fileID: 8263037230582700292, guid: 2b52040ef04df3547a8db18a243194b2, type: 3}
+  tower2: {fileID: 4882223486252977198, guid: 5a798e6f1371b3545ac97051f333c5be, type: 3}
+  tower3: {fileID: 8780793749032506205, guid: 364658c01f789ba44bcd946832a1325d, type: 3}
+>>>>>>> 216f2ed (Added Tower control to player script)
 --- !u!54 &1688191723
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1532,7 +1538,7 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
