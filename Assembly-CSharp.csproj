@@ -35,7 +35,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <UnityProjectGenerator>Package</UnityProjectGenerator>
-    <UnityProjectGeneratorVersion>2.0.23</UnityProjectGeneratorVersion>
+    <UnityProjectGeneratorVersion>2.0.25</UnityProjectGeneratorVersion>
     <UnityProjectGeneratorStyle>SDK</UnityProjectGeneratorStyle>
     <UnityProjectType>Game:1</UnityProjectType>
     <UnityBuildTarget>StandaloneLinux64:24</UnityBuildTarget>
@@ -49,9 +49,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Assets/EnemyPathfinding.cs" />
-    <Compile Include="Assets/cubeGenerator.cs" />
+    <Compile Include="Assets/GridPathfinder.cs" />
     <Compile Include="Assets/Scripts/Enemy/EnemyInfo.cs" />
-    <Compile Include="Assets/globalGrid.cs" />
+    <Compile Include="Assets/Scripts/Grid/globalGrid.cs" />
+    <Compile Include="Assets/Scripts/Grid/cubeGenerator.cs" />
     <Compile Include="Assets/Scripts/Player/PlayerController.cs" />
     <Compile Include="Assets/TutorialInfo/Scripts/Readme.cs" />
     <Compile Include="Assets/Scripts/Player/PlayerAttack.cs" />
@@ -1117,10 +1118,6 @@
     </Reference>
     <Reference Include="Unity.RenderPipelines.Core.ShaderLibrary">
       <HintPath>Library/ScriptAssemblies/Unity.RenderPipelines.Core.ShaderLibrary.dll</HintPath>
-      <Private>False</Private>
-    </Reference>
-    <Reference Include="Unity.PlasticSCM.Editor">
-      <HintPath>Library/ScriptAssemblies/Unity.PlasticSCM.Editor.dll</HintPath>
       <Private>False</Private>
     </Reference>
     <Reference Include="Unity.Multiplayer.Center.Editor">
