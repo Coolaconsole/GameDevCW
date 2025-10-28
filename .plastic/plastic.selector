@@ -1,4 +1,0 @@
-repository "Tower Defence CW/Tower Defence CW@5772622154690@cloud"
-  path "/"
-    br "/main"
-    co "/main"
