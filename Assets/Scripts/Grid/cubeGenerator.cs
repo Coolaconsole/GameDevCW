@@ -1,5 +1,8 @@
 using System;
+using Unity.AI.Navigation;
+using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.AI;
 using Random = UnityEngine.Random;
 
 public class cubeGenerator : MonoBehaviour
@@ -16,8 +19,7 @@ public class cubeGenerator : MonoBehaviour
 
     private Vector3[,] grid;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    public Vector3[,] generateObstacleGrid()
     {
         //Gets the whole grid
         grid = globalGrid.generateFullGrid();
@@ -45,29 +47,34 @@ public class cubeGenerator : MonoBehaviour
 
         //Remove obstacles from the scene
         Destroy(allCubesParent);
+
+        return grid;
     }
 
+    public Vector3[,] getObstacleGrid()
+    {
+        return grid;
+    }
+
+    //Visualisation
     void OnDrawGizmosSelected()
     {
         try
         {
-            foreach(Vector3 pos in grid)
+            foreach (Vector3 pos in grid)
             {
-                    if (pos == globalGrid.getInvalidVector()) { continue; }
+                if (pos == globalGrid.getInvalidVector()) { continue; }
 
-                    Gizmos.color = Color.green;
-                    Gizmos.DrawCube(pos, new Vector3(1, 1, 1));
-                }
+                Gizmos.color = Color.green;
+                Gizmos.DrawCube(pos, new Vector3(1, 1, 1));
+            }
         }
         catch (NullReferenceException)
         {
-            
+
         }
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
 }

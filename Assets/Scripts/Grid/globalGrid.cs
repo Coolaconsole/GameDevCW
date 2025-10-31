@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class globalGrid : MonoBehaviour
@@ -68,9 +69,20 @@ public class globalGrid : MonoBehaviour
         }
         return inputGrid;
     }
-    
+
     public Vector3 getInvalidVector()
     {
         return new Vector3(invalidValue, invalidValue, invalidValue);
+    }
+    
+    public bool isInBounds(int xIndex, int yIndex, Vector3[,] grid)
+    {
+        if (xIndex < 0 || xIndex >= grid.GetLength(0) || yIndex < 0 || yIndex >= grid.GetLength(1))
+        {
+            return false;
+        }
+        if (grid[xIndex, yIndex] == getInvalidVector()) { return false; }
+        
+        return true;
     }
 }

@@ -1,0 +1,9 @@
+/home/milkski/Documents/Uni/game-design/GameDevCW/Temp/bin/Debug/Assembly-CSharp.deps.json
+/home/milkski/Documents/Uni/game-design/GameDevCW/Temp/bin/Debug/Assembly-CSharp.dll
+/home/milkski/Documents/Uni/game-design/GameDevCW/Temp/bin/Debug/Assembly-CSharp.pdb
+/home/milkski/Documents/Uni/game-design/GameDevCW/Temp/obj/Assembly-CSharp/Assembly-CSharp.csproj.AssemblyReference.cache
+/home/milkski/Documents/Uni/game-design/GameDevCW/Temp/obj/Assembly-CSharp/Assembly-CSharp.GeneratedMSBuildEditorConfig.editorconfig
+/home/milkski/Documents/Uni/game-design/GameDevCW/Temp/obj/Assembly-CSharp/Assembly-CSharp.csproj.CoreCompileInputs.cache
+/home/milkski/Documents/Uni/game-design/GameDevCW/Temp/obj/Assembly-CSharp/Assembly-CSharp.sourcelink.json
+/home/milkski/Documents/Uni/game-design/GameDevCW/Temp/obj/Assembly-CSharp/Assembly-CSharp.dll
+/home/milkski/Documents/Uni/game-design/GameDevCW/Temp/obj/Assembly-CSharp/Assembly-CSharp.pdb
