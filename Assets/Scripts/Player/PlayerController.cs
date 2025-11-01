@@ -69,9 +69,8 @@ public class PlayerController : MonoBehaviour
                 timeplaceCooldown = 0f;
             }
         }
-        
+
         int lastAngle = 0;
-        Debug.Log(transform.rotation.eulerAngles.y);
         switch(transform.rotation.eulerAngles.y)
         {
             case 0:
