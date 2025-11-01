@@ -6,11 +6,13 @@ public class DefaultTower : MonoBehaviour
 {
     [SerializeField] private int health = 100;
     public GameObject projectile;
-    private TowerProjectile script;
-    private List<GameObject> targets;
-    private GameObject currentTarget;
+    public int damage = 10;
     public float shootCooldown = 1f;
-    private float timeshootCooldown = 0f;
+    protected TowerProjectile script;
+    protected List<GameObject> targets;
+    protected GameObject currentTarget;
+    protected float timeshootCooldown = 0f;
+    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -22,14 +24,15 @@ public class DefaultTower : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (currentTarget != null)
+        timeshootCooldown += Time.deltaTime;
+        if (timeshootCooldown >= shootCooldown)
         {
-            timeshootCooldown += Time.deltaTime;
-            if (timeshootCooldown >= shootCooldown)
+            if (currentTarget != null)
             {
-                Instantiate(projectile, transform.position, Quaternion.identity);
+                Instantiate(projectile, transform.position + new Vector3(0,1,0), Quaternion.identity);
                 script = (TowerProjectile)projectile.GetComponent(typeof(TowerProjectile));
                 script.SetTarget(currentTarget.gameObject);
+                script.SetDamage(damage);
                 timeshootCooldown = 0f;
             }
             
@@ -58,8 +61,8 @@ public class DefaultTower : MonoBehaviour
             UpdateTarget();
         }
     }
-    // Function inspired by
-    private void UpdateTarget()
+    // Function inspired by https://www.youtube.com/watch?v=XsGHjZ1R3fI
+    protected void UpdateTarget()
     {
         if (currentTarget != null)
         {

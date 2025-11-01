@@ -59,11 +59,12 @@ public class PlayerController : MonoBehaviour
     
     void EvalTowerPlacement()
     {
+        // If it can't place a tower, start countdown
         if (!canPlaceTower)
         {
             timeplaceCooldown += Time.deltaTime;
             if (timeplaceCooldown >= placeCooldown)
-            {
+            { // Reset cooldown
                 Debug.Log("Tower placement ready");
                 canPlaceTower = true;
                 timeplaceCooldown = 0f;
@@ -72,7 +73,7 @@ public class PlayerController : MonoBehaviour
 
         int lastAngle = 0;
         switch(transform.rotation.eulerAngles.y)
-        {
+        { // Keeps track of last direction facing
             case 0:
                 lastAngle = 0;
                 break;
@@ -86,7 +87,7 @@ public class PlayerController : MonoBehaviour
                 lastAngle = 270;
                 break;
         }
-
+        // Selecting a different tower
         if (Input.GetKey(KeyCode.Alpha1))
         {
             currentTower = tower1;
@@ -124,9 +125,8 @@ public class PlayerController : MonoBehaviour
                     Debug.Log("Placing tower down");
                     break;
             }
-            Vector3 placePos = (transform.position + placingDir);
-            placePos.x = (float)Math.Round(placePos.x /2)*2;
-            placePos.z = (float)Math.Round(placePos.z /2)*2;
+            var placeCoord = CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position + placingDir);
+            Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placeCoord);
             Instantiate(currentTower, placePos, Quaternion.identity);
             canPlaceTower = false;
         }

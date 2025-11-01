@@ -4,7 +4,8 @@ public class TowerProjectile : MonoBehaviour
 {
     public GameObject target;
     private float ttl = 5f;
-    public float speed = 5f;
+    public float speed = 50f;
+    public int damage = 10;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -12,9 +13,19 @@ public class TowerProjectile : MonoBehaviour
         
     }
 
-    public void SetTarget(GameObject o){
+    public void SetTarget(GameObject o)
+    {
         target = o;
         Debug.Log(target.tag);
+    }
+
+    public void SetDamage(int d)
+    {
+        damage = d;
+    }
+    public int GetDamage()
+    {
+        return damage;
     }
 
     // Update is called once per frame
@@ -33,7 +44,7 @@ public class TowerProjectile : MonoBehaviour
             //GetComponent<Rigidbody>().MovePosition(pos);
         } else
         {
-            Debug.Log("Don' question it, nothing's wrong");
+            Destroy(gameObject);
         }
         
     }

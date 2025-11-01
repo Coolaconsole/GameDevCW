@@ -18,7 +18,8 @@ public class EnemyController : MonoBehaviour
     public float attackDamage;
     public float attackCooldown;
     private float lastAttackTime;
-    
+
+    public int health = 25;
 
     private void Update()
     {
@@ -50,6 +51,21 @@ public class EnemyController : MonoBehaviour
             // reached final position in path
             if (pathIndex == path.Count)
                 isFollowingPath = false;
+        }
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+        GameObject proj = other.gameObject;
+        if (proj.CompareTag("Projectile"))
+        {
+            TowerProjectile shot = (TowerProjectile)proj.GetComponent(typeof(TowerProjectile));
+            health -= shot.GetDamage();
+            Destroy(proj);
+            if(health <= 0)
+            {
+                Destroy(gameObject);
+            }
         }
     }
 }
