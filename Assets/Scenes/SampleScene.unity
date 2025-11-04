@@ -1850,7 +1850,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  hoverIndicator: {fileID: 6490986013681104636, guid: 5003d0233406ba3b28e232029f7e0acd, type: 3}
+  hoverIndicatorPrefab: {fileID: 6490986013681104636, guid: 5003d0233406ba3b28e232029f7e0acd, type: 3}
 --- !u!1001 &1762654855
 PrefabInstance:
   m_ObjectHideFlags: 0
