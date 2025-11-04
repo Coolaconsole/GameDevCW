@@ -302,37 +302,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!1 &387863205
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 387863206}
-  m_Layer: 6
-  m_Name: AllCubesParent
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &387863206
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 387863205}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 767928048}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &410087039
 GameObject:
   m_ObjectHideFlags: 0
@@ -1925,7 +1894,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d173597fc2a484cb09da3a45faba23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  entityCostPairs: []
+  enemyCostPairs:
+  - entity: {fileID: 1416403142941157825, guid: 4f9499d75b5af1b4ea9d798684b61c4f, type: 3}
+    cost: 1
+  baseCoord: {x: 23, y: 12}
+  spawnPoints: []
+  waveCooldown: 1
+  timeSinceWaveEnded: 0
+  numCurrentWave: 0
+  waveInProgress: 0
+  waveSpawnBudget: 5
+  numAliveEnemies: 0
+  spawnCooldown: 1
+  timeSinceLastSpawn: 0
 --- !u!114 &1914952841
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1939,8 +1920,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathCompatibleTypes: 0100000000000000
-  dummy1: {fileID: 8780793749032506205, guid: 364658c01f789ba44bcd946832a1325d, type: 3}
-  dummy2: {fileID: 4882223486252977198, guid: 5a798e6f1371b3545ac97051f333c5be, type: 3}
 --- !u!114 &1914952842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2286,8 +2265,5 @@ SceneRoots:
   - {fileID: 1688191727}
   - {fileID: 283328291}
   - {fileID: 1266728574}
-  - {fileID: 2026161299}
   - {fileID: 1509360523}
-  - {fileID: 2050928322}
-  - {fileID: 767928048}
   - {fileID: 1914952843}

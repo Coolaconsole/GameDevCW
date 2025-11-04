@@ -11,9 +11,6 @@ public class PathManager : MonoBehaviour
 
     private List<List<Vector2Int>> paths = new List<List<Vector2Int>>();
 
-    public GameObject dummy1;
-    public GameObject dummy2;
-
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -25,27 +22,7 @@ public class PathManager : MonoBehaviour
         Instance = this;
     }
 
-    private void Start()
-    {
-        // test path generation pattern
-        paths.Add(generateAPath(new Vector2Int(0, 0), new Vector2Int(23, 12)));
-        foreach (Vector2Int coord in paths[0])
-        {
-            Instantiate(dummy1, CoordinateManager.Instance.getCoordinateWorldPos(coord), Quaternion.identity);
-        }
-        splitPathAt(paths[0][6]);
-        foreach (Vector2Int coord in paths[1])
-        {
-            Instantiate(dummy2, CoordinateManager.Instance.getCoordinateWorldPos(coord), Quaternion.identity);
-        }
-        splitPathAt(paths[0][3]);
-        foreach (Vector2Int coord in paths[2])
-        {
-            Instantiate(dummy2, CoordinateManager.Instance.getCoordinateWorldPos(coord), Quaternion.identity);
-        }
-    }
-
-    List<Vector2Int> generateAPath(Vector2Int start, Vector2Int end)
+    public List<Vector2Int> generateAPath(Vector2Int start, Vector2Int end)
     {
         int width = CoordinateManager.Instance.mapDimensions.x;
         int height = CoordinateManager.Instance.mapDimensions.y;
@@ -145,15 +122,28 @@ public class PathManager : MonoBehaviour
         }
         path.Reverse();
 
+        paths.Add(path);
         return path;
     }
 
-    List<Vector2Int> getAPath()
+    public List<Vector2Int> getAPath(Vector2Int start)
     {
-        return paths[UnityEngine.Random.Range(0, paths.Count)];
+        List<List<Vector2Int>> candidates = new List<List<Vector2Int>>();
+        foreach (List<Vector2Int> path in paths) {
+            if (path[0] == start)
+                candidates.Add(path);
+        }
+        // BIG ERROR HERE - NO SUITABLE PATHS WITH GIVEN START
+        if (candidates.Count < 1)
+        {
+            Debug.Log("ERROR: NO PATH BEGINS WITH " + start);
+            return new List<Vector2Int>();
+        }
+
+        return candidates[UnityEngine.Random.Range(0, candidates.Count)];
     }
 
-    void splitPathAt(Vector2Int coord)
+    public void splitPathAt(Vector2Int coord)
     {
         // select path that uses the given coord
         List<Vector2Int> pathToSplit = new List<Vector2Int>();
