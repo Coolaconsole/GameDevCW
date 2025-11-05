@@ -513,8 +513,7 @@ GameObject:
   - component: {fileID: 732355083}
   - component: {fileID: 732355082}
   - component: {fileID: 732355081}
-  - component: {fileID: 732355085}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -611,38 +610,6 @@ Transform:
   - {fileID: 816077589}
   m_Father: {fileID: 1266728574}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &732355085
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 732355080}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SerializedVersion: 0
-  m_AgentTypeID: 0
-  m_CollectObjects: 0
-  m_Size: {x: 10, y: 10, z: 10}
-  m_Center: {x: 0, y: 2, z: 0}
-  m_LayerMask:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_UseGeometry: 1
-  m_DefaultArea: 0
-  m_GenerateLinks: 0
-  m_IgnoreNavMeshAgent: 1
-  m_IgnoreNavMeshObstacle: 1
-  m_OverrideTileSize: 0
-  m_TileSize: 256
-  m_OverrideVoxelSize: 0
-  m_VoxelSize: 0.16666667
-  m_MinRegionArea: 2
-  m_NavMeshData: {fileID: 0}
-  m_BuildHeightMesh: 0
 --- !u!1 &767928046
 GameObject:
   m_ObjectHideFlags: 0
@@ -659,7 +626,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &767928047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -797,7 +764,7 @@ Transform:
   m_GameObject: {fileID: 816077585}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.0002, y: 0.55, z: 0}
+  m_LocalPosition: {x: -0.0002, y: 0.51, z: 0}
   m_LocalScale: {x: 0.099999994, y: 2.5, z: 0.099999994}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -1268,7 +1235,7 @@ GameObject:
   - component: {fileID: 1509360521}
   - component: {fileID: 1509360520}
   m_Layer: 6
-  m_Name: Target
+  m_Name: Base
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1357,7 +1324,7 @@ Transform:
   m_GameObject: {fileID: 1509360519}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 22, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -1531,7 +1498,6 @@ GameObject:
   - component: {fileID: 1688191726}
   - component: {fileID: 1688191725}
   - component: {fileID: 1688191724}
-  - component: {fileID: 1688191723}
   - component: {fileID: 1688191721}
   - component: {fileID: 1688191728}
   m_Layer: 6
@@ -1561,33 +1527,6 @@ MonoBehaviour:
   tower1: {fileID: 8263037230582700292, guid: 2b52040ef04df3547a8db18a243194b2, type: 3}
   tower2: {fileID: 4882223486252977198, guid: 5a798e6f1371b3545ac97051f333c5be, type: 3}
   tower3: {fileID: 8780793749032506205, guid: 364658c01f789ba44bcd946832a1325d, type: 3}
---- !u!54 &1688191723
-Rigidbody:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1688191720}
-  serializedVersion: 4
-  m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
-  m_CenterOfMass: {x: 0, y: 0, z: 0}
-  m_InertiaTensor: {x: 1, y: 1, z: 1}
-  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ImplicitCom: 1
-  m_ImplicitTensor: 1
-  m_UseGravity: 0
-  m_IsKinematic: 0
-  m_Interpolate: 0
-  m_Constraints: 116
-  m_CollisionDetection: 0
 --- !u!136 &1688191724
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1815,7 +1754,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1746070196}
   - component: {fileID: 1746070197}
-  m_Layer: 7
+  m_Layer: 0
   m_Name: MouseHover
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1831,7 +1770,7 @@ Transform:
   m_GameObject: {fileID: 1746070195}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0.482, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1966,7 +1905,7 @@ MonoBehaviour:
   enemyCostPairs:
   - entity: {fileID: 1416403142941157825, guid: 4f9499d75b5af1b4ea9d798684b61c4f, type: 3}
     cost: 1
-  baseCoord: {x: 23, y: 12}
+  baseCoord: {x: 12, y: 12}
   spawnPoints: []
   waveCooldown: 1
   timeSinceWaveEnded: 0
@@ -1989,6 +1928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pathCompatibleTypes: 0100000000000000
+  tileObject: {fileID: 400910586505277241, guid: 0cda73c35e66494448b703b8570c0d2a, type: 3}
 --- !u!114 &1914952842
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2040,7 +1980,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2026161295
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2199,7 +2139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &2050928321
 MonoBehaviour:
   m_ObjectHideFlags: 0
