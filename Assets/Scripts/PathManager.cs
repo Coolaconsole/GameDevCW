@@ -9,7 +9,11 @@ public class PathManager : MonoBehaviour
 
     public List<OccupationType> pathCompatibleTypes = new List<OccupationType> { OccupationType.Path, OccupationType.None };
 
+    public GameObject tileObject;
+
     private List<List<Vector2Int>> paths = new List<List<Vector2Int>>();
+
+    private Dictionary<Vector2Int, GameObject> pathTileMap = new Dictionary<Vector2Int, GameObject>();
 
     void Awake()
     {
@@ -87,6 +91,7 @@ public class PathManager : MonoBehaviour
                     if (nx < 0 || nx >= width || ny < 0 || ny >= height) continue;
 
                     Vector2Int neighbor = new Vector2Int(nx, ny);
+
                     // only use coords that can be used for a new path
                     if (!pathCompatibleTypes.Contains(CoordinateManager.Instance.getCoordinateOccupation(neighbor)))
                         closed.Add(neighbor);
@@ -117,6 +122,10 @@ public class PathManager : MonoBehaviour
         {
             step = parent[step];
             path.Add(step);
+
+            // add path object to map
+            if (tileObject != null && !pathTileMap.ContainsKey(step))
+                pathTileMap[step] = Instantiate(tileObject, CoordinateManager.Instance.getCoordinateWorldPos(step) + new Vector3(0, 0.01f, 0), Quaternion.identity);
 
             CoordinateManager.Instance.occupyCoordinate(step, OccupationType.Path);  // update teh coordinate status
         }

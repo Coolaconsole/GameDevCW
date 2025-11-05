@@ -36,7 +36,7 @@ public class CoordinateManager : MonoBehaviour
     {
         Vector3 bottomLeft = gridOrigin - new Vector3(mapDimensions.x, gridOrigin.z, mapDimensions.y) * 0.5f * cellSize;
 
-        return bottomLeft + new Vector3((coord.x + 0.5f) * cellSize, 0, (coord.y + 0.5f) * cellSize);
+        return bottomLeft + new Vector3((coord.x + 0.5f) * cellSize, gridOrigin.y, (coord.y + 0.5f) * cellSize);
     }
 
     public Vector2Int getNearestWorldPosCoordinate(Vector3 pos)

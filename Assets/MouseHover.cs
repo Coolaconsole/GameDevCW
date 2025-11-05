@@ -22,7 +22,7 @@ public class MouseHover : MonoBehaviour
         Vector3 mousePos = GetSelectedMapPos();
 
         //Using floor to do the grid visualisation
-        hoverIndicator.transform.position = new Vector3(Mathf.Floor(mousePos.x*0.5f)*2, 0.005f, Mathf.Floor(mousePos.z*0.5f)*2);
+        hoverIndicator.transform.position = CoordinateManager.Instance.getCoordinateWorldPos(CoordinateManager.Instance.getNearestWorldPosCoordinate(new Vector3(mousePos.x, 0, mousePos.z))) + new Vector3(0, 0.015f, 0);//new Vector3(Mathf.Floor(mousePos.x*0.5f)*2, 0.005f, Mathf.Floor(mousePos.z*0.5f)*2);
     }
     
     public Vector3 GetSelectedMapPos()
