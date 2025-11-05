@@ -55,7 +55,15 @@ public class PlayerController : MonoBehaviour
         Ray raycast = camera.ScreenPointToRay(Input.mousePosition);
         RaycastHit hit;
 
-        if(Physics.Raycast(raycast, out hit, Mathf.Infinity, ground))
+        if (Physics.Raycast(raycast, out hit, Mathf.Infinity, ground))
+        {
+            Vector3 lookDir = hit.point - transform.position;
+            lookDir.y = 0;
+            transform.rotation = Quaternion.LookRotation(lookDir);
+        }
+
+        /*
+        if (Physics.Raycast(raycast, out hit, Mathf.Infinity, ground))
         {
             Vector3 lookDir = hit.point - transform.position;
             lookDir.y = 0;
@@ -81,6 +89,7 @@ public class PlayerController : MonoBehaviour
         //rb.MovePosition(transform.position + (transform.forward * input.magnitude) * speed * Time.deltaTime);
         transform.position += (transform.forward * input.magnitude) * speed * Time.deltaTime;
         //transform.position += input;
+        */
     }
     
     void EvalTowerPlacement()

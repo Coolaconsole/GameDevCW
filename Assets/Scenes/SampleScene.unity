@@ -1553,18 +1553,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d949ae1e357aa17478a2951d58565d83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
-<<<<<<< HEAD
-  speed: 4
+  speed: 5
   camera: {fileID: 330585545}
   ground:
     serializedVersion: 2
     m_Bits: 128
-=======
-  speed: 5
   tower1: {fileID: 8263037230582700292, guid: 2b52040ef04df3547a8db18a243194b2, type: 3}
   tower2: {fileID: 4882223486252977198, guid: 5a798e6f1371b3545ac97051f333c5be, type: 3}
   tower3: {fileID: 8780793749032506205, guid: 364658c01f789ba44bcd946832a1325d, type: 3}
->>>>>>> origin/Wtower
 --- !u!54 &1688191723
 Rigidbody:
   m_ObjectHideFlags: 0
