@@ -125,7 +125,7 @@ public class PathManager : MonoBehaviour
 
             // add path object to map
             if (tileObject != null && !pathTileMap.ContainsKey(step))
-                pathTileMap[step] = Instantiate(tileObject, CoordinateManager.Instance.getCoordinateWorldPos(step) + new Vector3(0, 0.01f, 0), Quaternion.identity);
+                pathTileMap[step] = Instantiate(tileObject, CoordinateManager.Instance.getCoordinateWorldPos(step) + new Vector3(0, 0.005f, 0), Quaternion.identity);
 
             CoordinateManager.Instance.occupyCoordinate(step, OccupationType.Path);  // update teh coordinate status
         }
