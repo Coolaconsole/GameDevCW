@@ -72,6 +72,7 @@ public class SpawnManager : MonoBehaviour
             
             GameObject newEnemy = Instantiate(enemyCostPairs[0].entity, CoordinateManager.Instance.getCoordinateWorldPos(randomSpawn), Quaternion.identity);
             newEnemy.GetComponent<EnemyController>().path = PathManager.Instance.getAPath(randomSpawn);
+            newEnemy.GetComponent<EnemyController>().pathOffset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
             
             waveSpawnBudget -= enemyCostPairs[0].cost;
             timeSinceLastSpawn = 0;

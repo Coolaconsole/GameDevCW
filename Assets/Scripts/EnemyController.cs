@@ -19,13 +19,13 @@ public class EnemyController : MonoBehaviour
     public float attackCooldown;
     private float lastAttackTime;
 
-    public int health = 25;
-
     private void Update()
     {
         // check if there is a new target
+        findTarget();
 
         // if target is not null, stop following path and attack
+        handleAttack();
 
         // otherwise, follow path
         if (isFollowingPath && pathIndex < path.Count)
@@ -33,6 +33,11 @@ public class EnemyController : MonoBehaviour
     }
 
     private void findTarget()
+    {
+
+    }
+
+    private void handleAttack()
     {
 
     }
@@ -57,13 +62,17 @@ public class EnemyController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         GameObject proj = other.gameObject;
-        if (proj.CompareTag("Projectile"))
+        HealthController hc = GetComponent<HealthController>();
+        if (proj.CompareTag("Projectile") && hc != null)
         {
             TowerProjectile shot = (TowerProjectile)proj.GetComponent(typeof(TowerProjectile));
-            health -= shot.GetDamage();
+            hc.TakeDamage(shot.GetDamage());
             Destroy(proj);
-            if(health <= 0)
+
+            if(hc.currentHealth <= 0)
             {
+                PathManager.Instance.pathTileMap[path[pathIndex]].GetComponent<PathTileController>().activity += hc.maxHealth/20;
+
                 Destroy(gameObject);
             }
         }

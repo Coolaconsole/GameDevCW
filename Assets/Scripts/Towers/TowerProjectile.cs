@@ -41,7 +41,6 @@ public class TowerProjectile : MonoBehaviour
         if (target != null)
         {
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
-            //GetComponent<Rigidbody>().MovePosition(pos);
         } else
         {
             Destroy(gameObject);

@@ -13,7 +13,7 @@ public class PathManager : MonoBehaviour
 
     private List<List<Vector2Int>> paths = new List<List<Vector2Int>>();
 
-    private Dictionary<Vector2Int, GameObject> pathTileMap = new Dictionary<Vector2Int, GameObject>();
+    public Dictionary<Vector2Int, GameObject> pathTileMap = new Dictionary<Vector2Int, GameObject>();
 
     void Awake()
     {
