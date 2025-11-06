@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class DefaultTower : MonoBehaviour
 {
-    TargetController targetController;
+    protected TargetController targetController;
 
     public GameObject projectile;
     public int damage = 10;
