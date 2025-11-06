@@ -124,5 +124,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   activity: 0
   renderer: {fileID: 0}
-  startColor: {r: 0.7075472, g: 0.39152822, b: 0.24363652, a: 0}
+  startColor: {r: 0.9150943, g: 0.7690334, b: 0.28920433, a: 0}
   endColor: {r: 0.5283019, g: 0.07612327, b: 0, a: 0}

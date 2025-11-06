@@ -19,12 +19,15 @@ public class PlayerController : MonoBehaviour
     private bool canPlaceTower = true;
     private float placeCooldown = 1f;
     private float timeplaceCooldown = 0f;
+    private PlacingManager placingManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentTower = tower1;
         rb = GetComponent<Rigidbody>();
+
+        placingManager = GetComponent<PlacingManager>();
     }
 
     void Update() // Input called in the update
@@ -140,28 +143,8 @@ public class PlayerController : MonoBehaviour
         }
         if (Input.GetKey(KeyCode.Space) && canPlaceTower)
         {
-            Vector3 placingDir = new Vector3(0, 0, 0);
-            switch (lastAngle)
-            {
-                case 0:
-                    placingDir = new Vector3(0, 0, 2);
-                    Debug.Log("Placing tower in left");
-                    break;
-                case 90:
-                    placingDir = new Vector3(2, 0, 0);
-                    Debug.Log("Placing tower to the up");
-                    break;
-                case 180:
-                    placingDir = new Vector3(0, 0, -2);
-                    Debug.Log("Placing tower to the right");
-                    break;
-                case 270:
-                    placingDir = new Vector3(-2, 0, 0);
-                    Debug.Log("Placing tower down");
-                    break;
-            }
-            var placeCoord = CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position + placingDir);
-            Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placeCoord);
+            //Placing direction handled by the placing manager and shown with the hover indicator
+            Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingManager.getPlacingCoord());
             Instantiate(currentTower, placePos, Quaternion.identity);
             canPlaceTower = false;
         }

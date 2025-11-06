@@ -1,3 +1,4 @@
+using System;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,7 +6,7 @@ using UnityEngine.UI;
 public class HealthController : MonoBehaviour
 {
     public int maxHealth = 100;
-    public int currentHealth;
+    [NonSerialized] public int currentHealth;
 
     public Image healthBarFill;
     public Gradient healthGradient;
