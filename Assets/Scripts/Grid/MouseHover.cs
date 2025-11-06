@@ -1,8 +1,6 @@
-using System;
-using Unity.VisualScripting;
 using UnityEngine;
 
-public class PlacingManager : MonoBehaviour
+public class PlaceManager : MonoBehaviour
 {
     [Header("Other Components")]
     [SerializeField] private Camera camera;

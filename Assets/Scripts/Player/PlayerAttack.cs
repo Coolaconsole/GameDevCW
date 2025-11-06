@@ -13,18 +13,22 @@ public class PlayerAttack : MonoBehaviour
     private bool isAttacking = false;
     private float hitboxTimer;
 
+    private PlayerHotBarManager playerHotBar;
+
     void Start()
     {
         hitbox.SetActive(false); //By default is off
 
         hitboxTimer = hitboxActiveTime;
+
+        playerHotBar = GetComponent<PlayerHotBarManager>();
     }
 
     // Honestly this code is pretty bad but I'm scared to do doing events
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
-            if (!isAttacking)
+            if (!isAttacking && !playerHotBar.isInBuildMode())
             {
                 startAttacking();
             }

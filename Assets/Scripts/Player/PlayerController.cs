@@ -10,7 +10,6 @@ public class PlayerController : MonoBehaviour
     [Header("Other Components")]
     [SerializeField] private Camera camera;
     [SerializeField] private LayerMask ground;
-    private Rigidbody rb;
     private Vector3 input;
     public GameObject tower1;
     public GameObject tower2;
@@ -19,15 +18,14 @@ public class PlayerController : MonoBehaviour
     private bool canPlaceTower = true;
     private float placeCooldown = 1f;
     private float timeplaceCooldown = 0f;
-    private PlacingManager placingManager;
+    private PlaceManager placingManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentTower = tower1;
-        rb = GetComponent<Rigidbody>();
 
-        placingManager = GetComponent<PlacingManager>();
+        placingManager = GetComponent<PlaceManager>();
     }
 
     void Update() // Input called in the update
@@ -36,8 +34,6 @@ public class PlayerController : MonoBehaviour
         input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         PlayerRotation();
-        
-        EvalTowerPlacement();
     }
     void FixedUpdate() //Actual movement in fixed update so isn't frame dependant
     {
@@ -93,60 +89,5 @@ public class PlayerController : MonoBehaviour
         transform.position += (transform.forward * input.magnitude) * speed * Time.deltaTime;
         //transform.position += input;
         */
-    }
-    
-    void EvalTowerPlacement()
-    {
-        // If it can't place a tower, start countdown
-        if (!canPlaceTower)
-        {
-            timeplaceCooldown += Time.deltaTime;
-            if (timeplaceCooldown >= placeCooldown)
-            { // Reset cooldown
-                Debug.Log("Tower placement ready");
-                canPlaceTower = true;
-                timeplaceCooldown = 0f;
-            }
-        }
-
-        int lastAngle = 0;
-        switch(transform.rotation.eulerAngles.y)
-        { // Keeps track of last direction facing
-            case 0:
-                lastAngle = 0;
-                break;
-            case 90:
-                lastAngle = 90;
-                break;
-            case 180:
-                lastAngle = 180;
-                break;
-            case 270:
-                lastAngle = 270;
-                break;
-        }
-        // Selecting a different tower
-        if (Input.GetKey(KeyCode.Alpha1))
-        {
-            currentTower = tower1;
-            Debug.Log("Tower 1 selected");
-        }
-        if (Input.GetKey(KeyCode.Alpha2))
-        {
-            currentTower = tower2;
-            Debug.Log("Tower 2 selected");
-        }
-        if (Input.GetKey(KeyCode.Alpha3))
-        {
-            currentTower = tower3;
-            Debug.Log("Tower 3 selected");
-        }
-        if (Input.GetKey(KeyCode.Space) && canPlaceTower)
-        {
-            //Placing direction handled by the placing manager and shown with the hover indicator
-            Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingManager.getPlacingCoord());
-            Instantiate(currentTower, placePos, Quaternion.identity);
-            canPlaceTower = false;
-        }
     }
 }
