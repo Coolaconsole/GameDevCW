@@ -1763,6 +1763,7 @@ MonoBehaviour:
     m_Bits: 128
   hoverIndicatorPrefab: {fileID: 6490986013681104636, guid: 5003d0233406ba3b28e232029f7e0acd, type: 3}
   playerLookEmpty: {fileID: 1075204746}
+  transparent: {fileID: 2100000, guid: 28ce9f7432e5ddbc9bf83867198c7888, type: 2}
 --- !u!114 &1688191731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1779,6 +1780,9 @@ MonoBehaviour:
   tower2: {fileID: 4882223486252977198, guid: 5a798e6f1371b3545ac97051f333c5be, type: 3}
   tower3: {fileID: 8780793749032506205, guid: 364658c01f789ba44bcd946832a1325d, type: 3}
   placeCooldown: 1
+  onHotbarItemChanged:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1718341597
 GameObject:
   m_ObjectHideFlags: 0
