@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
 using System;
+using System.Collections.Generic;
 
 public class PlayerController : MonoBehaviour
 {
@@ -12,9 +13,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask ground;
     private Rigidbody rb;
     private Vector3 input;
-    public GameObject tower1;
-    public GameObject tower2;
-    public GameObject tower3;
+    public List<GameObject> towers = new List<GameObject>();
     private GameObject currentTower;
     private bool canPlaceTower = true;
     private float placeCooldown = 1f;
@@ -24,7 +23,7 @@ public class PlayerController : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentTower = tower1;
+        currentTower = towers[0];
         rb = GetComponent<Rigidbody>();
 
         placingManager = GetComponent<PlacingManager>();
@@ -110,7 +109,7 @@ public class PlayerController : MonoBehaviour
         }
 
         int lastAngle = 0;
-        switch(transform.rotation.eulerAngles.y)
+        switch (transform.rotation.eulerAngles.y)
         { // Keeps track of last direction facing
             case 0:
                 lastAngle = 0;
@@ -128,18 +127,19 @@ public class PlayerController : MonoBehaviour
         // Selecting a different tower
         if (Input.GetKey(KeyCode.Alpha1))
         {
-            currentTower = tower1;
-            Debug.Log("Tower 1 selected");
+            currentTower = towers[0];
         }
         if (Input.GetKey(KeyCode.Alpha2))
         {
-            currentTower = tower2;
-            Debug.Log("Tower 2 selected");
+            currentTower = towers[1];
         }
         if (Input.GetKey(KeyCode.Alpha3))
         {
-            currentTower = tower3;
-            Debug.Log("Tower 3 selected");
+            currentTower = towers[2];
+        }
+        if (Input.GetKey(KeyCode.Alpha4))
+        {
+            currentTower = towers[3];
         }
         if (Input.GetKey(KeyCode.Space) && canPlaceTower)
         {
