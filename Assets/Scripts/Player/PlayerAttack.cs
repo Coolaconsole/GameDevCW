@@ -8,12 +8,14 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Other Components")]
     [SerializeField] private GameObject hitbox;
+    [SerializeField] private GameObject attackExplosion;
 
     // Private bits
     private bool isAttacking = false;
     private float hitboxTimer;
 
     private PlayerHotBarManager playerHotBar;
+    private PlaceManager placeManager;
 
     void Start()
     {
@@ -22,6 +24,7 @@ public class PlayerAttack : MonoBehaviour
         hitboxTimer = hitboxActiveTime;
 
         playerHotBar = GetComponent<PlayerHotBarManager>();
+        placeManager = GetComponent<PlaceManager>();
     }
 
     // Honestly this code is pretty bad but I'm scared to do doing events
@@ -49,6 +52,8 @@ public class PlayerAttack : MonoBehaviour
         isAttacking = true;
         hitbox.SetActive(true);
         hitboxTimer = hitboxActiveTime;
+
+        Instantiate(attackExplosion, placeManager.getWorldPlacingCoord(), Quaternion.identity);
     }
     void stopAttacking()
     {

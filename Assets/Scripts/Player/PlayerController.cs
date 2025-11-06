@@ -11,22 +11,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private LayerMask ground;
     private Vector3 input;
-    public GameObject tower1;
-    public GameObject tower2;
-    public GameObject tower3;
-    private GameObject currentTower;
-    private bool canPlaceTower = true;
-    private float placeCooldown = 1f;
-    private float timeplaceCooldown = 0f;
-    private PlaceManager placingManager;
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        currentTower = tower1;
-
-        placingManager = GetComponent<PlaceManager>();
-    }
 
     void Update() // Input called in the update
     {
