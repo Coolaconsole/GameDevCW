@@ -1215,6 +1215,8 @@ GameObject:
   - component: {fileID: 1509360521}
   - component: {fileID: 1509360520}
   - component: {fileID: 1509360524}
+  - component: {fileID: 1509360525}
+  - component: {fileID: 1509360526}
   m_Layer: 6
   m_Name: Base
   m_TagString: Tower
@@ -1356,6 +1358,45 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+--- !u!54 &1509360525
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509360519}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!114 &1509360526
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1509360519}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1dd23fbbc302dc64e87fb172f6f9be71, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &1529358600 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3776448234810596161, guid: e0311bda77af832419b460459c601cfb, type: 3}
@@ -2042,6 +2083,9 @@ MonoBehaviour:
   - entity: {fileID: 1416403142941157825, guid: 01ca576ea077b404d976b9a90a061fc2, type: 3}
     cost: 2
     waveUnlocked: 3
+  - entity: {fileID: 9016296728663265688, guid: 6c6ca4d6065077d48aa066b0b15502cb, type: 3}
+    cost: 2
+    waveUnlocked: 2
   baseCoord: {x: 12, y: 12}
   spawnPoints: []
   waveCooldown: 5

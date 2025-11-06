@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
     public List<EntityCostInfo> enemyCostInfos = new List<EntityCostInfo>();
     private List<EntityCostInfo> currentEnemies = new List<EntityCostInfo>();
     private List<float> currentEnemyWeights = new List<float>();
+    private float totalWeight;
 
     public Vector2Int baseCoord;
     public List<Vector2Int> spawnPoints = new List<Vector2Int>();
@@ -78,10 +79,14 @@ public class SpawnManager : MonoBehaviour
             }
         }
         currentEnemyWeights = new List<float>();
+        float weight = 0f;
         foreach (var eci in currentEnemies)
         {
+            weight += (totalCost - eci.cost);
             currentEnemyWeights.Add(totalCost - eci.cost);  // higher weight to lower cost enemies
+        
         }
+        totalWeight = weight;
     }
 
     public void spawnEnemy()
@@ -101,7 +106,11 @@ public class SpawnManager : MonoBehaviour
             //waveSpawnBudget -= enemyCostInfos[0].cost;
             waveSpawnBudget -= enemyToSpawn.cost;
             timeSinceLastSpawn = 0;
-            numAliveEnemies += 1;
+            if(newEnemy.tag != "Enemy")
+            {
+                numAliveEnemies += 5;  // for swarm spawners
+            } else
+                numAliveEnemies += 1;
         } else if (waveSpawnBudget > 0)
         {
             spawnEnemy();  // try again
@@ -110,13 +119,15 @@ public class SpawnManager : MonoBehaviour
     
     EntityCostInfo GetWeightedRandomEnemy(List<EntityCostInfo> enemies, List<float> weights)
     {
-        float r = Random.value * totalCost;
+        float r = Random.value * totalWeight;
         float count = 0f;
+        float cumulativeWeight = 0;
+        
 
         for (int i = 0; i < enemies.Count; i++)
         {
-            count += weights[i];
-            if (count >= r)
+            cumulativeWeight += weights[i];
+            if (cumulativeWeight >= r)
             {
                 return enemies[i];
             }
