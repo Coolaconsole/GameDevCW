@@ -1187,7 +1187,7 @@ GameObject:
   - component: {fileID: 1509360524}
   m_Layer: 6
   m_Name: Base
-  m_TagString: Untagged
+  m_TagString: Tower
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1652,10 +1652,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688191720}
-  serializedVersion: 5
+  serializedVersion: 4
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -2035,9 +2035,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 41d173597fc2a484cb09da3a45faba23, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyCostPairs:
+  enemyCostInfos:
   - entity: {fileID: 1416403142941157825, guid: 4f9499d75b5af1b4ea9d798684b61c4f, type: 3}
     cost: 1
+    waveUnlocked: 0
+  - entity: {fileID: 1416403142941157825, guid: 01ca576ea077b404d976b9a90a061fc2, type: 3}
+    cost: 2
+    waveUnlocked: 3
   baseCoord: {x: 12, y: 12}
   spawnPoints: []
   waveCooldown: 5
