@@ -1,10 +1,10 @@
 using UnityEngine;
 
-public class TowerProjectile : MonoBehaviour
+public class Projectile : MonoBehaviour
 {
     public GameObject target;
     private float ttl = 5f;
-    public float speed = 50f;
+    public float speed = 10f;
     public int damage = 10;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -16,7 +16,6 @@ public class TowerProjectile : MonoBehaviour
     public void SetTarget(GameObject o)
     {
         target = o;
-        Debug.Log(target.tag);
     }
 
     public void SetDamage(int d)
@@ -28,23 +27,24 @@ public class TowerProjectile : MonoBehaviour
         return damage;
     }
 
-    // Update is called once per frame
     void Update()
     {
         ttl -= Time.deltaTime;
-        if(ttl < 0){
+        if (ttl < 0)
             Destroy(gameObject);
-        }
-    }
 
-    void FixedUpdate(){
-        if (target != null)
+        if (target == null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
-        } else
+            Destroy(gameObject);
+            return;
+        }
+
+        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+
+        // projectile close to target but not destroed
+        if (Vector3.Distance(transform.position, target.transform.position) < 0.05f)
         {
             Destroy(gameObject);
         }
-        
     }
 }

@@ -13,7 +13,7 @@ public class SpawnManager : MonoBehaviour
     public Vector2Int baseCoord;
     public List<Vector2Int> spawnPoints = new List<Vector2Int>();
 
-    public float waveCooldown = 5.0f;  // might change from cooldown to some player-control like interact with base
+    public float waveCooldown = 3.0f;  // might change from cooldown to some player-control like interact with base
     public float timeSinceWaveEnded;
     public int numCurrentWave;
     public bool waveInProgress = false;
@@ -54,6 +54,8 @@ public class SpawnManager : MonoBehaviour
 
     public void beginNewWave()
     {
+        numAliveEnemies = FindObjectsOfType<EnemyController>().Length;
+
         numCurrentWave += 1;
         // recalculate spawn budget via some function:
         waveSpawnBudget = numCurrentWave * 5;
@@ -76,6 +78,7 @@ public class SpawnManager : MonoBehaviour
             
             waveSpawnBudget -= enemyCostPairs[0].cost;
             timeSinceLastSpawn = 0;
+            numAliveEnemies += 1;
         }
     }
 
@@ -124,8 +127,11 @@ public class SpawnManager : MonoBehaviour
         if (waveInProgress && numAliveEnemies > 0)
         {
             numAliveEnemies -= 1;
-            if (numAliveEnemies == 0)
+            if (numAliveEnemies == 0 && waveSpawnBudget == 0)
+            {
                 waveInProgress = false;
+                timeSinceWaveEnded = 0;
+            }
         }
     }
 }

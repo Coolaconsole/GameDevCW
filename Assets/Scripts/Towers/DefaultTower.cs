@@ -4,35 +4,32 @@ using System.Collections.Generic;
 
 public class DefaultTower : MonoBehaviour
 {
-    [SerializeField] private int health = 100;
+    TargetController targetController;
+
     public GameObject projectile;
     public int damage = 10;
     public float shootCooldown = 1f;
-    protected TowerProjectile script;
-    protected List<GameObject> targets;
-    protected GameObject currentTarget;
     protected float timeshootCooldown = 0f;
-    
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        health = 100;
-        targets = new List<GameObject>();
+        targetController = GetComponentInChildren<TargetController>();
     }
 
     // Update is called once per frame
     void Update()
     {
+        targetController.UpdateTarget();
+
         timeshootCooldown += Time.deltaTime;
         if (timeshootCooldown >= shootCooldown)
         {
-            if (currentTarget != null)
+            if (targetController.currentTarget != null)
             {
-                Instantiate(projectile, transform.position + new Vector3(0,1,0), Quaternion.identity);
-                script = (TowerProjectile)projectile.GetComponent(typeof(TowerProjectile));
-                script.SetTarget(currentTarget.gameObject);
-                script.SetDamage(damage);
+                Projectile proj = Instantiate(projectile, transform.position + new Vector3(0, 1, 0), Quaternion.identity).GetComponent<Projectile>();
+                proj.SetDamage(damage);
+                proj.SetTarget(targetController.currentTarget);
                 timeshootCooldown = 0f;
             }
             
@@ -41,56 +38,23 @@ public class DefaultTower : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            targets.Add(other.gameObject);
-            UpdateTarget();
-            Debug.Log("COLLISION");
-        }
-    }
-
-    void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.CompareTag("Enemy"))
-        {
-            targets.Remove(other.gameObject);
-            if (currentTarget.Equals(other.gameObject))
-            {
-                currentTarget = null;
-            }
-            UpdateTarget();
-        }
-    }
-    // Function inspired by https://www.youtube.com/watch?v=XsGHjZ1R3fI
-    protected void UpdateTarget()
-    {
-        if (currentTarget != null)
-        {
+        GameObject proj = other.gameObject;
+        Projectile projectileComponent = proj.GetComponent<Projectile>();
+        if (projectileComponent == null || projectileComponent.target == null || !projectileComponent.target.Equals(gameObject))
             return;
-        }
-        GameObject closestEnemy = null;
-        float closestDist = float.MaxValue;
 
-        foreach (GameObject item in targets)
+        HealthController hc = GetComponent<HealthController>();
+        if (proj.CompareTag("Projectile") && hc != null)
         {
-            if(item != null)
-            {
-                float dist = Vector3.Distance(transform.position, item.transform.position);
-                if (dist < closestDist)
-                {
-                    closestDist = dist;
-                    closestEnemy = item;
-                }
+
+            Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
+            hc.TakeDamage(shot.GetDamage());
+            Destroy(proj);
+
+            if (hc.currentHealth <= 0)
+            { 
+                Destroy(gameObject);
             }
         }
-        
-        if (closestEnemy != null)
-        {
-            currentTarget = closestEnemy;
-        } else
-        {
-            currentTarget = null;
-        }
     }
-
 }

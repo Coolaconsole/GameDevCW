@@ -9,37 +9,47 @@ public class EnemyController : MonoBehaviour
     public int pathIndex;
     public Vector3 pathOffset;  // for more natural-looking enemy behaviour
     public bool isFollowingPath = true;  // true when enemy is moving allong path
+    
+    public TargetController targetController;
 
-    public bool willTargetPlayer;
-    public GameObject currentTarget;
-
+    public GameObject projectile;
     public float moveSpeed;
     public float attackRange;
     public float attackDamage;
     public float attackCooldown;
     private float lastAttackTime;
 
+    private void Start()
+    {
+        //GetComponentInChildren<SphereCollider>().radius = attackRange;
+        targetController = GetComponentInChildren<TargetController>();
+    }
+
     private void Update()
     {
         // check if there is a new target
-        findTarget();
+        targetController.UpdateTarget();
 
         // if target is not null, stop following path and attack
-        handleAttack();
+        if (targetController.currentTarget != null)
+            handleAttack();
 
         // otherwise, follow path
-        if (isFollowingPath && pathIndex < path.Count)
+        else if (isFollowingPath && pathIndex < path.Count)
             followPath();
-    }
-
-    private void findTarget()
-    {
-
     }
 
     private void handleAttack()
     {
-
+        if (lastAttackTime >= attackCooldown)
+        {
+            Projectile proj = Instantiate(projectile, transform.position + new Vector3(0, 1, 0), Quaternion.identity).GetComponent<Projectile>();
+            proj.SetDamage((int)attackDamage);
+            proj.SetTarget(targetController.currentTarget);
+            lastAttackTime = 0f;
+        }
+        else
+            lastAttackTime += Time.deltaTime;
     }
 
     private void followPath()
@@ -62,17 +72,24 @@ public class EnemyController : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         GameObject proj = other.gameObject;
+        Projectile projectileComponent = proj.GetComponent<Projectile>();
+        if (projectileComponent == null || projectileComponent.target == null || !projectileComponent.target.Equals(gameObject))
+            return;
+
         HealthController hc = GetComponent<HealthController>();
         if (proj.CompareTag("Projectile") && hc != null)
         {
-            TowerProjectile shot = (TowerProjectile)proj.GetComponent(typeof(TowerProjectile));
+            
+            Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
             hc.TakeDamage(shot.GetDamage());
             Destroy(proj);
 
             if(hc.currentHealth <= 0)
             {
-                PathManager.Instance.pathTileMap[path[pathIndex]].GetComponent<PathTileController>().activity += hc.maxHealth/20;
+                if (PathManager.Instance.pathTileMap.ContainsKey(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)))
+                    PathManager.Instance.pathTileMap[CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)].GetComponent<PathTileController>().activity += hc.maxHealth/40;
 
+                SpawnManager.Instance.decrementNumAliveEnemies();
                 Destroy(gameObject);
             }
         }
