@@ -1,5 +1,8 @@
 using UnityEngine;
+using UnityEngine.Events;
 
+[System.Serializable]
+public class HotbarItemChangedEvent : UnityEvent<GameObject> {}
 public class PlayerHotBarManager : MonoBehaviour
 {
     [Header("Towers")]
@@ -15,6 +18,8 @@ public class PlayerHotBarManager : MonoBehaviour
     private bool canPlaceTower = true;
     private float timeplaceCooldown = 0f;
     private PlaceManager placingManager;
+
+    public HotbarItemChangedEvent onHotbarItemChanged;
 
     void Start()
     {
@@ -59,6 +64,8 @@ public class PlayerHotBarManager : MonoBehaviour
             currentTower = tower3;
             Debug.Log("Tower 3 selected");
         }
+        else { return; }
+        onHotbarItemChanged.Invoke(currentTower); //If the item was changed, invoke the event
     }
 
     private bool EvalTowerPlacement()
@@ -91,7 +98,7 @@ public class PlayerHotBarManager : MonoBehaviour
     // Functions for the outside world ---------------------------------
 
     public bool isInBuildMode() { return buildMode; }
-    
+
     /// <summary>
     /// Will return null if the player is not in build mode
     /// </summary>
