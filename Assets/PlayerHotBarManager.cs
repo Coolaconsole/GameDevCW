@@ -2,7 +2,9 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [System.Serializable]
-public class HotbarItemChangedEvent : UnityEvent<GameObject> {}
+public class HotbarItemChangedEvent : UnityEvent<GameObject> { }
+[System.Serializable]
+public class PlayerBuildModeChangedEvent : UnityEvent<bool> { }
 public class PlayerHotBarManager : MonoBehaviour
 {
     [Header("Towers")]
@@ -18,8 +20,8 @@ public class PlayerHotBarManager : MonoBehaviour
     private bool canPlaceTower = true;
     private float timeplaceCooldown = 0f;
     private PlaceManager placingManager;
-
     public HotbarItemChangedEvent onHotbarItemChanged;
+    public PlayerBuildModeChangedEvent onBuildModeChanged;
 
     void Start()
     {
@@ -39,26 +41,27 @@ public class PlayerHotBarManager : MonoBehaviour
 
     private void SelectTower()
     {
+        bool currentBuildMode = buildMode;
         // Selecting a different tower
-        if (Input.GetKey(KeyCode.Alpha1))
+        if (Input.GetKeyDown(KeyCode.Alpha1))
         {
             currentTower = null;
             buildMode = false;
         }
-        else if (Input.GetKey(KeyCode.Alpha2))
+        else if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             buildMode = true;
             currentTower = tower1;
             Debug.Log("Tower 1 selected");
 
         }
-        else if (Input.GetKey(KeyCode.Alpha3))
+        else if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             buildMode = true;
             currentTower = tower2;
             Debug.Log("Tower 2 selected");
         }
-        else if (Input.GetKey(KeyCode.Alpha4))
+        else if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             buildMode = true;
             currentTower = tower3;
@@ -66,6 +69,7 @@ public class PlayerHotBarManager : MonoBehaviour
         }
         else { return; }
         onHotbarItemChanged.Invoke(currentTower); //If the item was changed, invoke the event
+        if (buildMode != currentBuildMode) { onBuildModeChanged.Invoke(buildMode); } //If build mode has changed, then invoke the event
     }
 
     private bool EvalTowerPlacement()
