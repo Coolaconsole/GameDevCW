@@ -8,7 +8,9 @@ public class SpawnManager : MonoBehaviour
     public static SpawnManager Instance { get; private set; }
 
     // map from prefab enemy to their 'spawn cost'
-    public List<EntityCostPair> enemyCostPairs = new List<EntityCostPair>();
+    public List<EntityCostInfo> enemyCostInfos = new List<EntityCostInfo>();
+    private List<EntityCostInfo> currentEnemies = new List<EntityCostInfo>();
+    private List<float> currentEnemyWeights = new List<float>();
 
     public Vector2Int baseCoord;
     public List<Vector2Int> spawnPoints = new List<Vector2Int>();
@@ -21,6 +23,7 @@ public class SpawnManager : MonoBehaviour
     public int numAliveEnemies;
     public float spawnCooldown = 1.0f;
     public float timeSinceLastSpawn;
+    private int totalCost;
 
     void Awake()
     {
@@ -63,23 +66,63 @@ public class SpawnManager : MonoBehaviour
         createNewEnemyPath();
 
         waveInProgress = true;
+
+        currentEnemies = new List<EntityCostInfo>();
+        totalCost = 0;
+        foreach (var eci in enemyCostInfos)
+        {
+            if (eci.waveUnlocked <= numCurrentWave)
+            {
+                currentEnemies.Add(eci);
+                totalCost += eci.cost;
+            }
+        }
+        currentEnemyWeights = new List<float>();
+        foreach (var eci in currentEnemies)
+        {
+            currentEnemyWeights.Add(totalCost - eci.cost);  // higher weight to lower cost enemies
+        }
     }
 
     public void spawnEnemy()
     {
         // to do - make more elaborate
-        if (enemyCostPairs[0].cost <= waveSpawnBudget)
+        EntityCostInfo enemyToSpawn = GetWeightedRandomEnemy(currentEnemies, currentEnemyWeights);
+
+        if (enemyToSpawn.cost <= waveSpawnBudget)
         {
             Vector2Int randomSpawn = spawnPoints[Random.Range(0, spawnPoints.Count)];
-            
-            GameObject newEnemy = Instantiate(enemyCostPairs[0].entity, CoordinateManager.Instance.getCoordinateWorldPos(randomSpawn), Quaternion.identity);
+
+            //GameObject newEnemy = Instantiate(enemyCostInfos[0].entity, CoordinateManager.Instance.getCoordinateWorldPos(randomSpawn), Quaternion.identity);
+            GameObject newEnemy = Instantiate(enemyToSpawn.entity, CoordinateManager.Instance.getCoordinateWorldPos(randomSpawn), Quaternion.identity);
             newEnemy.GetComponent<EnemyController>().path = PathManager.Instance.getAPath(randomSpawn);
             newEnemy.GetComponent<EnemyController>().pathOffset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
-            
-            waveSpawnBudget -= enemyCostPairs[0].cost;
+
+            //waveSpawnBudget -= enemyCostInfos[0].cost;
+            waveSpawnBudget -= enemyToSpawn.cost;
             timeSinceLastSpawn = 0;
             numAliveEnemies += 1;
+        } else if (waveSpawnBudget > 0)
+        {
+            spawnEnemy();  // try again
         }
+    }
+    
+    EntityCostInfo GetWeightedRandomEnemy(List<EntityCostInfo> enemies, List<float> weights)
+    {
+        float r = Random.value * totalCost;
+        float count = 0f;
+
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            count += weights[i];
+            if (count >= r)
+            {
+                return enemies[i];
+            }
+        }
+
+        return enemies[enemies.Count - 1];
     }
 
     public Vector2Int createNewSpawnPoint()
@@ -137,8 +180,9 @@ public class SpawnManager : MonoBehaviour
 }
 
 [System.Serializable]
-public class EntityCostPair
+public class EntityCostInfo
 {
     public GameObject entity;
     public int cost;
+    public int waveUnlocked;
 }
