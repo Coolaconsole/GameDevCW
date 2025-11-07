@@ -10,12 +10,16 @@ public class PlayerController : MonoBehaviour
     [Header("Other Components")]
     [SerializeField] private Camera camera;
     [SerializeField] private LayerMask ground;
+    [SerializeField] private Animator animator;
     private Vector3 input;
 
     void Update() // Input called in the update
     {
         // Movement
         input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+        //Animation
+        animator.SetFloat("moveSpeed", Mathf.Abs(input.x) + Mathf.Abs(input.z));
 
         PlayerRotation();
     }

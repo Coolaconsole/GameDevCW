@@ -1394,6 +1394,7 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 128
+  animator: {fileID: 1804809692}
 --- !u!136 &1688191724
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -1505,6 +1506,7 @@ MonoBehaviour:
   hitboxActiveTime: 0.3
   hitbox: {fileID: 1309865555}
   attackExplosion: {fileID: 7590945569367925219, guid: 1ee592acd240331d18e0ec14b3ea4a4e, type: 3}
+  animator: {fileID: 1804809692}
 --- !u!54 &1688191729
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1568,6 +1570,7 @@ MonoBehaviour:
   tower2: {fileID: 4882223486252977198, guid: 5a798e6f1371b3545ac97051f333c5be, type: 3}
   tower3: {fileID: 8780793749032506205, guid: 364658c01f789ba44bcd946832a1325d, type: 3}
   placeCooldown: 1
+  anim: {fileID: 1804809692}
   onHotbarItemChanged:
     m_PersistentCalls:
       m_Calls: []
