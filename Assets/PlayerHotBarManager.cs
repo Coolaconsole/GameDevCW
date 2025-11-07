@@ -15,6 +15,9 @@ public class PlayerHotBarManager : MonoBehaviour
     [Header("Placing Stats")]
     [SerializeField] private float placeCooldown = 1f;
 
+    [Header("Other Components")]
+    [SerializeField] private Animator anim;
+
     private GameObject currentTower; //Will be null if no tower is selected (player attack mode)
     private bool buildMode = false; //Only true when the player has a building selected, if false assumes is in attacking mode
     private bool canPlaceTower = true;
@@ -96,6 +99,8 @@ public class PlayerHotBarManager : MonoBehaviour
             Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingManager.getPlacingCoord());
             Instantiate(currentTower, placePos, Quaternion.identity);
             canPlaceTower = false;
+
+            anim.SetTrigger("Attack"); //Looks like they are placing it down!
         }
     }
 
