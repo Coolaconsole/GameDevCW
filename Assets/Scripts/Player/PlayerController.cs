@@ -20,15 +20,14 @@ public class PlayerController : MonoBehaviour
     private bool canPlaceTower = true;
     private float placeCooldown = 1f;
     private float timeplaceCooldown = 0f;
-    private PlacingManager placingManager;
+    private PlaceManager placingManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         currentTower = towers[0];
-        rb = GetComponent<Rigidbody>();
 
-        placingManager = GetComponent<PlacingManager>();
+        placingManager = GetComponent<PlaceManager>();
     }
 
     void Update() // Input called in the update
