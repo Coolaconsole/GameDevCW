@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour
 {
     [Header("PlayerStats")]
     [SerializeField] private float speed = 10f; //[SerializeField] makes it show up in the editor but doesn't make it public to other scripts
+    public int coinCount;
 
     [Header("Other Components")]
     [SerializeField] private Camera camera;
@@ -68,5 +69,11 @@ public class PlayerController : MonoBehaviour
             lookDir.y = 0;
             transform.rotation = Quaternion.LookRotation(lookDir);
         }
+    }
+
+    public void UpdateCoinCount(int value) 
+    {
+        coinCount += value;
+        GetComponent<PlayerHotBarManager>().onCoinCountChanged?.Invoke(coinCount);
     }
 }

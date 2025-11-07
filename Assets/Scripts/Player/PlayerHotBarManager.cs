@@ -1,11 +1,13 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
+using TMPro;
 
 [System.Serializable]
 public class HotbarItemChangedEvent : UnityEvent<GameObject> { }
 [System.Serializable]
 public class PlayerBuildModeChangedEvent : UnityEvent<bool> { }
+public class PlayerCoinCountChangedEvent : UnityEvent<int> { }
 public class PlayerHotBarManager : MonoBehaviour
 {
     [Header("Towers")]
@@ -16,6 +18,7 @@ public class PlayerHotBarManager : MonoBehaviour
     
     [Header("UI Elements")]
     [SerializeField] private List<GameObject> HotbarDisplayUI = new List<GameObject>();
+    [SerializeField] private TextMeshProUGUI coinCountText;
     private int currentTowerIndex = -1;
 
     [Header("Other Components")]
@@ -26,13 +29,15 @@ public class PlayerHotBarManager : MonoBehaviour
     private bool canPlaceTower = true;
     private float timeplaceCooldown = 0f;
     private PlaceManager placingManager;
-    public HotbarItemChangedEvent onHotbarItemChanged;
-    public PlayerBuildModeChangedEvent onBuildModeChanged;
-
+    public HotbarItemChangedEvent onHotbarItemChanged = new HotbarItemChangedEvent();
+    public PlayerBuildModeChangedEvent onBuildModeChanged = new PlayerBuildModeChangedEvent();
+    public PlayerCoinCountChangedEvent onCoinCountChanged = new PlayerCoinCountChangedEvent();
     void Start()
     {
         currentTower = towers[0];
         placingManager = GetComponent<PlaceManager>();
+
+        onCoinCountChanged.AddListener(UpdateCoinCount);
     }
 
     // Update is called once per frame
@@ -156,5 +161,10 @@ public class PlayerHotBarManager : MonoBehaviour
             HotbarDisplayUI[index].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             currentTowerIndex = index;
         }
+    }
+
+    void UpdateCoinCount(int count)
+    {
+        coinCountText.text = GetComponent<PlayerController>().coinCount.ToString();
     }
 }

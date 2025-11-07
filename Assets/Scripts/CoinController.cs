@@ -8,7 +8,7 @@ public class CoinController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
-            //other.GetComponent<PlayerController>()
+            other.gameObject.GetComponent<PlayerController>().UpdateCoinCount(value);
 
             Destroy(gameObject);
         }
