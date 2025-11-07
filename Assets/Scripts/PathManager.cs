@@ -7,7 +7,7 @@ public class PathManager : MonoBehaviour
 {
     public static PathManager Instance { get; private set; }
 
-    public List<OccupationType> pathCompatibleTypes = new List<OccupationType> { OccupationType.Path, OccupationType.None };
+    public List<OccupationType> pathCompatibleTypes = new List<OccupationType> { OccupationType.Path, OccupationType.None, OccupationType.Base };
 
     public GameObject tileObject;
 
@@ -93,8 +93,10 @@ public class PathManager : MonoBehaviour
                     Vector2Int neighbor = new Vector2Int(nx, ny);
 
                     // only use coords that can be used for a new path
-                    if (!pathCompatibleTypes.Contains(CoordinateManager.Instance.getCoordinateOccupation(neighbor)))
-                        closed.Add(neighbor);
+                    if (neighbor != end && !pathCompatibleTypes.Contains(CoordinateManager.Instance.getCoordinateOccupation(neighbor)))
+                    {
+                        continue;
+                    }
 
                     if (closed.Contains(neighbor)) continue;
 
@@ -132,6 +134,8 @@ public class PathManager : MonoBehaviour
         path.Reverse();
 
         paths.Add(path);
+
+        Debug.Log(paths[0][0]);
         return path;
     }
 

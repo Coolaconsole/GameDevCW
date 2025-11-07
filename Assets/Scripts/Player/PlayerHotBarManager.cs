@@ -112,7 +112,6 @@ public class PlayerHotBarManager : MonoBehaviour
             timeplaceCooldown += Time.deltaTime;
             if (timeplaceCooldown >= placeCooldown)
             { // Reset cooldown
-                Debug.Log("Tower placement ready");
                 canPlaceTower = true;
                 timeplaceCooldown = 0f;
             }
@@ -126,8 +125,12 @@ public class PlayerHotBarManager : MonoBehaviour
         {
             //Placing direction handled by the placing manager and shown with the hover indicator
             Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingManager.getPlacingCoord());
+            OccupationType placePosType = CoordinateManager.Instance.getCoordinateOccupation(placingManager.getPlacingCoord());
+            if (placePosType == OccupationType.Base || placePosType == OccupationType.Tower) 
+                return;
             Instantiate(currentTower, placePos, Quaternion.identity);
             canPlaceTower = false;
+            CoordinateManager.Instance.occupyCoordinate(placingManager.getPlacingCoord(), OccupationType.Tower);
             if (anim != null)
                 anim.SetTrigger("Attack"); //Looks like they are placing it down!
         }
