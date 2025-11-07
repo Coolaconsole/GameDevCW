@@ -8,23 +8,30 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Other Components")]
     [SerializeField] private GameObject hitbox;
+    [SerializeField] private GameObject attackExplosion;
 
     // Private bits
     private bool isAttacking = false;
     private float hitboxTimer;
+
+    private PlayerHotBarManager playerHotBar;
+    private PlaceManager placeManager;
 
     void Start()
     {
         hitbox.SetActive(false); //By default is off
 
         hitboxTimer = hitboxActiveTime;
+
+        playerHotBar = GetComponent<PlayerHotBarManager>();
+        placeManager = GetComponent<PlaceManager>();
     }
 
     // Honestly this code is pretty bad but I'm scared to do doing events
     void Update()
     {
         if (Input.GetMouseButtonDown(0)) {
-            if (!isAttacking)
+            if (!isAttacking && !playerHotBar.isInBuildMode())
             {
                 startAttacking();
             }
@@ -45,6 +52,8 @@ public class PlayerAttack : MonoBehaviour
         isAttacking = true;
         hitbox.SetActive(true);
         hitboxTimer = hitboxActiveTime;
+
+        Instantiate(attackExplosion, placeManager.getWorldPlacingCoord(), Quaternion.identity);
     }
     void stopAttacking()
     {

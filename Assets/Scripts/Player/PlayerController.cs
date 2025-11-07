@@ -11,7 +11,6 @@ public class PlayerController : MonoBehaviour
     [Header("Other Components")]
     [SerializeField] private Camera camera;
     [SerializeField] private LayerMask ground;
-    private Rigidbody rb;
     private Vector3 input;
     public List<GameObject> towers = new List<GameObject>();
     public List<GameObject> HotbarDisplayUI = new List<GameObject>();
@@ -37,8 +36,6 @@ public class PlayerController : MonoBehaviour
         input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
         PlayerRotation();
-        
-        EvalTowerPlacement();
     }
     void FixedUpdate() //Actual movement in fixed update so isn't frame dependant
     {
