@@ -1,3 +1,4 @@
+using System.IO.Pipes;
 using UnityEngine;
 
 public class PlayerAttack : MonoBehaviour
@@ -8,7 +9,8 @@ public class PlayerAttack : MonoBehaviour
 
     [Header("Other Components")]
     [SerializeField] private GameObject hitbox;
-    //[SerializeField] private GameObject attackExplosion;
+    [SerializeField] private GameObject attackExplosion;
+    [SerializeField] private Animator animator;
 
     // Private bits
     private bool isAttacking = false;
@@ -53,7 +55,8 @@ public class PlayerAttack : MonoBehaviour
         hitbox.SetActive(true);
         hitboxTimer = hitboxActiveTime;
 
-        //Instantiate(attackExplosion, placeManager.getWorldPlacingCoord(), Quaternion.identity);
+        Instantiate(attackExplosion, placeManager.getWorldPlacingCoord(), Quaternion.identity);
+        animator.SetTrigger("Attack");
     }
     void stopAttacking()
     {

@@ -574,6 +574,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2133905362691955873, guid: bac92698202579967b6d8bd370df3c50, type: 3}
   m_PrefabInstance: {fileID: 746919491}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &170061936 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2133905362691955873, guid: bac92698202579967b6d8bd370df3c50, type: 3}
+  m_PrefabInstance: {fileID: 746919491}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &170634840
 GameObject:
   m_ObjectHideFlags: 0
@@ -2382,7 +2387,7 @@ Transform:
   m_GameObject: {fileID: 1075204745}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.4, y: -7, z: 74.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3642,6 +3647,9 @@ MonoBehaviour:
   ground:
     serializedVersion: 2
     m_Bits: 128
+  animator: {fileID: 1804809692}
+  towers: []
+  HotbarDisplayUI: []
 --- !u!136 &1688191724
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3727,7 +3735,7 @@ Transform:
   m_GameObject: {fileID: 1688191720}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 3.09}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -3752,6 +3760,8 @@ MonoBehaviour:
   damage: 1
   hitboxActiveTime: 0.3
   hitbox: {fileID: 1309865555}
+  attackExplosion: {fileID: 7590945569367925219, guid: 1ee592acd240331d18e0ec14b3ea4a4e, type: 3}
+  animator: {fileID: 1804809692}
 --- !u!54 &1688191729
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -4149,6 +4159,38 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &1804809690 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 359bb65c6f68fcb67b42279bbe4b8d25, type: 3}
+  m_PrefabInstance: {fileID: 464364735}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &1804809691 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 359bb65c6f68fcb67b42279bbe4b8d25, type: 3}
+  m_PrefabInstance: {fileID: 464364735}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &1804809692
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1804809690}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 43079a44ff50ce556971021f2f83e560, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1870990390
 GameObject:
   m_ObjectHideFlags: 0
@@ -4228,8 +4270,8 @@ MonoBehaviour:
   - entity: {fileID: 9016296728663265688, guid: 6c6ca4d6065077d48aa066b0b15502cb, type: 3}
     cost: 2
     waveUnlocked: 2
-  waveInfoUI: {fileID: 1348892328}
-  inventoryUI: {fileID: 1770938431}
+  waveInfoUI: {fileID: 0}
+  inventoryUI: {fileID: 0}
   baseCoord: {x: 22, y: 12}
   spawnPoints: []
   waveCooldown: 5
