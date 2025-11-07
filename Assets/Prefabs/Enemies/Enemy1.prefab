@@ -135,6 +135,8 @@ MonoBehaviour:
   attackRange: 6
   attackDamage: 3
   attackCooldown: 3
+  coinObject: {fileID: 3468169790337004887, guid: db4a639905be5ef4aaf3c9fec80c64a4, type: 3}
+  coinValue: 1
 --- !u!114 &6000817302516197828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,7 +150,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
-  currentHealth: 0
   healthBarFill: {fileID: 2896838987371107712}
   healthGradient:
     serializedVersion: 2

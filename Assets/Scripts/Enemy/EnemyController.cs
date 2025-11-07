@@ -18,6 +18,8 @@ public class EnemyController : MonoBehaviour
     public float attackDamage;
     public float attackCooldown;
     private float lastAttackTime;
+    public GameObject coinObject;
+    public int coinValue;
 
     private void Start()
     {
@@ -87,9 +89,13 @@ public class EnemyController : MonoBehaviour
             if(hc.currentHealth <= 0)
             {
                 if (PathManager.Instance.pathTileMap.ContainsKey(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)))
-                    PathManager.Instance.pathTileMap[CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)].GetComponent<PathTileController>().activity += hc.maxHealth/40;
+                    PathManager.Instance.pathTileMap[CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)].GetComponent<PathTileController>().updateActivity(hc.maxHealth/40);
 
                 SpawnManager.Instance.decrementNumAliveEnemies();
+
+                GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Random.rotation);
+                coin.GetComponent<CoinController>().value = coinValue;
+
                 Destroy(gameObject);
             }
         }
