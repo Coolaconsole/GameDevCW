@@ -3643,8 +3643,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   animator: {fileID: 1804809692}
-  towers: []
-  HotbarDisplayUI: []
 --- !u!136 &1688191724
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3824,6 +3822,7 @@ MonoBehaviour:
   - {fileID: 666377097}
   - {fileID: 1213552887}
   - {fileID: 1737795876}
+  anim: {fileID: 0}
   onHotbarItemChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4233,8 +4232,8 @@ MonoBehaviour:
   - entity: {fileID: 9016296728663265688, guid: 6c6ca4d6065077d48aa066b0b15502cb, type: 3}
     cost: 2
     waveUnlocked: 2
-  waveInfoUI: {fileID: 0}
-  inventoryUI: {fileID: 0}
+  waveInfoUI: {fileID: 1348892328}
+  inventoryUI: {fileID: 1770938431}
   baseCoord: {x: 22, y: 12}
   spawnPoints: []
   waveCooldown: 5

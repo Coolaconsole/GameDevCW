@@ -122,8 +122,8 @@ public class PlayerHotBarManager : MonoBehaviour
             Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingManager.getPlacingCoord());
             Instantiate(currentTower, placePos, Quaternion.identity);
             canPlaceTower = false;
-
-            anim.SetTrigger("Attack"); //Looks like they are placing it down!
+            if (anim != null)
+                anim.SetTrigger("Attack"); //Looks like they are placing it down!
         }
     }
 
