@@ -10,10 +10,10 @@ public class PlaceManager : MonoBehaviour
     [Header("Other Components")]
     [SerializeField] private Camera camera;
     [SerializeField] private LayerMask groundLayer;
-    [SerializeField] private GameObject attackIndicatorPrefab;
-    [SerializeField] private GameObject buildingIndicatorPrefab;
+    // [SerializeField] private GameObject attackIndicatorPrefab;
+    // [SerializeField] private GameObject buildingIndicatorPrefab;
     [SerializeField] private Transform playerLookEmpty; // Used for visualising where the player is looking
-    [SerializeField] private Material transparent;
+    // [SerializeField] private Material transparent;
 
     private GameObject hoverIndicator;
     private GameObject currentTower;
@@ -26,11 +26,11 @@ public class PlaceManager : MonoBehaviour
 
     private void Start()
     {
-        hoverIndicator = Instantiate(attackIndicatorPrefab);
+        //hoverIndicator = Instantiate(attackIndicatorPrefab);
         playerHotBarManager = GetComponent<PlayerHotBarManager>();
 
-        playerHotBarManager.onHotbarItemChanged.AddListener(OnHotBarChanged); //Listens for when the hotbar item is changed
-        playerHotBarManager.onBuildModeChanged.AddListener(OnBuildModeEntered);
+        // playerHotBarManager.onHotbarItemChanged.AddListener(OnHotBarChanged); //Listens for when the hotbar item is changed
+        // playerHotBarManager.onBuildModeChanged.AddListener(OnBuildModeEntered);
     }
     void Update()
     {
@@ -40,7 +40,7 @@ public class PlaceManager : MonoBehaviour
         //Get the real world pos of this coord
         worldGridPos = CoordinateManager.Instance.getCoordinateWorldPos(gridCoord);
 
-        hoverIndicator.transform.position = worldGridPos + new Vector3(0f, 0.015f, 0f); //Add a little bit of height to avoid clipping
+        //hoverIndicator.transform.position = worldGridPos + new Vector3(0f, 0.015f, 0f); //Add a little bit of height to avoid clipping
 
         if (currentTower != null) //If there is tower that should be shown
         {
@@ -68,8 +68,8 @@ public class PlaceManager : MonoBehaviour
         //Get rid of the old one
         if (hoverIndicator != null) { Destroy(hoverIndicator); }
         //Get the new one up!
-        if (!buildMode)             {hoverIndicator = Instantiate(attackIndicatorPrefab);}
-        else                        {hoverIndicator = Instantiate(buildingIndicatorPrefab);}
+        // if (!buildMode)             {hoverIndicator = Instantiate(attackIndicatorPrefab);}
+        // else                        {hoverIndicator = Instantiate(buildingIndicatorPrefab);}
     }
 
 
@@ -92,7 +92,7 @@ public class PlaceManager : MonoBehaviour
             {
                 if (component is Renderer renderer)
                 {
-                    renderer.material = transparent;
+                    //renderer.material = transparent;
                     continue;
                 }
                 else if (component is Transform || component is MeshRenderer || component is MeshFilter) { continue; }

@@ -12,11 +12,35 @@ public class PathTileController : MonoBehaviour
     private void Start()
     {
         renderer = GetComponent<MeshRenderer>();
+
+        StartCoroutine(fadeInColor());
     }
+
+    private System.Collections.IEnumerator fadeInColor()
+    {
+        Color initialColor = new Color(0.4213236f, 0.6886792f, 0.4125578f);
+        Color targetColor = startColor;
+        float time = 0f;
+
+        // Set the initial color
+        renderer.material.color = initialColor;
+
+        while (time < 2.0f)
+        {
+            time += Time.deltaTime;
+            float t = Mathf.Clamp01(time / 2.0f);
+            renderer.material.color = Color.Lerp(initialColor, targetColor, t);
+            yield return null;
+        }
+
+        renderer.material.color = targetColor;
+    }
+
 
     public void updateActivity(float value)
     {
         activity += value;
+        updateColor();
     }
 
     public void resetActivity()
@@ -24,10 +48,10 @@ public class PathTileController : MonoBehaviour
         activity = 0;
     }
 
-    private void Update()
+    private void updateColor()
     {
         activity = Mathf.Clamp01(activity);
-      
+
         Color brown = startColor;
         Color red = endColor;
 

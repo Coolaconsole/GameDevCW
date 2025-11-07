@@ -2382,7 +2382,7 @@ Transform:
   m_GameObject: {fileID: 1075204745}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.95, z: 2.09}
+  m_LocalPosition: {x: -1.4, y: -7, z: 74.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3643,8 +3643,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 128
   animator: {fileID: 1804809692}
-  towers: []
-  HotbarDisplayUI: []
 --- !u!136 &1688191724
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -3800,10 +3798,7 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
-  attackIndicatorPrefab: {fileID: 6490986013681104636, guid: 1404a00c2854e0c939c3c21c74c79b73, type: 3}
-  buildingIndicatorPrefab: {fileID: 6490986013681104636, guid: 5003d0233406ba3b28e232029f7e0acd, type: 3}
   playerLookEmpty: {fileID: 1075204746}
-  transparent: {fileID: 2100000, guid: 28ce9f7432e5ddbc9bf83867198c7888, type: 2}
 --- !u!114 &1688191731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3816,11 +3811,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4a73acced4d4249b8e16e2f9daa8d1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower1: {fileID: 8263037230582700292, guid: 2b52040ef04df3547a8db18a243194b2, type: 3}
-  tower2: {fileID: 4882223486252977198, guid: 5a798e6f1371b3545ac97051f333c5be, type: 3}
-  tower3: {fileID: 8780793749032506205, guid: 364658c01f789ba44bcd946832a1325d, type: 3}
+  towers:
+  - {fileID: 8263037230582700292, guid: 2b52040ef04df3547a8db18a243194b2, type: 3}
+  - {fileID: 4882223486252977198, guid: 5a798e6f1371b3545ac97051f333c5be, type: 3}
+  - {fileID: 8263037230582700292, guid: 4d7db80be8d8b254c83e37c64631db74, type: 3}
+  - {fileID: 8780793749032506205, guid: 364658c01f789ba44bcd946832a1325d, type: 3}
   placeCooldown: 1
-  anim: {fileID: 1804809692}
+  HotbarDisplayUI:
+  - {fileID: 1870990390}
+  - {fileID: 666377097}
+  - {fileID: 1213552887}
+  - {fileID: 1737795876}
+  anim: {fileID: 0}
   onHotbarItemChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -4230,8 +4232,8 @@ MonoBehaviour:
   - entity: {fileID: 9016296728663265688, guid: 6c6ca4d6065077d48aa066b0b15502cb, type: 3}
     cost: 2
     waveUnlocked: 2
-  waveInfoUI: {fileID: 0}
-  inventoryUI: {fileID: 0}
+  waveInfoUI: {fileID: 1348892328}
+  inventoryUI: {fileID: 1770938431}
   baseCoord: {x: 22, y: 12}
   spawnPoints: []
   waveCooldown: 5
