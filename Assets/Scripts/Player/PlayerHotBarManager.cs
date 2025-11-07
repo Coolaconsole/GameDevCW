@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
+using System.Collections.Generic;
 
 [System.Serializable]
 public class HotbarItemChangedEvent : UnityEvent<GameObject> { }
@@ -8,12 +9,14 @@ public class PlayerBuildModeChangedEvent : UnityEvent<bool> { }
 public class PlayerHotBarManager : MonoBehaviour
 {
     [Header("Towers")]
-    [SerializeField] private GameObject tower1;
-    [SerializeField] private GameObject tower2;
-    [SerializeField] private GameObject tower3;
+    [SerializeField] private List<GameObject> towers = new List<GameObject>();
 
     [Header("Placing Stats")]
     [SerializeField] private float placeCooldown = 1f;
+    
+    [Header("UI Elements")]
+    [SerializeField] private List<GameObject> HotbarDisplayUI = new List<GameObject>();
+    private int currentTowerIndex = -1;
 
     private GameObject currentTower; //Will be null if no tower is selected (player attack mode)
     private bool buildMode = false; //Only true when the player has a building selected, if false assumes is in attacking mode
@@ -25,6 +28,7 @@ public class PlayerHotBarManager : MonoBehaviour
 
     void Start()
     {
+        currentTower = towers[0];
         placingManager = GetComponent<PlaceManager>();
     }
 
@@ -32,10 +36,15 @@ public class PlayerHotBarManager : MonoBehaviour
     void Update()
     {
         SelectTower(); //Checks if player switches to a tower
-
-        if (EvalTowerPlacement()) //Can They place a tower?
+        TowerCooldown(); //Handles tower placement cooldown
+        //if (EvalTowerPlacement()) //Can They place a tower?
+        if (buildMode)
         {
             PlaceTower();
+        } else
+        {
+            // Attack mode logic can go here
+            
         }
     }
 
@@ -45,34 +54,48 @@ public class PlayerHotBarManager : MonoBehaviour
         // Selecting a different tower
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
-            currentTower = null;
-            buildMode = false;
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
+            currentTower = towers[0];
             buildMode = true;
-            currentTower = tower1;
-            Debug.Log("Tower 1 selected");
+            ScaleUI(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            currentTower = towers[1];
+            buildMode = true;
+            ScaleUI(1);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha3))
+        {
+            currentTower = towers[2];
+            buildMode = true;
+            ScaleUI(2);
 
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
+        if (Input.GetKeyDown(KeyCode.Alpha4))
         {
+            currentTower = towers[3];
             buildMode = true;
-            currentTower = tower2;
-            Debug.Log("Tower 2 selected");
+            ScaleUI(3);
         }
-        else if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            buildMode = true;
-            currentTower = tower3;
-            Debug.Log("Tower 3 selected");
-        }
+        // if (Input.GetKeyDown(KeyCode.Alpha5))
+        // {
+        //     currentTower = towers[2];
+        //     ScaleUI(4);
+        // }
+        // if (Input.GetKeyDown(KeyCode.Alpha6))
+        // {
+        //     currentTower = towers[3];
+        //     ScaleUI(5);
+        // }
+
+         if (currentTowerIndex == -1)
+            buildMode = false;
         else { return; }
         onHotbarItemChanged.Invoke(currentTower); //If the item was changed, invoke the event
         if (buildMode != currentBuildMode) { onBuildModeChanged.Invoke(buildMode); } //If build mode has changed, then invoke the event
     }
 
-    private bool EvalTowerPlacement()
+    private void TowerCooldown()
     {
         // If it can't place a tower, start countdown
         if (!canPlaceTower)
@@ -85,12 +108,12 @@ public class PlayerHotBarManager : MonoBehaviour
                 timeplaceCooldown = 0f;
             }
         }
-        return canPlaceTower;
+        //return canPlaceTower;
     }
 
     private void PlaceTower()
     {
-        if (Input.GetMouseButtonDown(0) && buildMode)
+        if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && canPlaceTower)
         {
             //Placing direction handled by the placing manager and shown with the hover indicator
             Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingManager.getPlacingCoord());
@@ -108,4 +131,24 @@ public class PlayerHotBarManager : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     public GameObject getCurrentTower() { return currentTower; }
+
+    void ScaleUI(int index)
+    {
+        if (index == currentTowerIndex)
+        {
+            HotbarDisplayUI[index].transform.localScale = new Vector3(1f, 1f, 1f);
+            currentTowerIndex = -1;
+        }
+        else if (currentTowerIndex == -1)
+        {
+            HotbarDisplayUI[index].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            currentTowerIndex = index;
+        }
+        else
+        {
+            HotbarDisplayUI[currentTowerIndex].transform.localScale = new Vector3(1f, 1f, 1f);
+            HotbarDisplayUI[index].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            currentTowerIndex = index;
+        }
+    }
 }

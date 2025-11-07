@@ -12,22 +12,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Camera camera;
     [SerializeField] private LayerMask ground;
     private Vector3 input;
-    public List<GameObject> towers = new List<GameObject>();
-    public List<GameObject> HotbarDisplayUI = new List<GameObject>();
-    private int currentTowerIndex = -1;
-    private GameObject currentTower;
-    private bool canPlaceTower = true;
-    private float placeCooldown = 1f;
-    private float timeplaceCooldown = 0f;
-    private PlacingManager placingManager;
+    
+    
+    private PlaceManager placingManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentTower = towers[0];
-        rb = GetComponent<Rigidbody>();
+        //rb = GetComponent<Rigidbody>();
 
-        placingManager = GetComponent<PlacingManager>();
+        placingManager = GetComponent<PlaceManager>();
     }
 
     void Update() // Input called in the update
@@ -69,84 +63,6 @@ public class PlayerController : MonoBehaviour
             Vector3 lookDir = hit.point - transform.position;
             lookDir.y = 0;
             transform.rotation = Quaternion.LookRotation(lookDir);
-        }
-    }
-
-    void EvalTowerPlacement()
-    {
-        // If it can't place a tower, start countdown
-        if (!canPlaceTower)
-        {
-            timeplaceCooldown += Time.deltaTime;
-            if (timeplaceCooldown >= placeCooldown)
-            { // Reset cooldown
-                Debug.Log("Tower placement ready");
-                canPlaceTower = true;
-                timeplaceCooldown = 0f;
-            }
-        }
-        // Selecting a different tower
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            currentTower = towers[0];
-            ScaleUI(0);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            currentTower = towers[1];
-            ScaleUI(1);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            currentTower = towers[2];
-            ScaleUI(2);
-
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha4))
-        {
-            currentTower = towers[3];
-            ScaleUI(3);
-        }
-        // if (Input.GetKeyDown(KeyCode.Alpha5))
-        // {
-        //     currentTower = towers[2];
-        //     ScaleUI(4);
-        // }
-        // if (Input.GetKeyDown(KeyCode.Alpha6))
-        // {
-        //     currentTower = towers[3];
-        //     ScaleUI(5);
-        // }
-
-         if (currentTowerIndex == -1)
-            //Attacking if no tower is selected
-
-        if (Input.GetKeyDown(KeyCode.Space) && canPlaceTower)
-        {
-            //Placing direction handled by the placing manager and shown with the hover indicator
-            Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingManager.getPlacingCoord());
-            Instantiate(currentTower, placePos, Quaternion.identity);
-            canPlaceTower = false;
-        }
-    }
-    
-    void ScaleUI(int index)
-    {
-        if (index == currentTowerIndex)
-        {
-            HotbarDisplayUI[index].transform.localScale = new Vector3(1f, 1f, 1f);
-            currentTowerIndex = -1;
-        }
-        else if (currentTowerIndex == -1)
-        {
-            HotbarDisplayUI[index].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            currentTowerIndex = index;
-        }
-        else
-        {
-            HotbarDisplayUI[currentTowerIndex].transform.localScale = new Vector3(1f, 1f, 1f);
-            HotbarDisplayUI[index].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
-            currentTowerIndex = index;
         }
     }
 }
