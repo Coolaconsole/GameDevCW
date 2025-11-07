@@ -10,6 +10,7 @@ public class DefaultTower : MonoBehaviour
     public int damage = 10;
     public float shootCooldown = 1f;
     protected float timeshootCooldown = 0f;
+    public int cost = 100;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

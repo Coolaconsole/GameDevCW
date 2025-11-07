@@ -2,6 +2,8 @@ using NUnit.Framework;
 using UnityEngine;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEngine.UI;
+using TMPro;
 
 public class SpawnManager : MonoBehaviour
 {
@@ -12,6 +14,9 @@ public class SpawnManager : MonoBehaviour
     private List<EntityCostInfo> currentEnemies = new List<EntityCostInfo>();
     private List<float> currentEnemyWeights = new List<float>();
     private float totalWeight;
+
+    public GameObject waveInfoUI;
+    public GameObject inventoryUI;
 
     public Vector2Int baseCoord;
     public List<Vector2Int> spawnPoints = new List<Vector2Int>();
@@ -48,6 +53,8 @@ public class SpawnManager : MonoBehaviour
         }
         else if (!waveInProgress)
         {
+            if (numCurrentWave != 0)
+                waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + " Complete! Next wave in " + (waveCooldown-timeSinceWaveEnded).ToString("F1") + "s";
             if (timeSinceWaveEnded > waveCooldown)
                 beginNewWave();
             else
@@ -63,7 +70,7 @@ public class SpawnManager : MonoBehaviour
         numCurrentWave += 1;
         // recalculate spawn budget via some function:
         waveSpawnBudget = numCurrentWave * 5;
-
+        waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + ExtraWaveInfo();
         createNewEnemyPath();
 
         waveInProgress = true;
@@ -82,11 +89,12 @@ public class SpawnManager : MonoBehaviour
         float weight = 0f;
         foreach (var eci in currentEnemies)
         {
-            weight += (totalCost - eci.cost);
+            weight += totalCost - eci.cost;
             currentEnemyWeights.Add(totalCost - eci.cost);  // higher weight to lower cost enemies
         
         }
         totalWeight = weight;
+        inventoryUI.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);  // show inventory UI
     }
 
     public void spawnEnemy()
@@ -120,7 +128,6 @@ public class SpawnManager : MonoBehaviour
     EntityCostInfo GetWeightedRandomEnemy(List<EntityCostInfo> enemies, List<float> weights)
     {
         float r = Random.value * totalWeight;
-        float count = 0f;
         float cumulativeWeight = 0;
         
 
@@ -151,17 +158,20 @@ public class SpawnManager : MonoBehaviour
             switch (edge)
             {
                 case 0:  //  Top edge 
+                    //coord = new Vector2Int(Random.Range(0, mapDimensions.x / 2), mapDimensions.y - 1);
                     coord = new Vector2Int(Random.Range(0, mapDimensions.x), mapDimensions.y - 1);
+                    
                     break;
                 case 1:  // Bottom edge
-                    coord = new Vector2Int(Random.Range(0, mapDimensions.x), 0);
+                    coord = new Vector2Int(Random.Range(0, mapDimensions.x / 2), 0);
+                    //coord = new Vector2Int(Random.Range(0, mapDimensions.x), 0);
                     break;
                 case 2:  // Left edge
                     coord = new Vector2Int(0, Random.Range(0, mapDimensions.y));
                     break;
-                case 3:  // Right edge
-                    coord = new Vector2Int(mapDimensions.x - 1, Random.Range(0, mapDimensions.y));
-                    break;
+                // case 3:  // Right edge
+                //     coord = new Vector2Int(mapDimensions.x - 1, Random.Range(0, mapDimensions.y));
+                //     break;
             }
         }
         spawnPoints.Add(coord);
@@ -185,8 +195,29 @@ public class SpawnManager : MonoBehaviour
             {
                 waveInProgress = false;
                 timeSinceWaveEnded = 0;
+                inventoryUI.transform.localScale = new Vector3(1f, 1f, 1f);
+                waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + " Complete! Next wave in " + waveCooldown.ToString("F1") + "s";
             }
         }
+    }
+
+    string ExtraWaveInfo()
+    {
+        switch(numCurrentWave)
+        {
+            case 1:
+                return "\nMove with WASD. Shoot enemies with _____.";
+            case 2:
+                return "\nTry moving your tower with SPACE.";
+                //return "\nTowers Unlocked! Place towers with SPACE.";
+            case 3:
+                return " - New Enemy Unlocked!";
+            case 5:
+                return " - New Enemy Unlocked!";
+            default:
+                break;
+        }
+        return "";
     }
 }
 
@@ -197,3 +228,4 @@ public class EntityCostInfo
     public int cost;
     public int waveUnlocked;
 }
+    

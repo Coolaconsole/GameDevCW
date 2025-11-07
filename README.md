@@ -14,14 +14,14 @@ Towers shown on a hot bar: (William)
 Waves shown on the UI
 
 (Charlie)
-Player has two modes:
+Player has two modes: -DONE-
   - Attack mode (on hot bar 1)
   - Build mode when having a building selected:
     - Tranperent building pops where it should be placed
     - Transparent building should the RANGE of the building also (response to feedback, player understanding the stats of the tower)
 
 (Charlie)
-Visuals and art stuff (one person do it!)
+Visuals and art stuff (one person do it!) -ONGOING-
 
 Need a main menu
 Need a pause screen
