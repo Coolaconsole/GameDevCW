@@ -54,6 +54,7 @@ public class PlayerHotBarManager : MonoBehaviour
     private void SelectTower()
     {
         bool currentBuildMode = buildMode;
+        int previousTowerIndex = currentTowerIndex;
         // Selecting a different tower
         if (Input.GetKeyDown(KeyCode.Alpha1))
         {
@@ -91,10 +92,10 @@ public class PlayerHotBarManager : MonoBehaviour
         //     ScaleUI(5);
         // }
 
-         if (currentTowerIndex == -1)
+        if (currentTowerIndex == -1)
             buildMode = false;
-        else { return; }
-        onHotbarItemChanged.Invoke(currentTower); //If the item was changed, invoke the event
+        //else { return; }
+        if (previousTowerIndex != currentTowerIndex){onHotbarItemChanged.Invoke(currentTower);} //If the item was changed, invoke the event
         if (buildMode != currentBuildMode) { onBuildModeChanged.Invoke(buildMode); } //If build mode has changed, then invoke the event
     }
 

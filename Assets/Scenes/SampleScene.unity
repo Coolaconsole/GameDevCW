@@ -2382,7 +2382,7 @@ Transform:
   m_GameObject: {fileID: 1075204745}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -1.4, y: -7, z: 74.5}
+  m_LocalPosition: {x: 0, y: -7, z: 2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3798,7 +3798,10 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 128
+  attackIndicatorPrefab: {fileID: 6490986013681104636, guid: 1404a00c2854e0c939c3c21c74c79b73, type: 3}
+  buildingIndicatorPrefab: {fileID: 6490986013681104636, guid: 5003d0233406ba3b28e232029f7e0acd, type: 3}
   playerLookEmpty: {fileID: 1075204746}
+  transparent: {fileID: 2100000, guid: 28ce9f7432e5ddbc9bf83867198c7888, type: 2}
 --- !u!114 &1688191731
 MonoBehaviour:
   m_ObjectHideFlags: 0
