@@ -12,6 +12,7 @@ public class PlayerHotBarManager : MonoBehaviour
 {
     [Header("Towers")]
     [SerializeField] private List<GameObject> towers = new List<GameObject>();
+    private List<int> towerCosts = new List<int>();
 
     [Header("Placing Stats")]
     [SerializeField] private float placeCooldown = 1f;
@@ -20,7 +21,7 @@ public class PlayerHotBarManager : MonoBehaviour
     [SerializeField] private List<GameObject> HotbarDisplayUI = new List<GameObject>();
     [SerializeField] private TextMeshProUGUI coinCountText;
     [SerializeField] private TextMeshProUGUI tooltipText;
-    private int currentTowerIndex = -1;
+    private int currentTowerIndex = -2; //-1 means no tower selected
 
     [Header("Other Components")]
     [SerializeField] private Animator anim;
@@ -36,6 +37,7 @@ public class PlayerHotBarManager : MonoBehaviour
     void Start()
     {
         currentTower = towers[0];
+        foreach (GameObject tower in towers){towerCosts.Add(tower.GetComponent<DefaultTower>().GetCost());}
         placingManager = GetComponent<PlaceManager>();
 
         onCoinCountChanged.AddListener(UpdateCoinCount);
@@ -48,12 +50,11 @@ public class PlayerHotBarManager : MonoBehaviour
         SelectTower(); //Checks if player switches to a tower
         TowerCooldown(); //Handles tower placement cooldown
         //if (EvalTowerPlacement()) //Can They place a tower?
-        if (buildMode && CanCostTower(currentTower))
+        if (buildMode )
         {
-            PlaceTower();
-        } else
-        {
-            tooltipText.text = "Not enough coins to place this tower!";
+            if (CanCostTower(currentTowerIndex)){
+                PlaceTower();
+            }
         }
     }
 
@@ -67,37 +68,36 @@ public class PlayerHotBarManager : MonoBehaviour
             currentTower = towers[0];
             buildMode = true;
             ScaleUI(0);
-            tooltipText.text = "Basic Tower - Cost: " + currentTower.GetComponent<DefaultTower>().cost.ToString() + "\nRange: Average - Damage: Low";
+            tooltipText.text = "Basic Tower - Cost: " + towerCosts[0].ToString() + " Coins\nRange: 3 Tiles - Damage: Low";
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentTower = towers[1];
             buildMode = true;
             ScaleUI(1);
-            tooltipText.text = "Fast-shooting Tower - Cost: " + currentTower.GetComponent<DefaultTower>().cost.ToString() + "\nRange: Low - Damage: Average";
+            tooltipText.text = "Fast-shooting Tower - Cost: " + towerCosts[1].ToString() + " Coins\nRange: 2 Tiles - Damage: Average";
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             currentTower = towers[2];
             buildMode = true;
             ScaleUI(2);
-            tooltipText.text = "Long-range Tower - Cost: " + currentTower.GetComponent<DefaultTower>().cost.ToString() + "\nRange: High - Damage: High";
+            tooltipText.text = "Long-range Tower - Cost: " + towerCosts[2].ToString() + " Coins\nRange: 4 Tiles - Damage: High";
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             currentTower = towers[3];
             buildMode = true;
             ScaleUI(3);
-            tooltipText.text = "Area Damage Tower - Cost: " + currentTower.GetComponent<DefaultTower>().cost.ToString() + "\nRange: Low - Damage: Low (Area Effect)";
+            tooltipText.text = "Area Damage Tower - Cost: " + towerCosts[3].ToString() + " Coins\nRange: 2 Tiles - Damage: Low (Area Effect)";
         }
 
         if (currentTowerIndex == -1)
         { 
             buildMode = false;
             currentTower = null;
-            tooltipText.text = "Attack Mode:\nLeft Click or SPACE to Attack";
+            tooltipText.text = "Attack with SPACE - Tower Costs:\n "+towerCosts[0]+" Coins -  "+towerCosts[1]+" Coins -  "+towerCosts[2]+" Coins -  "+ towerCosts[3]+" Coins";
         }
-        //else { return; }
         if (previousTowerIndex != currentTowerIndex){onHotbarItemChanged.Invoke(currentTower);} //If the item was changed, invoke the event
         if (buildMode != currentBuildMode) { onBuildModeChanged.Invoke(buildMode); } //If build mode has changed, then invoke the event
     }
@@ -131,13 +131,15 @@ public class PlayerHotBarManager : MonoBehaviour
             CoordinateManager.Instance.occupyCoordinate(placingManager.getPlacingCoord(), OccupationType.Tower);
             if (anim != null)
                 anim.SetTrigger("Attack"); //Looks like they are placing it down!
-            SpendCoin(currentTower.GetComponent<DefaultTower>().cost);
+            SpendCoin(towerCosts[currentTowerIndex]);
+            towerCosts[currentTowerIndex] += currentTower.GetComponent<DefaultTower>().baseCostIncrease; //Increase cost for next time
+            tooltipText.text = "Tower Placed!\nCost increased to " + towerCosts[currentTowerIndex].ToString() + " coins.";
         }
     }
     
-    private bool CanCostTower(GameObject tower)
+    private bool CanCostTower(int tower)
     {
-        int cost = tower.GetComponent<DefaultTower>().cost;
+        int cost = towerCosts[tower];
         int currentCoins = GetComponent<PlayerController>().coinCount;
         return currentCoins >= cost;
     }
@@ -159,7 +161,7 @@ public class PlayerHotBarManager : MonoBehaviour
             HotbarDisplayUI[index].transform.localScale = new Vector3(1f, 1f, 1f);
             currentTowerIndex = -1;
         }
-        else if (currentTowerIndex == -1)
+        else if (currentTowerIndex <= -1)
         {
             HotbarDisplayUI[index].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
             currentTowerIndex = index;
@@ -184,8 +186,7 @@ public class PlayerHotBarManager : MonoBehaviour
 
         for (int i = 0; i < towers.Count; i++)
         {
-            GameObject tower = towers[i];
-            int cost = tower.GetComponent<DefaultTower>().cost;
+            int cost = towerCosts[i];
             if (cost > coinCount)
             {
                 int childCount = HotbarDisplayUI[i].transform.childCount;

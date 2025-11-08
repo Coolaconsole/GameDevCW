@@ -12,8 +12,8 @@ public class SpawnManager : MonoBehaviour
     // map from prefab enemy to their 'spawn cost'
     public List<EntityCostInfo> enemyCostInfos = new List<EntityCostInfo>();
     private List<EntityCostInfo> currentEnemies = new List<EntityCostInfo>();
-    private List<float> currentEnemyWeights = new List<float>();
-    private float totalWeight;
+    public List<float> currentEnemyWeights = new List<float>();
+    public float totalWeight;
 
     public GameObject waveInfoUI;
     public GameObject inventoryUI;
@@ -69,9 +69,16 @@ public class SpawnManager : MonoBehaviour
 
         numCurrentWave += 1;
         // recalculate spawn budget via some function:
-        waveSpawnBudget = numCurrentWave * 5;
+        if (numCurrentWave <= 3) {waveSpawnBudget = numCurrentWave * 2;}
+        else {
+            for (int i = numCurrentWave; i > 0; i--)
+            {
+                waveSpawnBudget += i; // triangular number
+            }
+        }
         waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + ExtraWaveInfo();
-        createNewEnemyPath();
+
+        if (new TriangleNumber().Check(numCurrentWave)) { createNewEnemyPath(); }
 
         waveInProgress = true;
 
@@ -163,8 +170,8 @@ public class SpawnManager : MonoBehaviour
                     
                     break;
                 case 1:  // Bottom edge
-                    // coord = new Vector2Int(Random.Range(0, mapDimensions.x / 2), 0);
-                    coord = new Vector2Int(Random.Range(0, mapDimensions.x), 0);
+                    coord = new Vector2Int(Random.Range(0, mapDimensions.x / 2), 0);
+                    // coord = new Vector2Int(Random.Range(0, mapDimensions.x), 0);
                     break;
                 case 2:  // Left edge
                     coord = new Vector2Int(0, Random.Range(0, mapDimensions.y));
@@ -195,7 +202,7 @@ public class SpawnManager : MonoBehaviour
             {
                 waveInProgress = false;
                 timeSinceWaveEnded = 0;
-                inventoryUI.transform.localScale = new Vector3(1f, 1f, 1f);
+                inventoryUI.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
                 waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + " Complete! Next wave in " + waveCooldown.ToString("F1") + "s";
             }
         }
@@ -210,7 +217,14 @@ public class SpawnManager : MonoBehaviour
         Wave 4: Not preset
         Wave 7: 20 cost 1 enemies, 5 cost 3 enemies
         */
-        
+        /*
+        2, 4, 6, 10, 15, 21, 28, 36, 45, 50 + boss (5)
+        */
+        /*Lane numbers
+        1, 1, 2, 2, 2, 3, 3, 3, 3, 4
+        Corresponding wvave numbers
+        3, 6, 10
+        */
     }
     
     // EntityCostInfo GetPresetEnemy()
@@ -224,9 +238,11 @@ public class SpawnManager : MonoBehaviour
         switch(numCurrentWave)
         {
             case 1:
-                return "\nMove with WASD. Shoot enemies with _____.";
+                return "\nMove with WASD - Shoot enemies with SPACE.";
+            case 2:
+                return "\nSelect your first tower with 1 - Place with SPACE";
             case 3:
-                return "\nTry moving your tower with SPACE.";
+                return "\nTry moving your tower with Click";
             case 4:
                 return " - New Enemy Unlocked!";
             case 7:
@@ -248,3 +264,12 @@ public class EntityCostInfo
     public int waveUnlocked;
 }
     
+public class TriangleNumber
+{
+    public bool Check(int n)
+    {
+        int x = 8 * n + 1;
+        int s = (int)Mathf.Sqrt(x);
+        return s * s == x;
+    }
+}

@@ -533,6 +533,7 @@ MonoBehaviour:
   damage: 100
   shootCooldown: 2
   cost: 30
+  baseCostIncrease: 25
 --- !u!65 &5322220652887466843
 BoxCollider:
   m_ObjectHideFlags: 0
