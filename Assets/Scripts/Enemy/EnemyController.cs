@@ -71,6 +71,17 @@ public class EnemyController : MonoBehaviour
         }
     }
 
+    private void OnDestroy()
+    {
+        if (PathManager.Instance.pathTileMap.ContainsKey(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)))
+            PathManager.Instance.pathTileMap[CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)].GetComponent<PathTileController>().updateActivity(attackDamage / 40);
+
+        SpawnManager.Instance.decrementNumAliveEnemies();
+
+        GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Random.rotation);
+        coin.GetComponent<CoinController>().value = coinValue;
+    }
+
     void OnTriggerEnter(Collider other)
     {
         GameObject proj = other.gameObject;
@@ -84,20 +95,8 @@ public class EnemyController : MonoBehaviour
             
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
             hc.TakeDamage(shot.GetDamage());
-            Destroy(proj);
 
-            if(hc.currentHealth <= 0)
-            {
-                if (PathManager.Instance.pathTileMap.ContainsKey(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)))
-                    PathManager.Instance.pathTileMap[CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)].GetComponent<PathTileController>().updateActivity(hc.maxHealth/40);
-
-                SpawnManager.Instance.decrementNumAliveEnemies();
-
-                GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Random.rotation);
-                coin.GetComponent<CoinController>().value = coinValue;
-
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
         }
     }
 }

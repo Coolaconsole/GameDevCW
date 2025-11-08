@@ -69,3 +69,5 @@ MonoBehaviour:
   attackRange: 0
   attackDamage: 0
   attackCooldown: 0
+  coinObject: {fileID: 3468169790337004887, guid: db4a639905be5ef4aaf3c9fec80c64a4, type: 3}
+  coinValue: 0

@@ -135,7 +135,6 @@ public class PathManager : MonoBehaviour
 
         paths.Add(path);
 
-        Debug.Log(paths[0][0]);
         return path;
     }
 

@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerAttack : MonoBehaviour
 {
     [Header("Stats")]
-    [SerializeField] private int damage = 1; //Default is 1;
+    public int damage = 1; //Default is 1;
     [SerializeField] private float hitboxActiveTime;
 
     [Header("Other Components")]

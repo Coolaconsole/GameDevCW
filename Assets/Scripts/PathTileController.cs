@@ -41,6 +41,13 @@ public class PathTileController : MonoBehaviour
     {
         activity += value;
         updateColor();
+
+        
+
+        if (activity > 1)
+        {
+            PathManager.Instance.splitPathAt(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position));
+        }
     }
 
     public void resetActivity()
