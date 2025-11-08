@@ -54,11 +54,13 @@ public class PlaceManager : MonoBehaviour
     {
         if (currentTower != null)
         {
+            Debug.Log("Destroying current tower indicator");
             Destroy(currentTower); //If there is another indicator still around get rid of that
         }
 
         if (newItem != null)
         {
+            Debug.Log(newItem.name);
             CreateBuildingIndicator(newItem);
         }
     }

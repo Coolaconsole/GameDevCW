@@ -98,7 +98,8 @@ public class PlayerHotBarManager : MonoBehaviour
         // }
 
         if (currentTowerIndex == -1)
-            buildMode = false;
+           { buildMode = false;
+            currentTower = null;}
         //else { return; }
         if (previousTowerIndex != currentTowerIndex){onHotbarItemChanged.Invoke(currentTower);} //If the item was changed, invoke the event
         if (buildMode != currentBuildMode) { onBuildModeChanged.Invoke(buildMode); } //If build mode has changed, then invoke the event
