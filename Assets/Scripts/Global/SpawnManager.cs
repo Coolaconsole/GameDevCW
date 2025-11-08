@@ -201,19 +201,38 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
+    void SetupPresetEnemies()
+    {
+        /*
+        Wave 1: 1 cost 1 enemy
+        Wave 2: 3 cost 1 enemies
+        Wave 3: Not preset
+        Wave 4: Not preset
+        Wave 7: 20 cost 1 enemies, 5 cost 3 enemies
+        */
+        
+    }
+    
+    // EntityCostInfo GetPresetEnemy()
+    // {
+        
+    //     return enemyCostInfos[index];
+    // }
+
     string ExtraWaveInfo()
     {
         switch(numCurrentWave)
         {
             case 1:
                 return "\nMove with WASD. Shoot enemies with _____.";
-            case 2:
-                return "\nTry moving your tower with SPACE.";
-                //return "\nTowers Unlocked! Place towers with SPACE.";
             case 3:
+                return "\nTry moving your tower with SPACE.";
+            case 4:
                 return " - New Enemy Unlocked!";
-            case 5:
+            case 7:
                 return " - New Enemy Unlocked!";
+            case 10:
+                return " - Boss Wave!";
             default:
                 break;
         }
