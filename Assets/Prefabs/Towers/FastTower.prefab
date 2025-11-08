@@ -273,7 +273,7 @@ MonoBehaviour:
   projectile: {fileID: 7571415286639365578, guid: 70fc5a460be697648bf0a5967ac31ca2, type: 3}
   damage: 15
   shootCooldown: 0.5
-  cost: 200
+  cost: 15
 --- !u!65 &2163441973635896418
 BoxCollider:
   m_ObjectHideFlags: 0

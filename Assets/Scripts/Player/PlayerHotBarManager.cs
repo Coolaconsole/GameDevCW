@@ -19,6 +19,7 @@ public class PlayerHotBarManager : MonoBehaviour
     [Header("UI Elements")]
     [SerializeField] private List<GameObject> HotbarDisplayUI = new List<GameObject>();
     [SerializeField] private TextMeshProUGUI coinCountText;
+    [SerializeField] private TextMeshProUGUI tooltipText;
     private int currentTowerIndex = -1;
 
     [Header("Other Components")]
@@ -38,6 +39,7 @@ public class PlayerHotBarManager : MonoBehaviour
         placingManager = GetComponent<PlaceManager>();
 
         onCoinCountChanged.AddListener(UpdateCoinCount);
+        UpdateCoinCount(19); //Initial update
     }
 
     // Update is called once per frame
@@ -46,13 +48,12 @@ public class PlayerHotBarManager : MonoBehaviour
         SelectTower(); //Checks if player switches to a tower
         TowerCooldown(); //Handles tower placement cooldown
         //if (EvalTowerPlacement()) //Can They place a tower?
-        if (buildMode)
+        if (buildMode && CanCostTower(currentTower))
         {
             PlaceTower();
         } else
         {
-            // Attack mode logic can go here
-            
+            tooltipText.text = "Not enough coins to place this tower!";
         }
     }
 
@@ -66,40 +67,36 @@ public class PlayerHotBarManager : MonoBehaviour
             currentTower = towers[0];
             buildMode = true;
             ScaleUI(0);
+            tooltipText.text = "Basic Tower - Cost: " + currentTower.GetComponent<DefaultTower>().cost.ToString() + "\nRange: Average - Damage: Low";
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentTower = towers[1];
             buildMode = true;
             ScaleUI(1);
+            tooltipText.text = "Fast-shooting Tower - Cost: " + currentTower.GetComponent<DefaultTower>().cost.ToString() + "\nRange: Low - Damage: Average";
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             currentTower = towers[2];
             buildMode = true;
             ScaleUI(2);
-
+            tooltipText.text = "Long-range Tower - Cost: " + currentTower.GetComponent<DefaultTower>().cost.ToString() + "\nRange: High - Damage: High";
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             currentTower = towers[3];
             buildMode = true;
             ScaleUI(3);
+            tooltipText.text = "Area Damage Tower - Cost: " + currentTower.GetComponent<DefaultTower>().cost.ToString() + "\nRange: Low - Damage: Low (Area Effect)";
         }
-        // if (Input.GetKeyDown(KeyCode.Alpha5))
-        // {
-        //     currentTower = towers[2];
-        //     ScaleUI(4);
-        // }
-        // if (Input.GetKeyDown(KeyCode.Alpha6))
-        // {
-        //     currentTower = towers[3];
-        //     ScaleUI(5);
-        // }
 
         if (currentTowerIndex == -1)
-           { buildMode = false;
-            currentTower = null;}
+        { 
+            buildMode = false;
+            currentTower = null;
+            tooltipText.text = "Attack Mode:\nLeft Click or SPACE to Attack";
+        }
         //else { return; }
         if (previousTowerIndex != currentTowerIndex){onHotbarItemChanged.Invoke(currentTower);} //If the item was changed, invoke the event
         if (buildMode != currentBuildMode) { onBuildModeChanged.Invoke(buildMode); } //If build mode has changed, then invoke the event
@@ -127,14 +124,22 @@ public class PlayerHotBarManager : MonoBehaviour
             //Placing direction handled by the placing manager and shown with the hover indicator
             Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingManager.getPlacingCoord());
             OccupationType placePosType = CoordinateManager.Instance.getCoordinateOccupation(placingManager.getPlacingCoord());
-            if (placePosType == OccupationType.Base || placePosType == OccupationType.Tower) 
+            if (placePosType == OccupationType.Base || placePosType == OccupationType.Tower)
                 return;
             Instantiate(currentTower, placePos, Quaternion.identity);
             canPlaceTower = false;
             CoordinateManager.Instance.occupyCoordinate(placingManager.getPlacingCoord(), OccupationType.Tower);
             if (anim != null)
                 anim.SetTrigger("Attack"); //Looks like they are placing it down!
+            SpendCoin(currentTower.GetComponent<DefaultTower>().cost);
         }
+    }
+    
+    private bool CanCostTower(GameObject tower)
+    {
+        int cost = tower.GetComponent<DefaultTower>().cost;
+        int currentCoins = GetComponent<PlayerController>().coinCount;
+        return currentCoins >= cost;
     }
 
     // Functions for the outside world ---------------------------------
@@ -167,8 +172,37 @@ public class PlayerHotBarManager : MonoBehaviour
         }
     }
 
+    void SpendCoin(int value)
+    {
+        GetComponent<PlayerController>().UpdateCoinCount(-value);
+    }
+
     void UpdateCoinCount(int count)
     {
-        coinCountText.text = GetComponent<PlayerController>().coinCount.ToString();
+        int coinCount = GetComponent<PlayerController>().coinCount;
+        coinCountText.text = coinCount.ToString();
+
+        for (int i = 0; i < towers.Count; i++)
+        {
+            GameObject tower = towers[i];
+            int cost = tower.GetComponent<DefaultTower>().cost;
+            if (cost > coinCount)
+            {
+                int childCount = HotbarDisplayUI[i].transform.childCount;
+                for (int j = 0; j < childCount; j++)
+                {
+                    GameObject uiElement = HotbarDisplayUI[i].transform.GetChild(j).gameObject;
+                    uiElement.GetComponent<CanvasRenderer>().SetAlpha(0.2f);
+                }
+            } else 
+            {
+                int childCount = HotbarDisplayUI[i].transform.childCount;
+                for (int j = 0; j < childCount; j++)
+                {
+                    GameObject uiElement = HotbarDisplayUI[i].transform.GetChild(j).gameObject;
+                    uiElement.GetComponent<CanvasRenderer>().SetAlpha(1f);
+                }
+            }
+        }
     }
 }
