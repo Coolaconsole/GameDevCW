@@ -29,6 +29,18 @@ public class EnemyController : MonoBehaviour
 
     private void Update()
     {
+        if (GetComponent<HealthController>().currentHealth <= 0)
+        {
+            if (PathManager.Instance.pathTileMap.ContainsKey(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)))
+                PathManager.Instance.pathTileMap[CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)].GetComponent<PathTileController>().updateActivity(attackDamage / 40);
+
+            SpawnManager.Instance.decrementNumAliveEnemies();
+
+            GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Random.rotation);
+            coin.GetComponent<CoinController>().value = coinValue;
+            Destroy(gameObject);
+        }
+
         // check if there is a new target
         targetController.UpdateTarget();
 
@@ -71,17 +83,6 @@ public class EnemyController : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        if (PathManager.Instance.pathTileMap.ContainsKey(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)))
-            PathManager.Instance.pathTileMap[CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)].GetComponent<PathTileController>().updateActivity(attackDamage / 40);
-
-        SpawnManager.Instance.decrementNumAliveEnemies();
-
-        GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Random.rotation);
-        coin.GetComponent<CoinController>().value = coinValue;
-    }
-
     void OnTriggerEnter(Collider other)
     {
         GameObject proj = other.gameObject;
@@ -95,9 +96,11 @@ public class EnemyController : MonoBehaviour
 
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
             hc.TakeDamage(shot.GetDamage());
-
-            //Destroy(gameObject);
-            Destroy(other);
+        }
+        // dont destroy if its the player hitbox
+        if (proj.GetComponentInParent<PlayerAttack>() == null)
+        {
+            Destroy(proj);
         }
     }
 }

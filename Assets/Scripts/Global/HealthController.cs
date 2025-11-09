@@ -28,11 +28,6 @@ public class HealthController : MonoBehaviour
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthUI();
-
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
     }
 
     private void UpdateHealthUI()
