@@ -255,7 +255,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetableTags:
-  - Player
   - Tower
   possibleTargets: []
   currentTarget: {fileID: 0}
