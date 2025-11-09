@@ -5,11 +5,15 @@ using UnityEngine.UI;
 
 public class HealthController : MonoBehaviour
 {
-    public int maxHealth = 100;
+    public int maxHealth = 25;
     [NonSerialized] public int currentHealth;
 
     public Image healthBarFill;
     public Gradient healthGradient;
+
+    private bool isHealing = false;
+    private int targetHealth = 0;
+    private bool canHeal = true;
 
 
     private void Start()
@@ -21,6 +25,35 @@ public class HealthController : MonoBehaviour
     private void Update()
     {
         UpdateHealthUI();
+    }
+
+    void FixedUpdate()
+    {
+        if (gameObject.CompareTag("Tower"))
+        {
+            // Listener for if wave ends to heal towers
+            if (SpawnManager.Instance.waveInProgress == false && canHeal)
+            {
+                isHealing = true;
+                targetHealth = (maxHealth - currentHealth) / 2 + currentHealth; // Heal 50% of missing health
+            }
+        }
+        if (isHealing)
+        {
+            canHeal = false;
+            if (currentHealth < targetHealth)
+            {
+                currentHealth += 1;
+            }
+            else
+            {
+                isHealing = false;
+            }
+        }
+        if (SpawnManager.Instance.waveInProgress)
+        {
+            canHeal = true;
+        }
     }
 
     public void TakeDamage(int amount)
