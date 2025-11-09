@@ -92,11 +92,12 @@ public class EnemyController : MonoBehaviour
         HealthController hc = GetComponent<HealthController>();
         if (proj.CompareTag("Projectile") && hc != null)
         {
-            
+
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
             hc.TakeDamage(shot.GetDamage());
 
-            Destroy(gameObject);
+            //Destroy(gameObject);
+            Destroy(other);
         }
     }
 }
