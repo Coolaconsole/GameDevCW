@@ -28,6 +28,18 @@ public class PlayerController : MonoBehaviour
 
     void Update() // Input called in the update
     {
+        //Pause upon pressing Escape
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (Time.timeScale == 1)
+            {
+                Time.timeScale = 0; //Pause
+            }
+            else
+            {
+                Time.timeScale = 1; //Unpause
+            }
+        }
         // Movement
         input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
 
