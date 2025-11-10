@@ -131,7 +131,7 @@ MonoBehaviour:
   isFollowingPath: 1
   targetController: {fileID: 0}
   projectile: {fileID: 7571415286639365578, guid: 70fc5a460be697648bf0a5967ac31ca2, type: 3}
-  moveSpeed: 3
+  moveSpeed: 4
   attackRange: 5
   attackDamage: 7
   attackCooldown: 5

@@ -13,4 +13,11 @@ public class CoinController : MonoBehaviour
             Destroy(gameObject);
         }
     }
+    void Update()
+    {
+        if (value <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
 }

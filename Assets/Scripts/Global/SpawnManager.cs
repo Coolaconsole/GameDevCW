@@ -11,6 +11,7 @@ public class SpawnManager : MonoBehaviour
 
     // map from prefab enemy to their 'spawn cost'
     public List<EntityCostInfo> enemyCostInfos = new List<EntityCostInfo>();
+    public EntityCostInfo bossEnemyCostInfo;
     private List<EntityCostInfo> currentEnemies = new List<EntityCostInfo>();
     public List<float> currentEnemyWeights = new List<float>();
     public float totalWeight;
@@ -30,6 +31,7 @@ public class SpawnManager : MonoBehaviour
     public float spawnCooldown = 1.0f;
     public float timeSinceLastSpawn;
     private int totalCost;
+    private int maxWaveSpawnBudget;
 
     void Awake()
     {
@@ -73,7 +75,20 @@ public class SpawnManager : MonoBehaviour
         else {
             for (int i = numCurrentWave; i > 0; i--)
             {
-                waveSpawnBudget += i; // triangular number
+                if (i > 10)
+                {
+                    waveSpawnBudget += 10;
+                    waveCooldown -= 0.01f * numCurrentWave;
+                    spawnCooldown -= 0.01f * (numCurrentWave - 10);
+                    if (spawnCooldown < 0.5f)
+                        spawnCooldown = 0.1f;
+                    if (waveCooldown < 1.0f)
+                        waveCooldown = 1.0f;
+                } else
+                {
+                    waveSpawnBudget += i; // triangular number
+                }
+                
             }
         }
         waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + ExtraWaveInfo();
@@ -102,13 +117,31 @@ public class SpawnManager : MonoBehaviour
         }
         totalWeight = weight;
         inventoryUI.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);  // show inventory UI
+    
+        maxWaveSpawnBudget = waveSpawnBudget;
     }
 
     public void spawnEnemy()
     {
         // to do - make more elaborate
         EntityCostInfo enemyToSpawn = GetWeightedRandomEnemy(currentEnemies, currentEnemyWeights);
+        // If wave multiple of 10, spawn boss halfway through the wave, but each third of the wave in wave 20, each quarter of the wave wave 30
+        if (numCurrentWave % 10 == 0)
+        {
+            int threshold = 0;
+            if (numCurrentWave == 10)
+                threshold = maxWaveSpawnBudget / 2;
+            else if (numCurrentWave == 15)
+                threshold = maxWaveSpawnBudget * 2 / 3;
+            else if (numCurrentWave >= 20)
+                threshold = maxWaveSpawnBudget * 3 / 4;
 
+            if (waveSpawnBudget <= threshold)
+            {
+                enemyToSpawn = bossEnemyCostInfo;
+                maxWaveSpawnBudget -= 55;
+            }
+        }
         if (enemyToSpawn.cost <= waveSpawnBudget)
         {
             Vector2Int randomSpawn = spawnPoints[Random.Range(0, spawnPoints.Count)];

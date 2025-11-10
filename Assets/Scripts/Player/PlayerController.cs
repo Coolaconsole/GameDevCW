@@ -15,15 +15,11 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Animator animator;
     private Vector3 input;
     
-    
-    private PlaceManager placingManager;
+    public GameObject pauseScreen;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //rb = GetComponent<Rigidbody>();
-
-        placingManager = GetComponent<PlaceManager>();
     }
 
     void Update() // Input called in the update
@@ -34,10 +30,12 @@ public class PlayerController : MonoBehaviour
             if (Time.timeScale == 1)
             {
                 Time.timeScale = 0; //Pause
+                pauseScreen.SetActive(true);
             }
             else
             {
                 Time.timeScale = 1; //Unpause
+                pauseScreen.SetActive(false);
             }
         }
         // Movement
