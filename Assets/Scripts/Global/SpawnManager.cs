@@ -128,7 +128,6 @@ public class SpawnManager : MonoBehaviour
         // If wave multiple of 10, spawn boss halfway through the wave, but each third of the wave in wave 20, each quarter of the wave wave 30
         if (numCurrentWave % 10 == 0)
         {
-            Debug.Log("Didnt spawn Boss Enemy");
             int threshold = 0;
             if (numCurrentWave == 10)
                 threshold = maxWaveSpawnBudget / 2;
@@ -139,7 +138,6 @@ public class SpawnManager : MonoBehaviour
 
             if (waveSpawnBudget <= threshold)
             {
-                Debug.Log("Spawning Boss Enemy");
                 enemyToSpawn = bossEnemyCostInfo;
                 maxWaveSpawnBudget -= 55;
             }
