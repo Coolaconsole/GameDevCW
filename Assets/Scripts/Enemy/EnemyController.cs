@@ -20,11 +20,15 @@ public class EnemyController : MonoBehaviour
     private float lastAttackTime;
     public GameObject coinObject;
     public int coinValue;
+    public float effectiveAttack;
+    public float defence;
 
     private void Start()
     {
         //GetComponentInChildren<SphereCollider>().radius = attackRange;
         targetController = GetComponentInChildren<TargetController>();
+
+        effectiveAttack = attackDamage;
     }
 
     private void Update()
@@ -58,7 +62,7 @@ public class EnemyController : MonoBehaviour
         if (lastAttackTime >= attackCooldown)
         {
             Projectile proj = Instantiate(projectile, transform.position + new Vector3(0, 1, 0), Quaternion.identity).GetComponent<Projectile>();
-            proj.SetDamage((int)attackDamage);
+            proj.SetDamage((int)effectiveAttack);
             proj.SetTarget(targetController.currentTarget);
             lastAttackTime = 0f;
         }
@@ -80,6 +84,11 @@ public class EnemyController : MonoBehaviour
             // reached final position in path
             if (pathIndex == path.Count)
                 isFollowingPath = false;
+            else
+            {
+                effectiveAttack = attackDamage * (1.0f + PathManager.Instance.pathTileMap[path[pathIndex]].GetComponent<PathTileController>().activity);
+                defence = 30 * PathManager.Instance.pathTileMap[path[pathIndex]].GetComponent<PathTileController>().activity;
+            }
         }
     }
 
@@ -95,7 +104,7 @@ public class EnemyController : MonoBehaviour
         {
 
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
-            hc.TakeDamage(shot.GetDamage());
+            hc.TakeDamage(Mathf.Max(shot.GetDamage() - (int)defence, 0));
         }
         // dont destroy if its the player hitbox
         if (proj.GetComponentInParent<PlayerAttack>() == null)
