@@ -78,9 +78,9 @@ public class SpawnManager : MonoBehaviour
                 {
                     waveSpawnBudget += 10;
 
-                    spawnCooldown -= 0.001f * (numCurrentWave - 10);
+                    spawnCooldown -= 0.0005f * (numCurrentWave - 10);
                     if (spawnCooldown < 0.5f)
-                        spawnCooldown = 0.1f;
+                        spawnCooldown = 0.5f;
                     
                 }
                 else
