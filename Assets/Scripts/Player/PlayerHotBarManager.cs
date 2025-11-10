@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 
 [System.Serializable]
 public class HotbarItemChangedEvent : UnityEvent<GameObject> { }
@@ -29,6 +30,7 @@ public class PlayerHotBarManager : MonoBehaviour
     private GameObject currentTower; //Will be null if no tower is selected (player attack mode)
     private bool buildMode = false; //Only true when the player has a building selected, if false assumes is in attacking mode
     private bool canPlaceTower = true;
+    private bool holdingTower = false;
     private float timeplaceCooldown = 0f;
     private PlaceManager placingManager;
     public HotbarItemChangedEvent onHotbarItemChanged = new HotbarItemChangedEvent();
@@ -47,15 +49,22 @@ public class PlayerHotBarManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        SelectTower(); //Checks if player switches to a tower
-        TowerCooldown(); //Handles tower placement cooldown
-        //if (EvalTowerPlacement()) //Can They place a tower?
-        if (buildMode )
+        if (!holdingTower)
         {
-            if (CanCostTower(currentTowerIndex)){
+            SelectTower(); //Checks if player switches to a tower
+            TowerCooldown();
+
+            if (buildMode)
+        {
+            if (CanCostTower(currentTowerIndex))
+            {
                 PlaceTower();
             }
         }
+        } //Handles tower placement cooldown
+        //if (EvalTowerPlacement()) //Can They place a tower?
+        
+        PickUpTower();
     }
 
     private void SelectTower()
@@ -126,14 +135,72 @@ public class PlayerHotBarManager : MonoBehaviour
             OccupationType placePosType = CoordinateManager.Instance.getCoordinateOccupation(placingManager.getPlacingCoord());
             if (placePosType == OccupationType.Base || placePosType == OccupationType.Tower)
                 return;
-            Instantiate(currentTower, placePos, Quaternion.identity);
+            GameObject t = Instantiate(currentTower, placePos, Quaternion.identity);
             canPlaceTower = false;
-            CoordinateManager.Instance.occupyCoordinate(placingManager.getPlacingCoord(), OccupationType.Tower);
+            CoordinateManager.Instance.occupyCoordinate(placingManager.getPlacingCoord(), OccupationType.Tower, t);
             if (anim != null)
                 anim.SetTrigger("Attack"); //Looks like they are placing it down!
             SpendCoin(towerCosts[currentTowerIndex]);
             towerCosts[currentTowerIndex] += currentTower.GetComponent<DefaultTower>().baseCostIncrease; //Increase cost for next time
             tooltipText.text = "Tower Placed!\nCost increased to " + towerCosts[currentTowerIndex].ToString() + " coins.";
+        }
+    }
+
+    private void PickUpTower()
+    {
+        // Pick up plced tower
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            Vector2Int placingCoord = placingManager.getPlacingCoord();
+            OccupationType placePosType = CoordinateManager.Instance.getCoordinateOccupation(placingCoord);
+            if (placePosType == OccupationType.Tower)
+            {
+                GameObject towerToRemove = CoordinateManager.Instance.coordinateObjects.GetValueOrDefault(placingCoord);
+                if (towerToRemove != null)
+                {
+                    currentTower = towerToRemove;
+                    onHotbarItemChanged.Invoke(currentTower);
+                    towerToRemove.GetComponent<Collider>().enabled = false;
+                    CoordinateManager.Instance.freeCoordinate(placingCoord);
+                   
+                    holdingTower = true;
+                    buildMode = true;
+                    tooltipText.text = "Holding Tower - Press Q to place down";
+                    onBuildModeChanged.Invoke(buildMode);
+                    
+                    if (anim != null)
+                        {anim.SetTrigger("Attack");
+                        anim.speed = -1f;}
+                        
+                }
+
+            }
+        }
+        if (holdingTower && Input.GetKeyDown(KeyCode.Q))
+        {
+            // Place held tower
+            Vector2Int placingCoord = placingManager.getPlacingCoord();
+            OccupationType placePosType = CoordinateManager.Instance.getCoordinateOccupation(placingCoord);
+            if (placePosType != OccupationType.Base && placePosType != OccupationType.Tower)
+            {
+                Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingCoord);
+                //GameObject t = Instantiate(currentTower, placePos, Quaternion.identity);
+                currentTower.transform.position = placePos;
+                currentTower.GetComponent<Collider>().enabled = true;
+                GameObject t = currentTower;
+                currentTower = null;
+                
+                CoordinateManager.Instance.occupyCoordinate(placingCoord, OccupationType.Tower, t);
+                
+                holdingTower = false;
+                onHotbarItemChanged.Invoke(currentTower);
+                buildMode = false;
+                onBuildModeChanged.Invoke(buildMode);
+                
+                tooltipText.text = "Tower Placed from Hold!";
+                if (anim != null)
+                anim.SetTrigger("Attack"); //Looks like they are placing it down!
+            }
         }
     }
     

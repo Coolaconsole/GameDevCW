@@ -20,7 +20,7 @@ public class CoordinateManager : MonoBehaviour
     public float cellSize = 2.0f;
     public Vector3 gridOrigin = Vector3.zero;
     public Dictionary<Vector2Int, OccupationType> occupiedCoordinates = new Dictionary<Vector2Int, OccupationType>();
-
+    public Dictionary<Vector2Int, GameObject> coordinateObjects = new Dictionary<Vector2Int, GameObject>();
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -59,14 +59,20 @@ public class CoordinateManager : MonoBehaviour
         return occupiedCoordinates[coord];
     }
 
-    public void occupyCoordinate(Vector2Int coord, OccupationType type)
+    public void occupyCoordinate(Vector2Int coord, OccupationType type, GameObject obj = null)
     {
+        occupiedCoordinates[coord] = type;
+        if (obj != null)
+        {
+            coordinateObjects[coord] = obj;
+        }
         occupiedCoordinates[coord] = type;
     }
 
     public void freeCoordinate(Vector2Int coord)
     {
         occupiedCoordinates.Remove(coord);
+        coordinateObjects.Remove(coord);
     }
 
     public bool isAdjacentTo(Vector2Int coord, OccupationType type)
