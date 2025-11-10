@@ -22,7 +22,7 @@ public class SpawnManager : MonoBehaviour
     public Vector2Int baseCoord;
     public List<Vector2Int> spawnPoints = new List<Vector2Int>();
 
-    public float waveCooldown = 3.0f;  // might change from cooldown to some player-control like interact with base
+    public float waveCooldown = 10.0f;  // might change from cooldown to some player-control like interact with base
     public float timeSinceWaveEnded;
     public int numCurrentWave;
     public bool waveInProgress = false;
@@ -78,16 +78,19 @@ public class SpawnManager : MonoBehaviour
                 if (i > 10)
                 {
                     waveSpawnBudget += 10;
-                    waveCooldown -= 0.01f * numCurrentWave;
-                    spawnCooldown -= 0.01f * (numCurrentWave - 10);
+
+                    spawnCooldown -= 0.001f * (numCurrentWave - 10);
                     if (spawnCooldown < 0.5f)
                         spawnCooldown = 0.1f;
-                    if (waveCooldown < 1.0f)
-                        waveCooldown = 1.0f;
-                } else
+                    
+                }
+                else
                 {
                     waveSpawnBudget += i; // triangular number
                 }
+                waveCooldown -= 0.01f * numCurrentWave;
+                if (waveCooldown < 1.0f)
+                        waveCooldown = 1.0f;
                 
             }
         }

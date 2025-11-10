@@ -109,7 +109,7 @@ public class EnemyController : MonoBehaviour
         {
 
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
-            hc.TakeDamage(Mathf.Max(shot.GetDamage() - (int)defence, 0));
+            hc.TakeDamage(Mathf.Max(shot.GetDamage() - (int)defence, 1));
         }
         // dont destroy if its the player hitbox
         if (proj.GetComponentInParent<PlayerAttack>() == null)
