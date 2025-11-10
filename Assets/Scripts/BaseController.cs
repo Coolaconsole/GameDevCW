@@ -1,7 +1,22 @@
+using TMPro;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 public class BaseController : MonoBehaviour
 {
+    public static BaseController Instance;
+    public GameObject gameOverCanvas;
+    public GameObject gameOverText;
+    public GameObject resumeButton;
+
+    void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+
+        gameOverCanvas.SetActive(false);
+    }
+    
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -25,10 +40,36 @@ public class BaseController : MonoBehaviour
 
             if (hc.currentHealth <= 0)
             {
-                Debug.Log("Base destroyed!");
-                // Add additional logic for base destruction here
-                
+                GameOver();
             }
         }
+    }
+    
+    public void GameOver()
+    {
+        // Show UI and pause game
+        gameOverText.GetComponent<TextMeshProUGUI>().text = "Game Over!\nYou survived " + SpawnManager.Instance.numCurrentWave.ToString() + " waves!\nYou collected " + FindObjectOfType<PlayerController>().coinCount.ToString() + " coins!";
+        gameOverCanvas.SetActive(true);
+        resumeButton.SetActive(false);
+        Time.timeScale = 0f; 
+    }
+
+    public void RestartGame()
+    {
+        Time.timeScale = 1f; 
+        resumeButton.SetActive(true);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    public void QuitGame()
+    {
+        resumeButton.SetActive(true);
+        Application.Quit();
+    }
+
+    public void ResumeGame()
+    {
+        Time.timeScale = 1f; 
+        gameOverCanvas.SetActive(false);
     }
 }

@@ -22,7 +22,7 @@ public class SpawnManager : MonoBehaviour
     public Vector2Int baseCoord;
     public List<Vector2Int> spawnPoints = new List<Vector2Int>();
 
-    public float waveCooldown = 3.0f;  // might change from cooldown to some player-control like interact with base
+    public float waveCooldown = 10.0f;  // might change from cooldown to some player-control like interact with base
     public float timeSinceWaveEnded;
     public int numCurrentWave;
     public bool waveInProgress = false;
@@ -64,7 +64,6 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-
     public void beginNewWave()
     {
         numAliveEnemies = FindObjectsOfType<EnemyController>().Length;
@@ -78,17 +77,16 @@ public class SpawnManager : MonoBehaviour
                 if (i > 10)
                 {
                     waveSpawnBudget += 10;
-                    waveCooldown -= 0.01f * numCurrentWave;
-                    spawnCooldown -= 0.01f * (numCurrentWave - 10);
+
+                    spawnCooldown -= 0.001f * (numCurrentWave - 10);
                     if (spawnCooldown < 0.5f)
                         spawnCooldown = 0.1f;
-                    if (waveCooldown < 1.0f)
-                        waveCooldown = 1.0f;
-                } else
+                    
+                }
+                else
                 {
                     waveSpawnBudget += i; // triangular number
                 }
-                
             }
         }
         waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + ExtraWaveInfo();
@@ -126,7 +124,7 @@ public class SpawnManager : MonoBehaviour
         // to do - make more elaborate
         EntityCostInfo enemyToSpawn = GetWeightedRandomEnemy(currentEnemies, currentEnemyWeights);
         // If wave multiple of 10, spawn boss halfway through the wave, but each third of the wave in wave 20, each quarter of the wave wave 30
-        if (numCurrentWave % 10 == 0)
+        if (numCurrentWave % 5 == 0)
         {
             int threshold = 0;
             if (numCurrentWave == 10)
@@ -198,12 +196,12 @@ public class SpawnManager : MonoBehaviour
             switch (edge)
             {
                 case 0:  //  Top edge 
-                    coord = new Vector2Int(Random.Range(0, mapDimensions.x / 2), mapDimensions.y - 1);
+                    coord = new Vector2Int(Random.Range(0, mapDimensions.x / 3), mapDimensions.y - 1);
                     // coord = new Vector2Int(Random.Range(0, mapDimensions.x), mapDimensions.y - 1);
                     
                     break;
                 case 1:  // Bottom edge
-                    coord = new Vector2Int(Random.Range(0, mapDimensions.x / 2), 0);
+                    coord = new Vector2Int(Random.Range(0, mapDimensions.x / 3), 0);
                     // coord = new Vector2Int(Random.Range(0, mapDimensions.x), 0);
                     break;
                 case 2:  // Left edge
@@ -235,36 +233,12 @@ public class SpawnManager : MonoBehaviour
             {
                 waveInProgress = false;
                 timeSinceWaveEnded = 0;
+                PlayerHotBarManager.Instance.SpendCoin(numCurrentWave * -1);  // reward player with coins
                 inventoryUI.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
                 waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + " Complete! Next wave in " + waveCooldown.ToString("F1") + "s";
             }
         }
     }
-
-    void SetupPresetEnemies()
-    {
-        /*
-        Wave 1: 1 cost 1 enemy
-        Wave 2: 3 cost 1 enemies
-        Wave 3: Not preset
-        Wave 4: Not preset
-        Wave 7: 20 cost 1 enemies, 5 cost 3 enemies
-        */
-        /*
-        2, 4, 6, 10, 15, 21, 28, 36, 45, 50 + boss (5)
-        */
-        /*Lane numbers
-        1, 1, 2, 2, 2, 3, 3, 3, 3, 4
-        Corresponding wvave numbers
-        3, 6, 10
-        */
-    }
-    
-    // EntityCostInfo GetPresetEnemy()
-    // {
-        
-    //     return enemyCostInfos[index];
-    // }
 
     string ExtraWaveInfo()
     {
@@ -275,7 +249,7 @@ public class SpawnManager : MonoBehaviour
             case 2:
                 return "\nSelect your first tower with 1 - Place with SPACE";
             case 3:
-                return "\nTry moving your tower with Click";
+                return "\nTry moving your tower with E, place it back down with Q";
             case 4:
                 return " - New Enemy Unlocked!";
             case 7:
