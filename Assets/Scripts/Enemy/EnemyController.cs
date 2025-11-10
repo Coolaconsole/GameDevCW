@@ -71,8 +71,13 @@ public class EnemyController : MonoBehaviour
         if (path.Count == 0) return;
 
         Vector3 targetPos = CoordinateManager.Instance.getCoordinateWorldPos(path[pathIndex]) + pathOffset;
-
+        //Rotate towards target
+        Vector3 direction = (targetPos - transform.position).normalized;
+        direction = Quaternion.Euler(0, -90, 0) * direction;
         transform.position = Vector3.MoveTowards(transform.position, targetPos, moveSpeed * Time.deltaTime);
+        //Rotate only component of enemy called "Body" using Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(direction), 0.1f);
+        Transform child = transform.Find("Body");
+        child.LookAt(child.position + direction);
 
         if (Vector3.Distance(transform.position, targetPos) < 0.05)
         {

@@ -149,7 +149,7 @@ public class SpawnManager : MonoBehaviour
             //GameObject newEnemy = Instantiate(enemyCostInfos[0].entity, CoordinateManager.Instance.getCoordinateWorldPos(randomSpawn), Quaternion.identity);
             GameObject newEnemy = Instantiate(enemyToSpawn.entity, CoordinateManager.Instance.getCoordinateWorldPos(randomSpawn), Quaternion.identity);
             newEnemy.GetComponent<EnemyController>().path = PathManager.Instance.getAPath(randomSpawn);
-            newEnemy.GetComponent<EnemyController>().pathOffset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+            newEnemy.GetComponent<EnemyController>().pathOffset = new Vector3(Random.Range(-0.5f, 0.5f), enemyToSpawn.height, Random.Range(-0.5f, 0.5f));
 
             //waveSpawnBudget -= enemyCostInfos[0].cost;
             waveSpawnBudget -= enemyToSpawn.cost;
@@ -280,9 +280,9 @@ public class SpawnManager : MonoBehaviour
                 return " - New Enemy Unlocked!";
             case 7:
                 return " - New Enemy Unlocked!";
-            case 10:
-                return " - Boss Wave!";
             default:
+                if (numCurrentWave % 5 == 0 && numCurrentWave >= 10)
+                    return " - Boss Wave!";
                 break;
         }
         return "";
@@ -295,6 +295,7 @@ public class EntityCostInfo
     public GameObject entity;
     public int cost;
     public int waveUnlocked;
+    public float height;
 }
     
 public class TriangleNumber

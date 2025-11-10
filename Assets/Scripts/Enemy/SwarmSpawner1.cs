@@ -14,7 +14,7 @@ public class SwarmSpawner : MonoBehaviour
             Vector3 offset = new Vector3(Random.Range(-2f, 2f), 0, Random.Range(-2f, 2f));
             GameObject newEnemy = Instantiate(swarmEnemyPrefab, transform.position + offset, Quaternion.identity);
             newEnemy.GetComponent<EnemyController>().path = script.path;
-            newEnemy.GetComponent<EnemyController>().pathOffset = new Vector3(Random.Range(-0.5f, 0.5f), 0, Random.Range(-0.5f, 0.5f));
+            newEnemy.GetComponent<EnemyController>().pathOffset = new Vector3(Random.Range(-0.5f, 0.5f), 0.5f, Random.Range(-0.5f, 0.5f));
 
         }
     }

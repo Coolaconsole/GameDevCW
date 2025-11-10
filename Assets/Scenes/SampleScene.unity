@@ -4571,16 +4571,20 @@ MonoBehaviour:
   - entity: {fileID: 1416403142941157825, guid: 4f9499d75b5af1b4ea9d798684b61c4f, type: 3}
     cost: 1
     waveUnlocked: 0
+    height: 0.35
   - entity: {fileID: 1416403142941157825, guid: 01ca576ea077b404d976b9a90a061fc2, type: 3}
     cost: 3
     waveUnlocked: 7
+    height: 0.2
   - entity: {fileID: 9016296728663265688, guid: 6c6ca4d6065077d48aa066b0b15502cb, type: 3}
     cost: 2
     waveUnlocked: 4
+    height: 0
   bossEnemyCostInfo:
     entity: {fileID: 1416403142941157825, guid: 5d7e0e2541cbb8045b39b60025f73a8f, type: 3}
     cost: 5
     waveUnlocked: 0
+    height: 0.6
   currentEnemyWeights: []
   totalWeight: 0
   waveInfoUI: {fileID: 1348892328}
