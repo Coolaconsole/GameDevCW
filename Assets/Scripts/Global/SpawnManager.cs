@@ -64,7 +64,6 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-
     public void beginNewWave()
     {
         numAliveEnemies = FindObjectsOfType<EnemyController>().Length;
@@ -238,36 +237,12 @@ public class SpawnManager : MonoBehaviour
             {
                 waveInProgress = false;
                 timeSinceWaveEnded = 0;
+                PlayerHotBarManager.Instance.SpendCoin(numCurrentWave * -1);  // reward player with coins
                 inventoryUI.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
                 waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + " Complete! Next wave in " + waveCooldown.ToString("F1") + "s";
             }
         }
     }
-
-    void SetupPresetEnemies()
-    {
-        /*
-        Wave 1: 1 cost 1 enemy
-        Wave 2: 3 cost 1 enemies
-        Wave 3: Not preset
-        Wave 4: Not preset
-        Wave 7: 20 cost 1 enemies, 5 cost 3 enemies
-        */
-        /*
-        2, 4, 6, 10, 15, 21, 28, 36, 45, 50 + boss (5)
-        */
-        /*Lane numbers
-        1, 1, 2, 2, 2, 3, 3, 3, 3, 4
-        Corresponding wvave numbers
-        3, 6, 10
-        */
-    }
-    
-    // EntityCostInfo GetPresetEnemy()
-    // {
-        
-    //     return enemyCostInfos[index];
-    // }
 
     string ExtraWaveInfo()
     {
@@ -278,7 +253,7 @@ public class SpawnManager : MonoBehaviour
             case 2:
                 return "\nSelect your first tower with 1 - Place with SPACE";
             case 3:
-                return "\nTry moving your tower with Click";
+                return "\nTry moving your tower with E, place it back down with Q";
             case 4:
                 return " - New Enemy Unlocked!";
             case 7:

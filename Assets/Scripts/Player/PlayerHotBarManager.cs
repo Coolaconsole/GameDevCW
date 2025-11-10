@@ -11,6 +11,7 @@ public class PlayerBuildModeChangedEvent : UnityEvent<bool> { }
 public class PlayerCoinCountChangedEvent : UnityEvent<int> { }
 public class PlayerHotBarManager : MonoBehaviour
 {
+    public static PlayerHotBarManager Instance { get; private set; }
     [Header("Towers")]
     [SerializeField] private List<GameObject> towers = new List<GameObject>();
     private List<int> towerCosts = new List<int>();
@@ -36,6 +37,17 @@ public class PlayerHotBarManager : MonoBehaviour
     public HotbarItemChangedEvent onHotbarItemChanged = new HotbarItemChangedEvent();
     public PlayerBuildModeChangedEvent onBuildModeChanged = new PlayerBuildModeChangedEvent();
     public PlayerCoinCountChangedEvent onCoinCountChanged = new PlayerCoinCountChangedEvent();
+    
+    void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
+        Instance = this;
+    }
     void Start()
     {
         currentTower = towers[0];
@@ -43,7 +55,7 @@ public class PlayerHotBarManager : MonoBehaviour
         placingManager = GetComponent<PlaceManager>();
 
         onCoinCountChanged.AddListener(UpdateCoinCount);
-        UpdateCoinCount(19); //Initial update
+        UpdateCoinCount(8); //Initial update
     }
 
     // Update is called once per frame
@@ -241,7 +253,7 @@ public class PlayerHotBarManager : MonoBehaviour
         }
     }
 
-    void SpendCoin(int value)
+    public void SpendCoin(int value)
     {
         GetComponent<PlayerController>().UpdateCoinCount(-value);
     }
