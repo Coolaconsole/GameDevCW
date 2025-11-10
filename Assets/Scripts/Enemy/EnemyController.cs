@@ -31,7 +31,7 @@ public class EnemyController : MonoBehaviour
         effectiveAttack = attackDamage;
     }
 
-    private void Update()
+    public virtual void Update()
     {
         if (GetComponent<HealthController>().currentHealth <= 0)
         {
@@ -70,7 +70,7 @@ public class EnemyController : MonoBehaviour
             lastAttackTime += Time.deltaTime;
     }
 
-    private void followPath()
+    protected virtual void followPath()
     {
         if (path.Count == 0) return;
 
@@ -89,15 +89,14 @@ public class EnemyController : MonoBehaviour
             // reached final position in path
             if (pathIndex == path.Count)
                 isFollowingPath = false;
-            else
-            {
+            else if (PathManager.Instance.pathTileMap.ContainsKey(path[pathIndex])) { 
                 effectiveAttack = attackDamage * (1.0f + PathManager.Instance.pathTileMap[path[pathIndex]].GetComponent<PathTileController>().activity);
-                defence = 30 * PathManager.Instance.pathTileMap[path[pathIndex]].GetComponent<PathTileController>().activity;
+                defence = 20 * PathManager.Instance.pathTileMap[path[pathIndex]].GetComponent<PathTileController>().activity;
             }
         }
     }
 
-    void OnTriggerEnter(Collider other)
+    public virtual void OnTriggerEnter(Collider other)
     {
         GameObject proj = other.gameObject;
         Projectile projectileComponent = proj.GetComponent<Projectile>();
@@ -109,7 +108,7 @@ public class EnemyController : MonoBehaviour
         {
 
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
-            hc.TakeDamage(Mathf.Max(shot.GetDamage() - (int)defence, 0));
+            hc.TakeDamage(Mathf.Max(shot.GetDamage() - (int)defence, 1));
         }
         // dont destroy if its the player hitbox
         if (proj.GetComponentInParent<PlayerAttack>() == null)

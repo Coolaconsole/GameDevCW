@@ -3,7 +3,7 @@ using UnityEngine;
 public class ClearP : MonoBehaviour
 {
 
-    void Update()
+    void Startaaa()
     {
         Destroy(gameObject, 2f);
     }

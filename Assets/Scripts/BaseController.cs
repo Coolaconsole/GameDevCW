@@ -16,7 +16,7 @@ public class BaseController : MonoBehaviour
             return;
 
         HealthController hc = GetComponent<HealthController>();
-        if (proj.CompareTag("Projectile") && hc != null)
+        if (hc != null)
         {
 
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));

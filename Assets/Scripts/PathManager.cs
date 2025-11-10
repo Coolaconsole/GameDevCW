@@ -169,6 +169,9 @@ public class PathManager : MonoBehaviour
         }
         if (!pathToSplit.Contains(coord)) return;
 
+        if (pathToSplit.IndexOf(coord) > 0)
+            coord = pathToSplit[pathToSplit.IndexOf(coord) - 1];
+
         List<Vector2Int> newPath = pathToSplit.TakeWhile(n => n != coord).ToList();
         newPath.AddRange(generateAPath(coord, pathToSplit.Last()));
 
