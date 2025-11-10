@@ -9,6 +9,8 @@ public class PathTileController : MonoBehaviour
     public Color startColor = new Color(0.59f, 0.29f, 0.0f);
     public Color endColor = Color.red;
 
+    float activityDecrease = 0.001f;
+
     private void Start()
     {
         renderer = GetComponent<MeshRenderer>();
@@ -36,6 +38,10 @@ public class PathTileController : MonoBehaviour
         renderer.material.color = targetColor;
     }
 
+    private void Update()
+    {
+        activity = Mathf.Max(0, (activity - activityDecrease * Time.deltaTime));
+    }
 
     public void updateActivity(float value)
     {
@@ -44,7 +50,7 @@ public class PathTileController : MonoBehaviour
 
         
 
-        if (activity > 1)
+        if (activity >= 1)
         {
             PathManager.Instance.splitPathAt(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position));
         }
@@ -57,12 +63,10 @@ public class PathTileController : MonoBehaviour
 
     private void updateColor()
     {
-        activity = Mathf.Clamp01(activity);
-
         Color brown = startColor;
         Color red = endColor;
 
-        Color current = Color.Lerp(brown, red, activity);
+        Color current = Color.Lerp(brown, red, Mathf.Min(activity, 1.0f));
 
         renderer.material.color = current;
     }

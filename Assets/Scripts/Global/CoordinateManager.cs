@@ -61,8 +61,6 @@ public class CoordinateManager : MonoBehaviour
 
     public void occupyCoordinate(Vector2Int coord, OccupationType type)
     {
-        if (occupiedCoordinates.ContainsKey(coord)) return;  // prevent duplicates
-
         occupiedCoordinates[coord] = type;
     }
 

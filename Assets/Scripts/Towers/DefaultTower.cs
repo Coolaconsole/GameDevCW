@@ -55,6 +55,7 @@ public class DefaultTower : MonoBehaviour
 
             if (hc.currentHealth <= 0)
             {
+                CoordinateManager.Instance.occupyCoordinate(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position), PathManager.Instance.pathTileMap.ContainsKey(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)) ? OccupationType.Path : OccupationType.None);
                 Destroy(gameObject);
             }
         }
