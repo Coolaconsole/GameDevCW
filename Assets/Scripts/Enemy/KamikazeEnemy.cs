@@ -1,0 +1,49 @@
+using UnityEngine;
+
+public class KamikazeEnemy : EnemyController
+{
+    public override void Update()
+    {
+        if (GetComponent<HealthController>().currentHealth <= 0)
+        {
+            if (PathManager.Instance.pathTileMap.ContainsKey(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)))
+                PathManager.Instance.pathTileMap[CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)].GetComponent<PathTileController>().updateActivity(attackDamage / 40);
+
+            SpawnManager.Instance.decrementNumAliveEnemies();
+
+            GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Random.rotation);
+            coin.GetComponent<CoinController>().value = coinValue;
+            Destroy(gameObject);
+        }
+
+        targetController.UpdateTarget();
+        if (targetController.currentTarget != GetComponent<Projectile>().target)
+            GetComponent<Projectile>().target = targetController.currentTarget;
+
+        // otherwise, follow path
+        if (isFollowingPath && pathIndex < path.Count)
+            followPath();
+    }
+
+    public override void OnTriggerEnter(Collider other)
+    {
+        GameObject proj = other.gameObject;
+        Projectile projectileComponent = proj.GetComponent<Projectile>();
+        if (projectileComponent != null && projectileComponent.target != null && projectileComponent.target.Equals(gameObject))
+        {
+
+            HealthController hc = GetComponent<HealthController>();
+            if (proj.CompareTag("Projectile") && hc != null)
+            {
+
+                Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
+                hc.TakeDamage(Mathf.Max(shot.GetDamage() - (int)defence, 1));
+            }
+            // dont destroy if its the player hitbox
+            if (proj.GetComponentInParent<PlayerAttack>() == null)
+            {
+                Destroy(proj);
+            }
+        }
+    }
+}
