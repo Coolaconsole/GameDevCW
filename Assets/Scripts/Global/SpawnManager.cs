@@ -201,12 +201,12 @@ public class SpawnManager : MonoBehaviour
             switch (edge)
             {
                 case 0:  //  Top edge 
-                    coord = new Vector2Int(Random.Range(0, mapDimensions.x / 2), mapDimensions.y - 1);
+                    coord = new Vector2Int(Random.Range(0, mapDimensions.x / 3), mapDimensions.y - 1);
                     // coord = new Vector2Int(Random.Range(0, mapDimensions.x), mapDimensions.y - 1);
                     
                     break;
                 case 1:  // Bottom edge
-                    coord = new Vector2Int(Random.Range(0, mapDimensions.x / 2), 0);
+                    coord = new Vector2Int(Random.Range(0, mapDimensions.x / 3), 0);
                     // coord = new Vector2Int(Random.Range(0, mapDimensions.x), 0);
                     break;
                 case 2:  // Left edge
