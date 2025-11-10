@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 6000817302516197828}
   - component: {fileID: -5206858353310395084}
   m_Layer: 0
-  m_Name: Enemy1
+  m_Name: BossEnemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.4, y: 0.7, z: 0.4}
+  m_LocalScale: {x: 0.9, y: 1.2, z: 0.9}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2102318452463837598}
@@ -131,12 +131,12 @@ MonoBehaviour:
   isFollowingPath: 1
   targetController: {fileID: 0}
   projectile: {fileID: 7571415286639365578, guid: 70fc5a460be697648bf0a5967ac31ca2, type: 3}
-  moveSpeed: 6
+  moveSpeed: 2
   attackRange: 6
-  attackDamage: 3
-  attackCooldown: 3
+  attackDamage: 15
+  attackCooldown: 7
   coinObject: {fileID: 3468169790337004887, guid: db4a639905be5ef4aaf3c9fec80c64a4, type: 3}
-  coinValue: 1
+  coinValue: 20
 --- !u!114 &6000817302516197828
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbf9b50fb67b194da20507f651b8943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 250
   healthBarFill: {fileID: 2896838987371107712}
   healthGradient:
     serializedVersion: 2
@@ -347,6 +347,18 @@ PrefabInstance:
       value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 105816323448352607, guid: e0311bda77af832419b460459c601cfb, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 105816323448352607, guid: e0311bda77af832419b460459c601cfb, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 105816323448352607, guid: e0311bda77af832419b460459c601cfb, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 105816323448352607, guid: e0311bda77af832419b460459c601cfb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
@@ -380,7 +392,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 105816323448352607, guid: e0311bda77af832419b460459c601cfb, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 1
+      value: 1.2
       objectReference: {fileID: 0}
     - target: {fileID: 105816323448352607, guid: e0311bda77af832419b460459c601cfb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -393,6 +405,10 @@ PrefabInstance:
     - target: {fileID: 105816323448352607, guid: e0311bda77af832419b460459c601cfb, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 105816323448352607, guid: e0311bda77af832419b460459c601cfb, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 450267104100812100, guid: e0311bda77af832419b460459c601cfb, type: 3}
       propertyPath: m_PresetInfoIsWorld
