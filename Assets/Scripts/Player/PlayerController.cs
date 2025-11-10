@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
 using System;
 using System.Collections.Generic;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -14,13 +15,10 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private LayerMask ground;
     [SerializeField] private Animator animator;
     private Vector3 input;
-    
-    public GameObject pauseScreen;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-    }
+    public GameObject pauseScreen;
+    public GameObject pauseText;
+    public GameObject resumeButton;
 
     void Update() // Input called in the update
     {
@@ -31,8 +29,9 @@ public class PlayerController : MonoBehaviour
             {
                 Time.timeScale = 0; //Pause
                 pauseScreen.SetActive(true);
+                pauseText.GetComponent<TextMeshProUGUI>().text = "Game Paused";
             }
-            else
+            else if (resumeButton.activeSelf)
             {
                 Time.timeScale = 1; //Unpause
                 pauseScreen.SetActive(false);
