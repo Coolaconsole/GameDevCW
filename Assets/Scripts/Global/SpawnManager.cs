@@ -87,10 +87,6 @@ public class SpawnManager : MonoBehaviour
                 {
                     waveSpawnBudget += i; // triangular number
                 }
-                waveCooldown -= 0.01f * numCurrentWave;
-                if (waveCooldown < 1.0f)
-                        waveCooldown = 1.0f;
-                
             }
         }
         waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + ExtraWaveInfo();
@@ -128,7 +124,7 @@ public class SpawnManager : MonoBehaviour
         // to do - make more elaborate
         EntityCostInfo enemyToSpawn = GetWeightedRandomEnemy(currentEnemies, currentEnemyWeights);
         // If wave multiple of 10, spawn boss halfway through the wave, but each third of the wave in wave 20, each quarter of the wave wave 30
-        if (numCurrentWave % 10 == 0)
+        if (numCurrentWave % 5 == 0)
         {
             int threshold = 0;
             if (numCurrentWave == 10)

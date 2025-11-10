@@ -14,7 +14,6 @@ public class EnemyController : MonoBehaviour
 
     public GameObject projectile;
     public float moveSpeed;
-    public float attackRange;
     public float attackDamage;
     public float attackCooldown;
     private float lastAttackTime;

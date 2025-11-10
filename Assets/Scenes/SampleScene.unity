@@ -5430,7 +5430,6 @@ MonoBehaviour:
   numAliveEnemies: 0
   spawnCooldown: 1
   timeSinceLastSpawn: 0
-  player: {fileID: 0}
 --- !u!114 &1914952841
 MonoBehaviour:
   m_ObjectHideFlags: 0

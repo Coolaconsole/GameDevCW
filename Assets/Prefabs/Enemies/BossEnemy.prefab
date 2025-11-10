@@ -205,7 +205,7 @@ MonoBehaviour:
   moveSpeed: 2
   attackRange: 6
   attackDamage: 15
-  attackCooldown: 7
+  attackCooldown: 5
   coinObject: {fileID: 3468169790337004887, guid: db4a639905be5ef4aaf3c9fec80c64a4, type: 3}
   coinValue: 20
   effectiveAttack: 0
