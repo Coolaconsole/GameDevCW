@@ -1347,6 +1347,30 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerModel
       objectReference: {fileID: 0}
+    - target: {fileID: 8417361359673230750, guid: 359bb65c6f68fcb67b42279bbe4b8d25, type: 3}
+      propertyPath: m_UpdateWhenOffscreen
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8417361359673230750, guid: 359bb65c6f68fcb67b42279bbe4b8d25, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8417361359673230750, guid: 359bb65c6f68fcb67b42279bbe4b8d25, type: 3}
+      propertyPath: 'm_Materials.Array.data[2]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6e3e0d3e629c0a10f9891e0456672a56, type: 2}
+    - target: {fileID: 8417361359673230750, guid: 359bb65c6f68fcb67b42279bbe4b8d25, type: 3}
+      propertyPath: 'm_Materials.Array.data[3]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ea17fb1fcdf4524ba81844ba69c28f1, type: 2}
+    - target: {fileID: 8417361359673230750, guid: 359bb65c6f68fcb67b42279bbe4b8d25, type: 3}
+      propertyPath: 'm_Materials.Array.data[4]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d2efd15125e4d2eb5bc549c39ab41bf8, type: 2}
+    - target: {fileID: 8417361359673230750, guid: 359bb65c6f68fcb67b42279bbe4b8d25, type: 3}
+      propertyPath: 'm_Materials.Array.data[5]'
+      value: 
+      objectReference: {fileID: 2100000, guid: d2efd15125e4d2eb5bc549c39ab41bf8, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2422,9 +2446,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -7635826562936255635, guid: e5f589b131d7f75fd9f80e71fff0db59, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -7635826562936255635, guid: e5f589b131d7f75fd9f80e71fff0db59, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 91e3bf74b5b96fc138c440839f901fb4, type: 2}
+    - target: {fileID: -7635826562936255635, guid: e5f589b131d7f75fd9f80e71fff0db59, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 0ea17fb1fcdf4524ba81844ba69c28f1, type: 2}
     - target: {fileID: 919132149155446097, guid: e5f589b131d7f75fd9f80e71fff0db59, type: 3}
       propertyPath: m_Name
       value: castle
@@ -3190,7 +3222,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -21.080017, y: 0}
+  m_AnchoredPosition: {x: -21.079834, y: 0}
   m_SizeDelta: {x: 60, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &1348892328
@@ -3462,6 +3494,9 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &1509360525
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -3815,9 +3850,9 @@ GameObject:
   - component: {fileID: 1688191726}
   - component: {fileID: 1688191725}
   - component: {fileID: 1688191724}
+  - component: {fileID: 1688191729}
   - component: {fileID: 1688191721}
   - component: {fileID: 1688191728}
-  - component: {fileID: 1688191729}
   - component: {fileID: 1688191730}
   - component: {fileID: 1688191731}
   m_Layer: 6
@@ -3841,7 +3876,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 7
   coinCount: 8
+  knockbackForce: 10
   camera: {fileID: 330585545}
+  rb: {fileID: 1688191729}
   ground:
     serializedVersion: 2
     m_Bits: 128
@@ -3863,13 +3900,13 @@ CapsuleCollider:
     m_Bits: 0
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
-  m_ProvidesContacts: 1
+  m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.71
-  m_Height: 3.53
+  m_Height: 1.9129157
   m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: -0.015852213, z: 0}
 --- !u!23 &1688191725
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -3957,7 +3994,7 @@ MonoBehaviour:
   damage: 20
   hitboxActiveTime: 0.3
   hitbox: {fileID: 1309865555}
-  attackExplosion: {fileID: 7590945569367925219, guid: 1ee592acd240331d18e0ec14b3ea4a4e, type: 3}
+  attackExplosion: {fileID: 6116507735799582580, guid: 55a5a9974936fe92ba349da9a619267c, type: 3}
   animator: {fileID: 1804809692}
 --- !u!54 &1688191729
 Rigidbody:
@@ -3968,7 +4005,7 @@ Rigidbody:
   m_GameObject: {fileID: 1688191720}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
+  m_Drag: 100
   m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
@@ -3982,9 +4019,9 @@ Rigidbody:
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 0
-  m_IsKinematic: 1
+  m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!114 &1688191730
 MonoBehaviour:
@@ -4032,6 +4069,7 @@ MonoBehaviour:
   coinCountText: {fileID: 2023825029}
   tooltipText: {fileID: 579152566}
   anim: {fileID: 0}
+  towerPlaceEffect: {fileID: 3018725546286245850, guid: cab8043c9370c4ffeb88dc2b46fd7e07, type: 3}
   onHotbarItemChanged:
     m_PersistentCalls:
       m_Calls: []
