@@ -303,10 +303,8 @@ public class SpawnManager : MonoBehaviour
             case 3:
                 if (startOfWave)
                 {
-                    TutorialManager.Instance.ClosePrompt(); //If there is one open right now then just get rid of it because this is more important grrrr!
                     TutorialManager.Instance.QueuePrompt("newPath");
-                    TutorialManager.Instance.QueuePrompt("pickUpTower");
-                    TutorialManager.Instance.QueuePrompt("placeDownTower");
+                    TutorialManager.Instance.QueuePrompt("moveTower");
                 }
                 break;
             case 4:
@@ -316,6 +314,10 @@ public class SpawnManager : MonoBehaviour
             case 5:
                 if (startOfWave)
                     TutorialManager.Instance.QueuePrompt("pathColour");
+                break;
+            case 6:
+                if (startOfWave)
+                    TutorialManager.Instance.QueuePrompt("healing");
                 break;
             case 7:
                 if (!startOfWave)

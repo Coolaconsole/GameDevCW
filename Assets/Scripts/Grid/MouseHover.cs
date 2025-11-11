@@ -97,6 +97,8 @@ public class PlaceManager : MonoBehaviour
 
         //If they can't afford it then give the error transparent
         Material materialToPaintTower = transparent;
+        if (!currentTower.GetComponent<DefaultTower>() || !playerController || !playerHotBarManager) return;
+
         if (currentTower.GetComponent<DefaultTower>().GetCost() > playerController.coinCount && !playerHotBarManager.getHoldingTower())
         {
             materialToPaintTower = errorTransparent;

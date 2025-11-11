@@ -9,7 +9,9 @@ public class PathTileController : MonoBehaviour
     public Color startColor = new Color(0.59f, 0.29f, 0.0f);
     public Color endColor = Color.red;
 
-    float activityDecrease = 0.001f;
+    bool hassplit = false;
+
+    float activityDecrease = 0.002f;
 
     private void Start()
     {
@@ -48,11 +50,16 @@ public class PathTileController : MonoBehaviour
         activity += value;
         updateColor();
 
-        
 
-        if (activity >= 1)
+        if (activity >= 0.8)
+        {
+            TutorialManager.Instance.QueuePrompt("pathSplit");
+        }
+
+        if (activity >= 1 && !hassplit)
         {
             PathManager.Instance.splitPathAt(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position));
+            hassplit = true;
         }
     }
 

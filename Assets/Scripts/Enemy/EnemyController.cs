@@ -76,7 +76,8 @@ public class EnemyController : MonoBehaviour
             proj.SetTarget(targetController.currentTarget);
             lastAttackTime = 0f;
             
-            animator.SetTrigger("Shoot");
+            if (animator)
+                animator.SetTrigger("Shoot");
         }
         else
             lastAttackTime += Time.deltaTime;
