@@ -5,6 +5,8 @@ using UnityEngine;
 public class TutorialManager : MonoBehaviour
 {
     public bool enable = true;
+
+    [SerializeField] private bool promptsPauseGame = false;
     public static TutorialManager Instance { get; private set; }
 
     private Dictionary<string, (string, Vector3)> tutorialPrompts = new Dictionary<string, (string, Vector3)>();
@@ -57,7 +59,7 @@ public class TutorialManager : MonoBehaviour
     {
         if (promptObject.activeSelf && Time.timeScale != 0)
         {
-            Time.timeScale = 0;
+            Time.timeScale = promptsPauseGame ? 0 : 1;
         }
 
         if (promptObject.activeSelf && Input.GetKeyDown(KeyCode.P))
@@ -74,7 +76,7 @@ public class TutorialManager : MonoBehaviour
 
     private void ShowNextPrompt()
     {
-        Time.timeScale = 0;
+        Time.timeScale = promptsPauseGame ? 0 : 1; //One line if statement
 
         (string text, Vector3 pos) = promptQueue[0];
         promptQueue.RemoveAt(0);
@@ -94,7 +96,7 @@ public class TutorialManager : MonoBehaviour
             promptObject.SetActive(false);
         }
 
-        Time.timeScale = 1;
+        Time.timeScale = promptsPauseGame ? 1 : 0; //One line if statement
     }
 
     public void QueuePrompt(string key)
