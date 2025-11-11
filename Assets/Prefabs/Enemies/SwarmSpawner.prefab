@@ -65,9 +65,11 @@ MonoBehaviour:
   isFollowingPath: 1
   targetController: {fileID: 0}
   projectile: {fileID: 7571415286639365578, guid: 70fc5a460be697648bf0a5967ac31ca2, type: 3}
+  deathEffect: {fileID: 0}
   moveSpeed: 0
-  attackRange: 0
   attackDamage: 0
   attackCooldown: 0
   coinObject: {fileID: 3468169790337004887, guid: db4a639905be5ef4aaf3c9fec80c64a4, type: 3}
   coinValue: 0
+  effectiveAttack: 0
+  defence: 0

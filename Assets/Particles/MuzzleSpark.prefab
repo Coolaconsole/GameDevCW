@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4149980312255612050}
   - component: {fileID: 4054024241859205234}
   - component: {fileID: 1931056716440814277}
+  - component: {fileID: 305688486340571615}
   m_Layer: 0
   m_Name: MuzzleSpark
   m_TagString: Untagged
@@ -4892,3 +4893,15 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &305688486340571615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3582960931440657822}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbd6012535c77d440b5755fe81aa34f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
