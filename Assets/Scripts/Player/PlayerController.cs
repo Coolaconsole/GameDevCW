@@ -9,14 +9,17 @@ public class PlayerController : MonoBehaviour
     [Header("PlayerStats")]
     [SerializeField] private float speed = 10f; //[SerializeField] makes it show up in the editor but doesn't make it public to other scripts
     public int coinCount;
+    [SerializeField] private float knockbackForce = 10f;
 
     [Header("Other Components")]
     [SerializeField] private Camera camera;
+    [SerializeField] private Rigidbody rb;
     [SerializeField] private LayerMask ground;
     [SerializeField] private Animator animator;
     private Vector3 input;
-
+    
     public GameObject pauseScreen;
+
     public GameObject pauseText;
     public GameObject resumeButton;
 
@@ -86,5 +89,19 @@ public class PlayerController : MonoBehaviour
     {
         coinCount += value;
         GetComponent<PlayerHotBarManager>().onCoinCountChanged?.Invoke(coinCount);
+    }
+
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.tag == "Enemy")
+        {
+            HitByEnemy(other.gameObject);
+        }
+    }
+
+    private void HitByEnemy(GameObject enemy)
+    {
+        Vector3 direction = enemy.transform.position - transform.position;
+        rb.AddExplosionForce(knockbackForce, enemy.transform.position, direction.magnitude);
     }
 }

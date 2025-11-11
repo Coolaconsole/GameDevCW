@@ -6,13 +6,20 @@ public class DefaultTower : MonoBehaviour
 {
     protected TargetController targetController;
 
-    public GameObject projectile;
+    [Header("Stats")]
+
     public int damage = 10;
     public float shootCooldown = 1f;
     protected float timeshootCooldown = 0f;
     [SerializeField] private int cost;
     public int baseCostIncrease = 5;
-
+    
+    [Header("Other Components")]
+    [SerializeField] private Animator animator;
+    [SerializeField] private Transform muzzle;
+    [SerializeField] private GameObject muzzleFlash;
+    [SerializeField] private GameObject muzzleSmoke;
+    public GameObject projectile;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -29,7 +36,13 @@ public class DefaultTower : MonoBehaviour
         {
             if (targetController.currentTarget != null)
             {
-                Projectile proj = Instantiate(projectile, transform.position + new Vector3(0, 1, 0), Quaternion.identity).GetComponent<Projectile>();
+                //Shoot!
+                animator.SetTrigger("Shoot");
+                Instantiate(muzzleFlash, muzzle.position, muzzle.rotation);
+                Instantiate(muzzleSmoke, muzzle.position, muzzle.rotation);
+                
+                
+                Projectile proj = Instantiate(projectile, muzzle.position, Quaternion.identity).GetComponent<Projectile>();
                 proj.SetDamage(damage);
                 proj.SetTarget(targetController.currentTarget);
                 timeshootCooldown = 0f;
@@ -44,11 +57,10 @@ public class DefaultTower : MonoBehaviour
         Projectile projectileComponent = proj.GetComponent<Projectile>();
         if (projectileComponent == null || projectileComponent.target == null || !projectileComponent.target.Equals(gameObject))
             return;
-
+        
         HealthController hc = GetComponent<HealthController>();
         if (hc != null)
         {
-
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
             hc.TakeDamage(shot.GetDamage());
             Destroy(proj);

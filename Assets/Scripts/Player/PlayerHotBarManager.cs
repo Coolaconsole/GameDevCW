@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections.Generic;
@@ -9,6 +10,7 @@ public class HotbarItemChangedEvent : UnityEvent<GameObject> { }
 [System.Serializable]
 public class PlayerBuildModeChangedEvent : UnityEvent<bool> { }
 public class PlayerCoinCountChangedEvent : UnityEvent<int> { }
+
 public class PlayerHotBarManager : MonoBehaviour
 {
     public static PlayerHotBarManager Instance { get; private set; }
@@ -16,20 +18,26 @@ public class PlayerHotBarManager : MonoBehaviour
     [SerializeField] private List<GameObject> towers = new List<GameObject>();
     private List<int> towerCosts = new List<int>();
 
-    [Header("Placing Stats")]
-    [SerializeField] private float placeCooldown = 1f;
-    
-    [Header("UI Elements")]
-    [SerializeField] private List<GameObject> HotbarDisplayUI = new List<GameObject>();
+    [Header("Placing Stats")] [SerializeField]
+    private float placeCooldown = 1f;
+
+    [Header("UI Elements")] [SerializeField]
+    private List<GameObject> HotbarDisplayUI = new List<GameObject>();
+
     [SerializeField] private TextMeshProUGUI coinCountText;
     [SerializeField] private TextMeshProUGUI tooltipText;
     private int currentTowerIndex = -2; //-1 means no tower selected
 
-    [Header("Other Components")]
-    [SerializeField] private Animator anim;
+    [Header("Other Components")] [SerializeField]
+    private Animator anim;
+
+    [SerializeField] private GameObject towerPlaceEffect;
 
     private GameObject currentTower; //Will be null if no tower is selected (player attack mode)
-    private bool buildMode = false; //Only true when the player has a building selected, if false assumes is in attacking mode
+
+    private bool
+        buildMode = false; //Only true when the player has a building selected, if false assumes is in attacking mode
+
     private bool canPlaceTower = true;
     private bool holdingTower = false;
     private float timeplaceCooldown = 0f;
@@ -150,8 +158,13 @@ public class PlayerHotBarManager : MonoBehaviour
             GameObject t = Instantiate(currentTower, placePos, Quaternion.identity);
             canPlaceTower = false;
             CoordinateManager.Instance.occupyCoordinate(placingManager.getPlacingCoord(), OccupationType.Tower, t);
+            CoordinateManager.Instance.occupyCoordinate(placingManager.getPlacingCoord(), OccupationType.Tower);
+            
+            //Visuals
+            Instantiate(towerPlaceEffect, placePos, Quaternion.identity);
             if (anim != null)
                 anim.SetTrigger("Attack"); //Looks like they are placing it down!
+            
             SpendCoin(towerCosts[currentTowerIndex]);
             towerCosts[currentTowerIndex] += currentTower.GetComponent<DefaultTower>().baseCostIncrease; //Increase cost for next time
             tooltipText.text = "Tower Placed!\nCost increased to " + towerCosts[currentTowerIndex].ToString() + " coins.";

@@ -11,8 +11,11 @@ public class EnemyController : MonoBehaviour
     public bool isFollowingPath = true;  // true when enemy is moving allong path
     
     public TargetController targetController;
+    private HealthController healthController;
 
     public GameObject projectile;
+    public GameObject deathEffect;
+    
     public float moveSpeed;
     public float attackDamage;
     public float attackCooldown;
@@ -24,10 +27,15 @@ public class EnemyController : MonoBehaviour
 
     private void Start()
     {
+        healthController = GetComponent<HealthController>();
+        healthController.OnTakeDamage.AddListener(OnTakeDamage);
+        
         //GetComponentInChildren<SphereCollider>().radius = attackRange;
         targetController = GetComponentInChildren<TargetController>();
 
         effectiveAttack = attackDamage;
+        
+        
     }
 
     public virtual void Update()
@@ -39,9 +47,10 @@ public class EnemyController : MonoBehaviour
 
             SpawnManager.Instance.decrementNumAliveEnemies();
 
-            GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Random.rotation);
+            GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Quaternion.identity);
             coin.GetComponent<CoinController>().value = coinValue;
-            Destroy(gameObject);
+            
+            Death();
         }
 
         // check if there is a new target
@@ -114,5 +123,16 @@ public class EnemyController : MonoBehaviour
         {
             Destroy(proj);
         }
+    }
+
+    private void OnTakeDamage()
+    {
+        Debug.Log(name + " is taking damage");
+    }
+
+    private void Death()
+    {
+        Instantiate(deathEffect, transform.position, Quaternion.identity);
+        Destroy(gameObject);
     }
 }

@@ -1,8 +1,11 @@
 using System;
 using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
+[System.Serializable]
+public class OnTakeDamage : UnityEvent { }
 public class HealthController : MonoBehaviour
 {
     public int maxHealth = 25;
@@ -14,10 +17,13 @@ public class HealthController : MonoBehaviour
     private bool isHealing = false;
     private int targetHealth = 0;
     private bool canHeal = true;
+    
+    [HideInInspector] public UnityEvent OnTakeDamage;
 
 
     private void Start()
     {
+        
         currentHealth = maxHealth;
         UpdateHealthUI();
     }
@@ -61,6 +67,8 @@ public class HealthController : MonoBehaviour
         currentHealth -= amount;
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthUI();
+        
+        OnTakeDamage.Invoke();
     }
 
     private void UpdateHealthUI()
