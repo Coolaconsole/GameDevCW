@@ -304,8 +304,8 @@ public class SpawnManager : MonoBehaviour
                 break;
             case 9:
                 if (!startOfWave)
-                    TutorialManager.Instance.QueuePrompt("bossEnemy");
-                    TutorialManager.Instance.QueuePrompt("bossPrep");
+                    {TutorialManager.Instance.QueuePrompt("bossEnemy"); 
+                    TutorialManager.Instance.QueuePrompt("bossPrep");}
                 break;
             case 10:
                 if (!startOfWave)
