@@ -34,19 +34,23 @@ public class PlaceManager : MonoBehaviour
     }
     void Update()
     {
-        //Get the closest coordinate to looking empty
-        gridCoord = CoordinateManager.Instance.getNearestWorldPosCoordinate(playerLookEmpty.position);
-
-        //Get the real world pos of this coord
-        worldGridPos = CoordinateManager.Instance.getCoordinateWorldPos(gridCoord);
-
-        hoverIndicator.transform.position = worldGridPos + new Vector3(0f, 0.015f, 0f); //Add a little bit of height to avoid clipping
-
-        if (currentTower != null) //If there is tower that should be shown
+        if (Time.timeScale == 1)
         {
-            //Moves it to the correct position
-            currentTower.transform.position = worldGridPos;
+            //Get the closest coordinate to looking empty
+            gridCoord = CoordinateManager.Instance.getNearestWorldPosCoordinate(playerLookEmpty.position);
+
+            //Get the real world pos of this coord
+            worldGridPos = CoordinateManager.Instance.getCoordinateWorldPos(gridCoord);
+
+            hoverIndicator.transform.position = worldGridPos + new Vector3(0f, 0.015f, 0f); //Add a little bit of height to avoid clipping
+
+            if (currentTower != null) //If there is tower that should be shown
+            {
+                //Moves it to the correct position
+                currentTower.transform.position = worldGridPos;
+            }
         }
+        
     }
 
     //Called when the hotbar changes (through events)

@@ -24,11 +24,33 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        tutorialPrompts["attack"] = ("Test prompt", new Vector3(0, 0, 0));
-        tutorialPrompts["defend"] = ("Test prompt", new Vector3(0, -200, 0));
-
+        tutorialPrompts["welcome"] = ("Welcome, hero!\nYour objective is to protect your base at the top of the map.", new Vector3(0, 0, 0));
+        tutorialPrompts["attack"] = ("Move around with <b>WASD</b>\nAttack enemies with <b>SPACE</b> or <b>Left Click</b>.", new Vector3(0, 0, 0));
+        tutorialPrompts["defend"] = ("You can place <b>towers</b> on the map to protect your base.\nBut we can't afford them yet.", new Vector3(-300, -50, 0));
+        Instance.QueuePrompt("welcome");
         Instance.QueuePrompt("attack");
         Instance.QueuePrompt("defend");
+
+        // Wave 1 prompts
+        tutorialPrompts["wave1"] = ("Wave 1 is starting!\n<color=red>Enemies</color> are coming from the <color=yellow>yellow path</color>.", new Vector3(-200, 100, 0));
+        tutorialPrompts["firstTower"] = ("Nice! The enemies have dropped enough gold to buy a <b>tower</b>.\nPress <b>1</b> to select the first tower, and <b>SPACE</b> to place it.", new Vector3(-300, -50, 0));
+        // Wave 2 prompts
+        tutorialPrompts["towerExplanation"] = ("Pressing <b>1-4</b> will display the tower's stats.\nTry to think what situations each would be useful in.", new Vector3(-300, -50, 0));
+        // Wave 3 prompts
+        tutorialPrompts["newPath"] = ("Aha, the enemies are making a new <color=yellow>path</color>!\nYour tower might not be in the best place to deal with it.", new Vector3(0, -200, 0));
+        tutorialPrompts["moveTower"] = ("Don't worry! You can pick up the tower you placed with <b>E</b>\nAnd you can place back down with <b>Q</b>.", new Vector3(0, -200, 0));
+        // Wave 4 prompts
+        tutorialPrompts["newEnemy"] = ("Watch out! A new type of <color=red>enemy</color> has appeared!\nThese ones are <b>fast</b>, but they don't have much <b>health</b>.", new Vector3(-200, 100, 0));
+        // Wave 5 prompts
+        tutorialPrompts["pathColour"] = ("Take note of where enemies <color=red>die</color>.\nIf enough enemies die on the path, it might <b>split</b>.", new Vector3(-200, 100, 0));
+
+        // Wave 7 prompts
+        tutorialPrompts["checkIn"] = ("You're doing great so far!\nDon't forget you can move towers with <b>E</b> and <b>Q</b>", new Vector3(-200, 100, 0));
+
+        // Wave 10 prompts
+        tutorialPrompts["bossEnemy"] = ("A <color=red>boss enemy</color> is approaching!", new Vector3(-200, 100, 0));
+        tutorialPrompts["bossPrep"] = ("Make sure you're prepared.\nDon't let it too close to your <b>base!</b>", new Vector3(-200, 100, 0));
+        tutorialPrompts["flyingEnemy"] = ("Well done! Though it's not over just yet.\nIt seems new <color=red>flying enemies</color> can only be hit by certain towers.", new Vector3(-200, 100, 0));
     }
 
     private void Update()
