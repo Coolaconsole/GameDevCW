@@ -25,28 +25,30 @@ public class PlayerController : MonoBehaviour
 
     void Update() // Input called in the update
     {
-        //Pause upon pressing Escape
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Time.timeScale == 1)
         {
-            if (Time.timeScale == 1)
+            // Movement
+            input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+
+            //Animation
+            animator.SetFloat("moveSpeed", Mathf.Abs(input.x) + Mathf.Abs(input.z));
+
+            PlayerRotation();
+
+            //Pause upon pressing Escape
+            if (Input.GetKeyDown(KeyCode.Escape))
             {
                 Time.timeScale = 0; //Pause
                 pauseScreen.SetActive(true);
-                pauseText.GetComponent<TextMeshProUGUI>().text = "Game Paused";
-            }
-            else if (resumeButton.activeSelf)
-            {
-                Time.timeScale = 1; //Unpause
-                pauseScreen.SetActive(false);
+                pauseText.GetComponent<TextMeshProUGUI>().text = "Game Paused"; 
             }
         }
-        // Movement
-        input = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-
-        //Animation
-        animator.SetFloat("moveSpeed", Mathf.Abs(input.x) + Mathf.Abs(input.z));
-
-        PlayerRotation();
+        else if (resumeButton.activeSelf)
+        {
+            Time.timeScale = 1; //Unpause
+            pauseScreen.SetActive(false);
+        }
+        
     }
     void FixedUpdate() //Actual movement in fixed update so isn't frame dependant
     {

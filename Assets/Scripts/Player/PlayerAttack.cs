@@ -32,7 +32,7 @@ public class PlayerAttack : MonoBehaviour
     // Honestly this code is pretty bad but I'm scared to do doing events
     void Update()
     {
-        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) {
+        if (Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space) && Time.timeScale == 1) {
             if (!isAttacking && !playerHotBar.isInBuildMode())
             {
                 startAttacking();

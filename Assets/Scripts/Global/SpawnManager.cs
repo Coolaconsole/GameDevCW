@@ -115,8 +115,10 @@ public class SpawnManager : MonoBehaviour
         }
         totalWeight = weight;
         inventoryUI.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);  // show inventory UI
-    
+
         maxWaveSpawnBudget = waveSpawnBudget;
+
+        TutorialPrompt(true);
     }
 
     public void spawnEnemy()
@@ -236,30 +238,80 @@ public class SpawnManager : MonoBehaviour
                 PlayerHotBarManager.Instance.SpendCoin(numCurrentWave * -1);  // reward player with coins
                 inventoryUI.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
                 waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + " Complete! Next wave in " + waveCooldown.ToString("F1") + "s";
+                TutorialPrompt(false);
             }
         }
     }
 
     string ExtraWaveInfo()
     {
-        switch(numCurrentWave)
+        switch (numCurrentWave)
         {
             case 1:
-                return "\nMove with WASD - Shoot enemies with SPACE.";
+                return "\nMove with <b>WASD</b> - Attack enemies with <b>SPACE</b>.";
             case 2:
-                return "\nSelect your first tower with 1 - Place with SPACE";
+                return "\nSelect your towers with <b>1-4</b> - Place with <b>SPACE</b>.";
             case 3:
-                return "\nTry moving your tower with E, place it back down with Q";
+                return "\nTry picking your tower up with <b>E</b>, place it back down with <b>Q</b>.";
             case 4:
-                return " - New Enemy Unlocked!";
+                return " - New <color=red>Enemy</color> Encountered\nYour attack will be the most effective here.";
+            case 5:
+                return "\nYour towers heal some of the damage they take at the end of each round.";
+            case 6:
+                return " - New <color=yellow>Enemy Path</color>";
             case 7:
-                return " - New Enemy Unlocked!";
+                return " - New <color=red>Enemy</color> Encountered\nThey're slow, but tanky!";
+            case 11:
+                return " - New <color=red>Enemy</color> Encountered\nWatch the skies!";
             default:
                 if (numCurrentWave % 5 == 0 && numCurrentWave >= 10)
                     return " - Boss Wave!";
                 break;
         }
         return "";
+    }
+    
+    void TutorialPrompt(bool startOfWave)
+    {
+        switch (numCurrentWave)
+        {
+            case 1:
+                if (startOfWave)
+                    TutorialManager.Instance.QueuePrompt("wave1");
+                else
+                    TutorialManager.Instance.QueuePrompt("firstTower");
+                break;
+            case 2:
+                if (startOfWave)
+                    TutorialManager.Instance.QueuePrompt("towerExplanation");
+                break;
+            case 3:
+                if (startOfWave)
+                    TutorialManager.Instance.QueuePrompt("newPath");
+                    TutorialManager.Instance.QueuePrompt("moveTower");
+                break;
+            case 4:
+                if (startOfWave)
+                    TutorialManager.Instance.QueuePrompt("newEnemy");
+                break;
+            case 5:
+                if (startOfWave)
+                    TutorialManager.Instance.QueuePrompt("pathColour");
+                break;
+            case 7:
+                if (!startOfWave)
+                    TutorialManager.Instance.QueuePrompt("checkIn");
+                break;
+            case 9:
+                if (!startOfWave)
+                    {TutorialManager.Instance.QueuePrompt("bossEnemy"); 
+                    TutorialManager.Instance.QueuePrompt("bossPrep");}
+                break;
+            case 10:
+                if (!startOfWave)
+                    TutorialManager.Instance.QueuePrompt("flyingEnemy");
+                break;
+        }
     }
 }
 
