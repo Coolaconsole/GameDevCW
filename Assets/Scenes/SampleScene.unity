@@ -6176,7 +6176,7 @@ MonoBehaviour:
   inventoryUI: {fileID: 1770938431}
   baseCoord: {x: 22, y: 12}
   spawnPoints: []
-  waveCooldown: 10
+  waveCooldown: 0
   timeSinceWaveEnded: 0
   numCurrentWave: 0
   waveInProgress: 0
