@@ -18,7 +18,7 @@ public class TargetController : MonoBehaviour
 
     private void OnTriggerExit(Collider other)
     {
-        if (targetableTags.Contains(other.gameObject.tag) && other.gameObject != null)
+        if (targetableTags.Contains(other.gameObject.tag) && currentTarget != null)
         {
             if (currentTarget.Equals(other.gameObject))
                 currentTarget = null;

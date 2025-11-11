@@ -33,9 +33,9 @@ public class Projectile : MonoBehaviour
         if (ttl < 0)
             Destroy(gameObject);
 
-        if (target == null)
+        if (target == null && tag.Equals("Projectile"))
         {
-            //Destroy(gameObject);
+            Destroy(gameObject);
             return;
         }
 
