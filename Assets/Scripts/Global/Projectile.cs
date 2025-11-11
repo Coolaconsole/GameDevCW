@@ -33,19 +33,22 @@ public class Projectile : MonoBehaviour
         if (ttl < 0)
             Destroy(gameObject);
 
-        if (target == null && tag.Equals("Projectile"))
+        if (target == null)
         {
             if (CompareTag("Projectile"))
                 Destroy(gameObject);
             return;
-        }
-
-        transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
-
-        // projectile close to target but not destroed
-        if (Vector3.Distance(transform.position, target.transform.position) < 0.05f)
+        }else
         {
-            Destroy(gameObject);
+            transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+
+            // projectile close to target but not destroed
+            if (Vector3.Distance(transform.position, target.transform.position) < 0.05f)
+            {
+                Destroy(gameObject);
+            }
         }
+
+        
     }
 }

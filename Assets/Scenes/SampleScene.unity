@@ -4589,9 +4589,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1dd23fbbc302dc64e87fb172f6f9be71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameOverCanvas: {fileID: 0}
-  gameOverText: {fileID: 0}
-  resumeButton: {fileID: 0}
+  gameOverCanvas: {fileID: 2020566740}
+  gameOverText: {fileID: 1725966265}
+  resumeButton: {fileID: 1907248291}
 --- !u!114 &1529358600 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 3776448234810596161, guid: e0311bda77af832419b460459c601cfb, type: 3}
@@ -6241,7 +6241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enable: 1
-  promptsPauseGame: 0
+  promptsPauseGame: 1
   promptObject: {fileID: 1038038506}
 --- !u!1 &2003058957
 GameObject:

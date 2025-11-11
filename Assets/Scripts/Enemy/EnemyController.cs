@@ -28,15 +28,16 @@ public class EnemyController : MonoBehaviour
     private void Start()
     {
         healthController = GetComponent<HealthController>();
-        healthController.OnTakeDamage.AddListener(OnTakeDamage);
-        
+        if (healthController != null)
+            healthController.OnTakeDamage.AddListener(OnTakeDamage);
+
         //GetComponentInChildren<SphereCollider>().radius = attackRange;
         targetController = GetComponentInChildren<TargetController>();
 
         effectiveAttack = attackDamage;
-        
-        
-    }
+
+
+        }
 
     public virtual void Update()
     {
