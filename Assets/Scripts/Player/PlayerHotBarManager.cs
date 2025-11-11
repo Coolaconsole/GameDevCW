@@ -13,7 +13,6 @@ public class PlayerCoinCountChangedEvent : UnityEvent<int> { }
 
 public class PlayerHotBarManager : MonoBehaviour
 {
-    [Header("Towers")] [SerializeField] private List<GameObject> towers = new List<GameObject>();
     public static PlayerHotBarManager Instance { get; private set; }
     [Header("Towers")]
     [SerializeField] private List<GameObject> towers = new List<GameObject>();
@@ -57,10 +56,6 @@ public class PlayerHotBarManager : MonoBehaviour
 
         Instance = this;
     }
-
-    [HideInInspector] public HotbarItemChangedEvent onHotbarItemChanged = new HotbarItemChangedEvent();
-    [HideInInspector] public PlayerBuildModeChangedEvent onBuildModeChanged = new PlayerBuildModeChangedEvent();
-    [HideInInspector] public PlayerCoinCountChangedEvent onCoinCountChanged = new PlayerCoinCountChangedEvent();
     void Start()
     {
         currentTower = towers[0];
