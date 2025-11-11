@@ -5829,6 +5829,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 3920697640619513826, guid: e0311bda77af832419b460459c601cfb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6176,9 +6180,9 @@ MonoBehaviour:
   inventoryUI: {fileID: 1770938431}
   baseCoord: {x: 22, y: 12}
   spawnPoints: []
-  waveCooldown: 0
+  waveCooldown: 10
   timeSinceWaveEnded: 0
-  numCurrentWave: 14
+  numCurrentWave: 0
   waveInProgress: 0
   waveSpawnBudget: 5
   numAliveEnemies: 0
@@ -6243,6 +6247,8 @@ MonoBehaviour:
   enable: 1
   promptsPauseGame: 0
   promptObject: {fileID: 1038038506}
+  charsPerSecond: 25
+  punctuationPause: 0.25
 --- !u!1 &2003058957
 GameObject:
   m_ObjectHideFlags: 0
