@@ -6241,6 +6241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enable: 1
+  promptsPauseGame: 0
   promptObject: {fileID: 1038038506}
 --- !u!1 &2003058957
 GameObject:
