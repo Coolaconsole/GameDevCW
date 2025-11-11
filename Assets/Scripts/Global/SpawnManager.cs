@@ -279,9 +279,15 @@ public class SpawnManager : MonoBehaviour
         {
             case 1:
                 if (startOfWave)
-                    TutorialManager.Instance.QueuePrompt("wave1");
+                {
+                    TutorialManager.Instance.QueuePrompt("wave1");   
+                }
                 else
+                {
+                    TutorialManager.Instance.QueuePrompt("pickupMoney");
                     TutorialManager.Instance.QueuePrompt("firstTower");
+                    TutorialManager.Instance.QueuePrompt("backToAttack");
+                }
                 break;
             case 2:
                 if (startOfWave)
@@ -289,8 +295,12 @@ public class SpawnManager : MonoBehaviour
                 break;
             case 3:
                 if (startOfWave)
+                {
+                    TutorialManager.Instance.ClosePrompt(); //If there is one open right now then just get rid of it because this is more important grrrr!
                     TutorialManager.Instance.QueuePrompt("newPath");
-                    TutorialManager.Instance.QueuePrompt("moveTower");
+                    TutorialManager.Instance.QueuePrompt("pickUpTower");
+                    TutorialManager.Instance.QueuePrompt("placeDownTower");
+                }
                 break;
             case 4:
                 if (startOfWave)

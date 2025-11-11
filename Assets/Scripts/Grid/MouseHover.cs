@@ -14,6 +14,8 @@ public class PlaceManager : MonoBehaviour
     [SerializeField] private GameObject buildingIndicatorPrefab;
     [SerializeField] private Transform playerLookEmpty; // Used for visualising where the player is looking
     [SerializeField] private Material transparent;
+    [SerializeField] private Material errorTransparent;
+    [SerializeField] private PlayerController playerController;
 
     private GameObject hoverIndicator;
     private GameObject currentTower;
@@ -30,7 +32,8 @@ public class PlaceManager : MonoBehaviour
         playerHotBarManager = GetComponent<PlayerHotBarManager>();
 
         playerHotBarManager.onHotbarItemChanged.AddListener(OnHotBarChanged); //Listens for when the hotbar item is changed
-        playerHotBarManager.onBuildModeChanged.AddListener(OnBuildModeEntered);
+        playerHotBarManager.onBuildModeChanged.AddListener(OnBuildModeChanged);
+        playerHotBarManager.onPlacedTower.AddListener(OnTowerPlaced);
     }
     void Update()
     {
@@ -69,13 +72,20 @@ public class PlaceManager : MonoBehaviour
         }
     }
 
-    private void OnBuildModeEntered(bool buildMode)
+    private void OnBuildModeChanged(bool buildMode)
     {
         //Get rid of the old one
         if (hoverIndicator != null) { Destroy(hoverIndicator); }
         //Get the new one up!
         if (!buildMode)             {hoverIndicator = Instantiate(attackIndicatorPrefab);}
         else                        {hoverIndicator = Instantiate(buildingIndicatorPrefab);}
+    }
+
+    private void OnTowerPlaced(GameObject tower)
+    {
+        //Get rid of the old tower indicator
+        Destroy(currentTower);
+        CreateBuildingIndicator(tower); //Update the building indicator when placed (may not be able to afford!)
     }
 
 
@@ -85,6 +95,13 @@ public class PlaceManager : MonoBehaviour
         //Need to strip off all the gameplay features and just get the mesh renderers
         currentTower = Instantiate(building, worldGridPos, Quaternion.identity);
 
+        //If they can't afford it then give the error transparent
+        Material materialToPaintTower = transparent;
+        if (currentTower.GetComponent<DefaultTower>().GetCost() > playerController.coinCount && !playerHotBarManager.getHoldingTower())
+        {
+            materialToPaintTower = errorTransparent;
+        }
+        
         //Remove all components the parent except visual ones
         foreach (Component component in currentTower.GetComponents<Component>())
         {
@@ -94,12 +111,11 @@ public class PlaceManager : MonoBehaviour
         //Do the same as above but for all the children
         foreach (Transform child in currentTower.GetComponentsInChildren<Transform>())
         {
-            foreach (Component component in child.GetComponents<Component>())
+            foreach (Component component in child.GetComponents<Component>()) //Indent hell :(
             {
                 if (component is Renderer renderer)
                 {
-                    renderer.material = transparent;
-                    continue;
+                    renderer.material = materialToPaintTower;
                 }
                 else if (component is Transform || component is MeshRenderer || component is MeshFilter) { continue; }
 

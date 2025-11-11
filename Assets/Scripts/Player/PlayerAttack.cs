@@ -18,6 +18,7 @@ public class PlayerAttack : MonoBehaviour
 
     private PlayerHotBarManager playerHotBar;
     private PlaceManager placeManager;
+    private bool hasAttackedBefore;
 
     void Start()
     {
@@ -57,6 +58,10 @@ public class PlayerAttack : MonoBehaviour
 
         Instantiate(attackExplosion, placeManager.getWorldPlacingCoord(), Quaternion.identity);
         animator.SetTrigger("Attack");
+
+        if(!hasAttackedBefore) {
+            TutorialManager.Instance.onPlayerAttack.Invoke();
+            hasAttackedBefore = true; }
     }
     void stopAttacking()
     {

@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 public class HotbarItemChangedEvent : UnityEvent<GameObject> { }
 [System.Serializable]
 public class PlayerBuildModeChangedEvent : UnityEvent<bool> { }
+public class PlayerPlacedTowerEvent : UnityEvent<GameObject> { }
 public class PlayerCoinCountChangedEvent : UnityEvent<int> { }
 
 public class PlayerHotBarManager : MonoBehaviour
@@ -43,12 +44,13 @@ public class PlayerHotBarManager : MonoBehaviour
     public float playerHeldTowerSizeMultiplier = 0.5f;
 
     private bool canPlaceTower = true;
-    private bool holdingTower = false;
+    public bool holdingTower = false;
     private float timeplaceCooldown = 0f;
     private PlaceManager placingManager;
-    public HotbarItemChangedEvent onHotbarItemChanged = new HotbarItemChangedEvent();
-    public PlayerBuildModeChangedEvent onBuildModeChanged = new PlayerBuildModeChangedEvent();
-    public PlayerCoinCountChangedEvent onCoinCountChanged = new PlayerCoinCountChangedEvent();
+    [HideInInspector] public HotbarItemChangedEvent onHotbarItemChanged = new HotbarItemChangedEvent();
+    [HideInInspector] public PlayerBuildModeChangedEvent onBuildModeChanged = new PlayerBuildModeChangedEvent();
+    [HideInInspector] public PlayerCoinCountChangedEvent onCoinCountChanged = new PlayerCoinCountChangedEvent();
+    [HideInInspector] public PlayerPlacedTowerEvent onPlacedTower = new PlayerPlacedTowerEvent();
     
     void Awake()
     {
@@ -79,12 +81,24 @@ public class PlayerHotBarManager : MonoBehaviour
             TowerCooldown();
 
             if (buildMode)
-        {
-            if (CanCostTower(currentTowerIndex))
             {
-                PlaceTower();
+                if (CanCostTower(currentTowerIndex))
+                {
+                    PlaceTower();
+                }
+
+                //Option to leave build mode on a button press
+                if (Input.GetKeyDown(KeyCode.Tab))
+                {
+                    currentTowerIndex = -1; 
+                    buildMode = false;
+                    currentTower = null;
+                    onHotbarItemChanged.Invoke(currentTower);
+                    onBuildModeChanged.Invoke(buildMode);
+                    
+                    TutorialManager.Instance.onTowerDeselected.Invoke();
+                }
             }
-        }
         } //Handles tower placement cooldown
         //if (EvalTowerPlacement()) //Can They place a tower?
         if (holdingTower && heldTower != null)
@@ -134,6 +148,8 @@ public class PlayerHotBarManager : MonoBehaviour
             buildMode = false;
             currentTower = null;
             tooltipText.text = "Attack with SPACE - Tower Costs:\n "+towerCosts[0]+" Coins -  "+towerCosts[1]+" Coins -  "+towerCosts[2]+" Coins -  "+ towerCosts[3]+" Coins";
+            
+            TutorialManager.Instance.onTowerDeselected.Invoke();
         }
         if (previousTowerIndex != currentTowerIndex){onHotbarItemChanged.Invoke(currentTower);} //If the item was changed, invoke the event
         if (buildMode != currentBuildMode) { onBuildModeChanged.Invoke(buildMode); } //If build mode has changed, then invoke the event
@@ -176,13 +192,17 @@ public class PlayerHotBarManager : MonoBehaviour
             SpendCoin(towerCosts[currentTowerIndex]);
             towerCosts[currentTowerIndex] += currentTower.GetComponent<DefaultTower>().baseCostIncrease; //Increase cost for next time
             tooltipText.text = "Tower Placed!\nCost increased to " + towerCosts[currentTowerIndex].ToString() + " coins.";
+            
+            //Events
+            TutorialManager.Instance.onTowerPlaced.Invoke();
+            onPlacedTower.Invoke(currentTower);
         }
     }
 
     private void PickUpTower()
     {
         // Pick up plced tower
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E) && !holdingTower)
         {
             Vector2Int placingCoord = placingManager.getPlacingCoord();
             OccupationType placePosType = CoordinateManager.Instance.getCoordinateOccupation(placingCoord);
@@ -193,25 +213,31 @@ public class PlayerHotBarManager : MonoBehaviour
                 {
                     //Actual pick up code
                     currentTower = towerToRemove;
-                    onHotbarItemChanged.Invoke(currentTower);
                     towerToRemove.GetComponent<Collider>().enabled = false;
                     CoordinateManager.Instance.freeCoordinate(placingCoord);
                    
+                    //Flags
                     holdingTower = true;
                     buildMode = true;
-                    tooltipText.text = "Holding Tower - Press Q to place down";
-                    onBuildModeChanged.Invoke(buildMode);
                     
+                    //Events and other scripts
+                    tooltipText.text = "Holding Tower - Press Q to place down";
+                    onHotbarItemChanged.Invoke(currentTower);
+                    onBuildModeChanged.Invoke(buildMode);
+                    TutorialManager.Instance.onTowerPickup.Invoke();
+                    
+                    //Pickup animation
                     anim.SetTrigger("Pickup");
                     anim.SetBool("Holding", true);
 
+                    //Puts the tower above the player's head
                     heldTower = currentTower;
                     heldTower.transform.localScale *= playerHeldTowerSizeMultiplier;
                 }
 
             }
         }
-        if (holdingTower && Input.GetKeyDown(KeyCode.Q))
+        else if (holdingTower && (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown((KeyCode.E))))
         {
             // Place held tower
             Vector2Int placingCoord = placingManager.getPlacingCoord();
@@ -233,6 +259,8 @@ public class PlayerHotBarManager : MonoBehaviour
                 onHotbarItemChanged.Invoke(currentTower);
                 buildMode = false;
                 onBuildModeChanged.Invoke(buildMode);
+                
+                TutorialManager.Instance.onTowerDrop.Invoke();
                 
                 tooltipText.text = "Tower Placed from Hold!";
                 
@@ -316,5 +344,10 @@ public class PlayerHotBarManager : MonoBehaviour
                 }
             }
         }
+    }
+
+    public bool getHoldingTower()
+    {
+        return holdingTower;
     }
 }
