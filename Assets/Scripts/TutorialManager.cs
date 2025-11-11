@@ -85,7 +85,7 @@ public class TutorialManager : MonoBehaviour
         tutorialPrompts["towerExplanation"] = ("Each tower has its strengths! Press <b>1–4</b> to reveal their stats. I will leave their strategic deployment to you, O wise hero!", new Vector3(-300, -50, 0), null, false);
 
         // Wave 3 prompts
-        tutorialPrompts["newPath"] = ("By the heavens! Our adversaries have carved a new <color=yellow>path</color> into our realm! Your tower may not stand in the most... strategic spot.", new Vector3(0, -200, 0), null, true);
+        tutorialPrompts["newPath"] = ("By the heavens! Our adversaries have carved a new <color=yellow>path</color> into our realm! Your tower may not stand in the most... strategic spot.", new Vector3(0, -150, 0), null, true);
         tutorialPrompts["moveTower"] = ("Fret not, dear hero! You can pick up the tower you placed with <b>E</b> and place it back down with <b>Q</b>.", new Vector3(0, -200, 0), onTowerDrop, false);
 
         // Wave 4 prompts
