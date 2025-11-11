@@ -40,6 +40,7 @@ public class PlayerHotBarManager : MonoBehaviour
 
     private GameObject heldTower = null;
     public Transform playerHoldTowerPos;
+    public float playerHeldTowerSizeMultiplier = 0.5f;
 
     private bool canPlaceTower = true;
     private bool holdingTower = false;
@@ -205,6 +206,7 @@ public class PlayerHotBarManager : MonoBehaviour
                     anim.SetBool("Holding", true);
 
                     heldTower = currentTower;
+                    heldTower.transform.localScale *= playerHeldTowerSizeMultiplier;
                 }
 
             }
@@ -238,6 +240,7 @@ public class PlayerHotBarManager : MonoBehaviour
                     anim.SetTrigger("Attack"); //Looks like they are placing it down!
                 anim.SetBool("Holding", holdingTower);
 
+                heldTower.transform.localScale *= (1 / playerHeldTowerSizeMultiplier);
                 heldTower = null;
             }
         }

@@ -504,6 +504,7 @@ RectTransform:
   - {fileID: 1770938432}
   - {fileID: 1314442300}
   - {fileID: 2020566741}
+  - {fileID: 1038038507}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4135,7 +4136,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -21.079956, y: 0}
+  m_AnchoredPosition: {x: -21.080078, y: 0}
   m_SizeDelta: {x: 60, y: 150}
   m_Pivot: {x: 1, y: 0}
 --- !u!1 &1348892328
@@ -5384,7 +5385,7 @@ MonoBehaviour:
   - {fileID: 4882223486252977198, guid: 5a798e6f1371b3545ac97051f333c5be, type: 3}
   - {fileID: 8263037230582700292, guid: 4d7db80be8d8b254c83e37c64631db74, type: 3}
   - {fileID: 8780793749032506205, guid: 364658c01f789ba44bcd946832a1325d, type: 3}
-  placeCooldown: 1
+  placeCooldown: 0.5
   HotbarDisplayUI:
   - {fileID: 1870990390}
   - {fileID: 666377097}
@@ -5395,6 +5396,7 @@ MonoBehaviour:
   anim: {fileID: 1804809692}
   towerPlaceEffect: {fileID: 3018725546286245850, guid: cab8043c9370c4ffeb88dc2b46fd7e07, type: 3}
   playerHoldTowerPos: {fileID: 1232904136}
+  playerHeldTowerSizeMultiplier: 1
   onHotbarItemChanged:
     m_PersistentCalls:
       m_Calls: []
@@ -6173,7 +6175,7 @@ MonoBehaviour:
   spawnPoints: []
   waveCooldown: 10
   timeSinceWaveEnded: 0
-  numCurrentWave: 14
+  numCurrentWave: 0
   waveInProgress: 0
   waveSpawnBudget: 5
   numAliveEnemies: 0
