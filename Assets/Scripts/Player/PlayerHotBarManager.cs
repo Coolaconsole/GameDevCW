@@ -93,6 +93,8 @@ public class PlayerHotBarManager : MonoBehaviour
                     currentTower = null;
                     onHotbarItemChanged.Invoke(currentTower);
                     onBuildModeChanged.Invoke(buildMode);
+                    
+                    TutorialManager.Instance.onTowerDeselected.Invoke();
                 }
             }
         } //Handles tower placement cooldown
@@ -144,6 +146,8 @@ public class PlayerHotBarManager : MonoBehaviour
             buildMode = false;
             currentTower = null;
             tooltipText.text = "Attack with SPACE - Tower Costs:\n "+towerCosts[0]+" Coins -  "+towerCosts[1]+" Coins -  "+towerCosts[2]+" Coins -  "+ towerCosts[3]+" Coins";
+            
+            TutorialManager.Instance.onTowerDeselected.Invoke();
         }
         if (previousTowerIndex != currentTowerIndex){onHotbarItemChanged.Invoke(currentTower);} //If the item was changed, invoke the event
         if (buildMode != currentBuildMode) { onBuildModeChanged.Invoke(buildMode); } //If build mode has changed, then invoke the event
