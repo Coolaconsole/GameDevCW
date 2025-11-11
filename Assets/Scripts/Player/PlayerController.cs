@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering.Universal.Internal;
 using System;
 using System.Collections.Generic;
+using TMPro;
 
 public class PlayerController : MonoBehaviour
 {
@@ -19,6 +20,8 @@ public class PlayerController : MonoBehaviour
     
     public GameObject pauseScreen;
 
+    public GameObject pauseText;
+    public GameObject resumeButton;
 
     void Update() // Input called in the update
     {
@@ -29,8 +32,9 @@ public class PlayerController : MonoBehaviour
             {
                 Time.timeScale = 0; //Pause
                 pauseScreen.SetActive(true);
+                pauseText.GetComponent<TextMeshProUGUI>().text = "Game Paused";
             }
-            else
+            else if (resumeButton.activeSelf)
             {
                 Time.timeScale = 1; //Unpause
                 pauseScreen.SetActive(false);

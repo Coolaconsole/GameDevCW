@@ -3,7 +3,7 @@ using UnityEngine;
 public class Projectile : MonoBehaviour
 {
     public GameObject target;
-    private float ttl = 5f;
+    private float ttl = 10f;
     public float speed = 10f;
     public int damage = 10;
 
@@ -33,9 +33,10 @@ public class Projectile : MonoBehaviour
         if (ttl < 0)
             Destroy(gameObject);
 
-        if (target == null)
+        if (target == null && tag.Equals("Projectile"))
         {
-            Destroy(gameObject);
+            if (CompareTag("Projectile"))
+                Destroy(gameObject);
             return;
         }
 
