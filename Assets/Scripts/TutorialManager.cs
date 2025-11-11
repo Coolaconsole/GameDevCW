@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using static Unity.Burst.Intrinsics.X86.Avx;
 
@@ -37,15 +38,19 @@ public class TutorialManager : MonoBehaviour
 
     private void Start()
     {
-        tutorialPrompts["welcome"] = ("Welcome, hero!\nYour objective is to protect your base at the top of the map.", new Vector3(0, 0, 0));
-        tutorialPrompts["attack"] = ("Move around with <b>WASD</b>\nAttack enemies with <b>SPACE</b> or <b>Left Click</b>.", new Vector3(0, 0, 0));
-        tutorialPrompts["defend"] = ("You can place <b>towers</b> on the map to protect your base.\nBut we can't afford them yet.", new Vector3(-300, -50, 0));
-        Instance.QueuePrompt("welcome");
+        tutorialPrompts["welcome1"] = ("O' hero!\n The court oracle has forseen that the castle is in grave danger!", new Vector3(0, 0, 0));
+        tutorialPrompts["welcome2"] = ("O' brave hero!\n I would join you on the battlefield, but...\n then there would be no one to relay the oracles' prophecies...", new Vector3(0, 0, 0));
+        tutorialPrompts["welcome3"] = ("Speak of the devil! Here comes another of her prophecies...", new Vector3(0, 0, 0));
+        tutorialPrompts["attack"] = ("<color=lightblue> Move around with <b>WASD</b>\nAttack enemies with<b> SPACE</b> or <b> Left Click </b> </color> ", Vector3.zero);
+        tutorialPrompts["defend"] = ("You have the kingdom's full support, including the deployment of <b>towers</b> on the map to protect your base.\nBut the royal reserves are thin and we can't afford them yet.", new Vector3(-300, -50, 0));
+        Instance.QueuePrompt("welcome1");
+        Instance.QueuePrompt("welcome2");
+        Instance.QueuePrompt("welcome3");
         Instance.QueuePrompt("attack");
         Instance.QueuePrompt("defend");
 
         // Wave 1 prompts
-        tutorialPrompts["wave1"] = ("Wave 1 is starting!\n<color=red>Enemies</color> are coming from the <color=yellow>yellow path</color>.", new Vector3(-200, 100, 0));
+        tutorialPrompts["wave1"] = ("Wave 1 is starting!\n<color=red>Enemies</color> are coming from the <color=yellow>yellow path</color>.\nVanquish these foes, and defend your kingdom!", new Vector3(-200, 100, 0));
         tutorialPrompts["firstTower"] = ("Nice! The enemies have dropped enough gold to buy a <b>tower</b>.\nPress <b>1</b> to select the first tower, and <b>SPACE</b> to place it.", new Vector3(-300, -50, 0));
         // Wave 2 prompts
         tutorialPrompts["towerExplanation"] = ("Pressing <b>1-4</b> will display the tower's stats.\nTry to think what situations each would be useful in.", new Vector3(-300, -50, 0));
@@ -73,7 +78,7 @@ public class TutorialManager : MonoBehaviour
             Time.timeScale = promptsPauseGame ? 0 : 1;
         }
 
-        if (promptObject.activeSelf && Input.GetKeyDown(KeyCode.P))
+        if (promptObject.activeSelf && Input.GetKeyDown(KeyCode.R))
         {
             if (!typingComplete)
                 CompleteInstantly();
