@@ -3155,6 +3155,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1214948360}
   m_CullTransparentMesh: 1
+--- !u!1 &1232904135
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1232904136}
+  m_Layer: 6
+  m_Name: HoldTowerPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1232904136
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1232904135}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.82, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1688191727}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1245191464
 GameObject:
   m_ObjectHideFlags: 0
@@ -4604,6 +4635,7 @@ Transform:
   - {fileID: 1309865556}
   - {fileID: 1075204746}
   - {fileID: 1804809691}
+  - {fileID: 1232904136}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1688191728
@@ -4697,6 +4729,7 @@ MonoBehaviour:
   tooltipText: {fileID: 579152566}
   anim: {fileID: 1804809692}
   towerPlaceEffect: {fileID: 3018725546286245850, guid: cab8043c9370c4ffeb88dc2b46fd7e07, type: 3}
+  playerHoldTowerPos: {fileID: 1232904136}
   onHotbarItemChanged:
     m_PersistentCalls:
       m_Calls: []

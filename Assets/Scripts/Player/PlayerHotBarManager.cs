@@ -38,6 +38,9 @@ public class PlayerHotBarManager : MonoBehaviour
     private bool
         buildMode = false; //Only true when the player has a building selected, if false assumes is in attacking mode
 
+    private GameObject heldTower = null;
+    public Transform playerHoldTowerPos;
+
     private bool canPlaceTower = true;
     private bool holdingTower = false;
     private float timeplaceCooldown = 0f;
@@ -83,6 +86,10 @@ public class PlayerHotBarManager : MonoBehaviour
         }
         } //Handles tower placement cooldown
         //if (EvalTowerPlacement()) //Can They place a tower?
+        if (holdingTower && heldTower != null)
+        {
+            heldTower.transform.position = playerHoldTowerPos.position;
+        }
         
         PickUpTower();
     }
@@ -183,6 +190,7 @@ public class PlayerHotBarManager : MonoBehaviour
                 GameObject towerToRemove = CoordinateManager.Instance.coordinateObjects.GetValueOrDefault(placingCoord);
                 if (towerToRemove != null)
                 {
+                    //Actual pick up code
                     currentTower = towerToRemove;
                     onHotbarItemChanged.Invoke(currentTower);
                     towerToRemove.GetComponent<Collider>().enabled = false;
@@ -193,10 +201,10 @@ public class PlayerHotBarManager : MonoBehaviour
                     tooltipText.text = "Holding Tower - Press Q to place down";
                     onBuildModeChanged.Invoke(buildMode);
                     
-                    if (anim != null)
-                        {anim.SetTrigger("Attack");
-                        anim.speed = -1f;}
-                        
+                    anim.SetTrigger("Pickup");
+                    anim.SetBool("Holding", true);
+
+                    heldTower = currentTower;
                 }
 
             }
@@ -208,6 +216,8 @@ public class PlayerHotBarManager : MonoBehaviour
             OccupationType placePosType = CoordinateManager.Instance.getCoordinateOccupation(placingCoord);
             if (placePosType != OccupationType.Base && placePosType != OccupationType.Tower)
             {
+                //Actual put down code
+                
                 Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingCoord);
                 //GameObject t = Instantiate(currentTower, placePos, Quaternion.identity);
                 currentTower.transform.position = placePos;
@@ -223,10 +233,16 @@ public class PlayerHotBarManager : MonoBehaviour
                 onBuildModeChanged.Invoke(buildMode);
                 
                 tooltipText.text = "Tower Placed from Hold!";
+                
                 if (anim != null)
-                anim.SetTrigger("Attack"); //Looks like they are placing it down!
+                    anim.SetTrigger("Attack"); //Looks like they are placing it down!
+                anim.SetBool("Holding", holdingTower);
+
+                heldTower = null;
             }
         }
+        
+
     }
     
     private bool CanCostTower(int tower)
