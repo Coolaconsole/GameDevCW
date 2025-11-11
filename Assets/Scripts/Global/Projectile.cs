@@ -33,7 +33,7 @@ public class Projectile : MonoBehaviour
         if (ttl < 0)
             Destroy(gameObject);
 
-        if (target == null && tag.Equals("Projectile"))
+        if (target == null)
         {
             if (CompareTag("Projectile"))
                 Destroy(gameObject);
