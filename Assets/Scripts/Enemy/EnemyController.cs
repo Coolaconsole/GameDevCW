@@ -24,6 +24,8 @@ public class EnemyController : MonoBehaviour
     public int coinValue;
     public float effectiveAttack;
     public float defence;
+    
+    public Animator animator;
 
     private void Start()
     {
@@ -70,10 +72,13 @@ public class EnemyController : MonoBehaviour
     {
         if (lastAttackTime >= attackCooldown)
         {
+            //Attack
             Projectile proj = Instantiate(projectile, transform.position + new Vector3(0, 1, 0), Quaternion.identity).GetComponent<Projectile>();
             proj.SetDamage((int)effectiveAttack);
             proj.SetTarget(targetController.currentTarget);
             lastAttackTime = 0f;
+            
+            animator.SetTrigger("Shoot");
         }
         else
             lastAttackTime += Time.deltaTime;

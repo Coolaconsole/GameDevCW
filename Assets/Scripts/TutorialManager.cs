@@ -1,6 +1,8 @@
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using static Unity.Burst.Intrinsics.X86.Avx;
 
 public class TutorialManager : MonoBehaviour
 {
@@ -12,6 +14,15 @@ public class TutorialManager : MonoBehaviour
     private Dictionary<string, (string, Vector3)> tutorialPrompts = new Dictionary<string, (string, Vector3)>();
     List<(string, Vector3)> promptQueue = new List<(string, Vector3)>();
     public GameObject promptObject;
+
+    public float charsPerSecond = 25f;
+    public float punctuationPause = 0.25f;
+
+    private Coroutine typingRoutine;
+    private TextMeshProUGUI tmp;
+    private string currentText = "";
+    private bool typingComplete = false;
+
 
     void Awake()
     {
@@ -64,7 +75,10 @@ public class TutorialManager : MonoBehaviour
 
         if (promptObject.activeSelf && Input.GetKeyDown(KeyCode.P))
         {
-            ClosePrompt();
+            if (!typingComplete)
+                CompleteInstantly();
+            else
+                ClosePrompt();
             return;
         }
 
@@ -76,17 +90,17 @@ public class TutorialManager : MonoBehaviour
 
     private void ShowNextPrompt()
     {
-        Time.timeScale = promptsPauseGame ? 0 : 1; //One line if statement
+        Time.timeScale = promptsPauseGame ? 0 : 1;
 
         (string text, Vector3 pos) = promptQueue[0];
         promptQueue.RemoveAt(0);
 
         promptObject.SetActive(true);
         var rect = promptObject.GetComponent<RectTransform>();
-        var tmp = promptObject.GetComponentInChildren<TextMeshProUGUI>();
+        tmp = promptObject.GetComponentInChildren<TextMeshProUGUI>();
+        rect.anchoredPosition3D = pos;
 
-        tmp.text = text;
-        rect.anchoredPosition3D = pos; 
+        StartTyping(text);
     }
 
     private void ClosePrompt()
@@ -106,6 +120,68 @@ public class TutorialManager : MonoBehaviour
             promptQueue.Add(tutorialPrompts[key]);
             tutorialPrompts.Remove(key);  // so they arent shown again
         }
+    }
+
+    private void StartTyping(string fullText)
+    {
+        StopTyping();
+        typingRoutine = StartCoroutine(TypeRoutine(fullText));
+    }
+
+    private void StopTyping()
+    {
+        if (typingRoutine != null)
+            StopCoroutine(typingRoutine);
+        typingRoutine = null;
+    }
+
+    private IEnumerator TypeRoutine(string fullText)
+    {
+        tmp.text = "";
+        currentText = fullText;
+        typingComplete = false;
+
+        float delay = 1f / Mathf.Max(1f, charsPerSecond);
+        int i = 0;
+
+        while (i < fullText.Length)
+        {
+            // if theres a markup tag, add the entire thing to prevent mess
+            if (fullText[i] == '<')
+            {
+                int closingIndex = fullText.IndexOf('>', i);
+                if (closingIndex != -1)
+                {
+                    tmp.text += fullText.Substring(i, closingIndex - i + 1);
+                    i = closingIndex + 1;
+                    continue;
+                }
+            }
+
+            tmp.text += fullText[i];
+            char c = fullText[i];
+            i++;
+
+            if (c == '.' || c == ',' || c == '!' || c == '?')
+                yield return new WaitForSeconds(punctuationPause);
+            else
+                yield return new WaitForSeconds(delay);
+        }
+
+        typingComplete = true;
+        typingRoutine = null;
+    }
+
+    private void CompleteInstantly()
+    {
+        if (typingRoutine != null)
+        {
+            StopCoroutine(typingRoutine);
+            typingRoutine = null;
+        }
+
+        tmp.text = currentText;
+        typingComplete = true;
     }
 
 

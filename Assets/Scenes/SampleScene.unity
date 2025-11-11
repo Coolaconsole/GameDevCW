@@ -5829,6 +5829,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: HealthBar
       objectReference: {fileID: 0}
+    - target: {fileID: 3920697640619513826, guid: e0311bda77af832419b460459c601cfb, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6243,6 +6247,8 @@ MonoBehaviour:
   enable: 1
   promptsPauseGame: 1
   promptObject: {fileID: 1038038506}
+  charsPerSecond: 25
+  punctuationPause: 0.25
 --- !u!1 &2003058957
 GameObject:
   m_ObjectHideFlags: 0
