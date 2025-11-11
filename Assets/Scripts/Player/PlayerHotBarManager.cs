@@ -9,6 +9,7 @@ using Unity.VisualScripting;
 public class HotbarItemChangedEvent : UnityEvent<GameObject> { }
 [System.Serializable]
 public class PlayerBuildModeChangedEvent : UnityEvent<bool> { }
+public class PlayerPlacedTowerEvent : UnityEvent<GameObject> { }
 public class PlayerCoinCountChangedEvent : UnityEvent<int> { }
 
 public class PlayerHotBarManager : MonoBehaviour
@@ -46,9 +47,10 @@ public class PlayerHotBarManager : MonoBehaviour
     public bool holdingTower = false;
     private float timeplaceCooldown = 0f;
     private PlaceManager placingManager;
-    public HotbarItemChangedEvent onHotbarItemChanged = new HotbarItemChangedEvent();
-    public PlayerBuildModeChangedEvent onBuildModeChanged = new PlayerBuildModeChangedEvent();
-    public PlayerCoinCountChangedEvent onCoinCountChanged = new PlayerCoinCountChangedEvent();
+    [HideInInspector] public HotbarItemChangedEvent onHotbarItemChanged = new HotbarItemChangedEvent();
+    [HideInInspector] public PlayerBuildModeChangedEvent onBuildModeChanged = new PlayerBuildModeChangedEvent();
+    [HideInInspector] public PlayerCoinCountChangedEvent onCoinCountChanged = new PlayerCoinCountChangedEvent();
+    [HideInInspector] public PlayerPlacedTowerEvent onPlacedTower = new PlayerPlacedTowerEvent();
     
     void Awake()
     {
@@ -191,8 +193,9 @@ public class PlayerHotBarManager : MonoBehaviour
             towerCosts[currentTowerIndex] += currentTower.GetComponent<DefaultTower>().baseCostIncrease; //Increase cost for next time
             tooltipText.text = "Tower Placed!\nCost increased to " + towerCosts[currentTowerIndex].ToString() + " coins.";
             
-            //Tutorial
+            //Events
             TutorialManager.Instance.onTowerPlaced.Invoke();
+            onPlacedTower.Invoke(currentTower);
         }
     }
 

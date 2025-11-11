@@ -33,6 +33,7 @@ public class PlaceManager : MonoBehaviour
 
         playerHotBarManager.onHotbarItemChanged.AddListener(OnHotBarChanged); //Listens for when the hotbar item is changed
         playerHotBarManager.onBuildModeChanged.AddListener(OnBuildModeChanged);
+        playerHotBarManager.onPlacedTower.AddListener(OnTowerPlaced);
     }
     void Update()
     {
@@ -78,6 +79,13 @@ public class PlaceManager : MonoBehaviour
         //Get the new one up!
         if (!buildMode)             {hoverIndicator = Instantiate(attackIndicatorPrefab);}
         else                        {hoverIndicator = Instantiate(buildingIndicatorPrefab);}
+    }
+
+    private void OnTowerPlaced(GameObject tower)
+    {
+        //Get rid of the old tower indicator
+        Destroy(currentTower);
+        CreateBuildingIndicator(tower); //Update the building indicator when placed (may not be able to afford!)
     }
 
 

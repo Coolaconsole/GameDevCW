@@ -82,7 +82,7 @@ public class TutorialManager : MonoBehaviour
         // Wave 3 prompts
         tutorialPrompts["newPath"] = ("Aha, the enemies are making a new <color=yellow>path</color>!\nWe should move our tower!", new Vector3(0,-200, 0), null, true);
         tutorialPrompts["pickUpTower"] = ("You can move your tower by going up to it and pressing <b>E</b>.", new Vector3(-300, -50, 0), onTowerPickup, false);
-        tutorialPrompts["placeDownTower"] = ("Place back down with <b>Q</b> or <b>E</b> again.", new Vector3(-300, -50, 0), onTowerDrop, false);
+        tutorialPrompts["placeDownTower"] = ("Place back down with <b>Q</b>", new Vector3(-300, -50, 0), onTowerDrop, false);
         // Wave 4 prompts
         tutorialPrompts["newEnemy"] = ("Watch out! A new type of <color=red>enemy</color> has appeared!\nThese ones are <b>fast</b>, but they don't have much <b>health</b>.", new Vector3(-200, 100, 0), null, true);
         // Wave 5 prompts
