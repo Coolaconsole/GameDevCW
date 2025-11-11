@@ -6178,7 +6178,7 @@ MonoBehaviour:
   spawnPoints: []
   waveCooldown: 0
   timeSinceWaveEnded: 0
-  numCurrentWave: 0
+  numCurrentWave: 14
   waveInProgress: 0
   waveSpawnBudget: 5
   numAliveEnemies: 0
