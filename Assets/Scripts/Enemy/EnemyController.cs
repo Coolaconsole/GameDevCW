@@ -36,8 +36,6 @@ public class EnemyController : MonoBehaviour
         targetController = GetComponentInChildren<TargetController>();
 
         effectiveAttack = attackDamage;
-        
-        
     }
 
     public virtual void Update()
@@ -137,6 +135,8 @@ public class EnemyController : MonoBehaviour
 
     private void Death()
     {
+        TutorialManager.Instance.onEnemyDeath.Invoke();
+        
         Instantiate(deathEffect, transform.position, Quaternion.identity);
         Destroy(gameObject);
     }

@@ -23,6 +23,8 @@ public class PlayerController : MonoBehaviour
     public GameObject pauseText;
     public GameObject resumeButton;
 
+    private bool hasMovedYet = false;
+
     void Update() // Input called in the update
     {
         if (Time.timeScale == 1)
@@ -69,6 +71,13 @@ public class PlayerController : MonoBehaviour
                 transform.position = new Vector3(transform.position.x, transform.position.y, -24f);
             else if (transform.position.z > 24f)
                 transform.position = new Vector3(transform.position.x, transform.position.y, 24f);
+
+            //Stops this from being called every update
+            if (!hasMovedYet)
+            {
+                TutorialManager.Instance.onPlayerMoved.Invoke();
+                hasMovedYet = true;
+            }
         }
     }
     
