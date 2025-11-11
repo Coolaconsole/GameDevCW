@@ -757,6 +757,7 @@ MonoBehaviour:
   isFollowingPath: 1
   targetController: {fileID: 3242295592096870299}
   projectile: {fileID: 7571415286639365578, guid: 70fc5a460be697648bf0a5967ac31ca2, type: 3}
+  deathEffect: {fileID: 652128869994542547, guid: eba5a8e140a639230b8edaf9d626455f, type: 3}
   moveSpeed: 7
   attackDamage: 3
   attackCooldown: 2
@@ -836,6 +837,9 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!65 &8443384043342894009
 BoxCollider:
   m_ObjectHideFlags: 0
