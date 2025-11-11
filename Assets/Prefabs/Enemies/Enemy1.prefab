@@ -301,6 +301,13 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  renderers:
+  - {fileID: 6662406582758244258}
+  - {fileID: 3660766752437479969}
+  - {fileID: 4697880977239096843}
+  - {fileID: 1129814175396416088}
+  flashColor: {r: 1, g: 1, b: 1, a: 0}
+  flashDuration: 0.1
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -1182,9 +1189,19 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 2981557575313543229}
   m_SourcePrefab: {fileID: 100100000, guid: 46e2f6d8b2f57a5f98a78cec8c2ef8fd, type: 3}
+--- !u!23 &1129814175396416088 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 4123284581482973771, guid: 46e2f6d8b2f57a5f98a78cec8c2ef8fd, type: 3}
+  m_PrefabInstance: {fileID: 3933104252747448339}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &3539697399124092920 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 46e2f6d8b2f57a5f98a78cec8c2ef8fd, type: 3}
+  m_PrefabInstance: {fileID: 3933104252747448339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &3660766752437479969 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 313165708669200946, guid: 46e2f6d8b2f57a5f98a78cec8c2ef8fd, type: 3}
   m_PrefabInstance: {fileID: 3933104252747448339}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &4203081845276556610 stripped
@@ -1214,3 +1231,13 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!23 &4697880977239096843 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: 8621869499289812504, guid: 46e2f6d8b2f57a5f98a78cec8c2ef8fd, type: 3}
+  m_PrefabInstance: {fileID: 3933104252747448339}
+  m_PrefabAsset: {fileID: 0}
+--- !u!23 &6662406582758244258 stripped
+MeshRenderer:
+  m_CorrespondingSourceObject: {fileID: -1522025331998818383, guid: 46e2f6d8b2f57a5f98a78cec8c2ef8fd, type: 3}
+  m_PrefabInstance: {fileID: 3933104252747448339}
+  m_PrefabAsset: {fileID: 0}

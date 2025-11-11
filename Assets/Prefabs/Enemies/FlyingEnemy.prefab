@@ -837,6 +837,17 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  renderers:
+  - {fileID: 2575270718535579019}
+  - {fileID: 8582057169902285877}
+  - {fileID: 2383773504608368622}
+  - {fileID: 4477274686611377189}
+  - {fileID: 7361649413753252259}
+  - {fileID: 9152950810525169093}
+  - {fileID: 948116134348268817}
+  - {fileID: 5561657752108000115}
+  flashColor: {r: 1, g: 1, b: 1, a: 0}
+  flashDuration: 0.1
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls: []

@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Events;
@@ -18,11 +20,19 @@ public class HealthController : MonoBehaviour
     private int targetHealth = 0;
     private bool canHeal = true;
     
+    //For making enemy's flash when taking damage
+    public List<Renderer> renderers = new List<Renderer>();
+    public Color flashColor =  Color.white;
+    public float flashDuration = 0.1f;
+
+    private List<Color> originalColors = new List<Color>();
+    
     [HideInInspector] public UnityEvent OnTakeDamage;
 
 
     private void Start()
     {
+        SaveOriginalColors();
         
         currentHealth = maxHealth;
         UpdateHealthUI();
@@ -68,6 +78,8 @@ public class HealthController : MonoBehaviour
         currentHealth = Mathf.Clamp(currentHealth, 0, maxHealth);
         UpdateHealthUI();
         
+        Flash(); //Visual to show taking damage
+        
         OnTakeDamage.Invoke();
     }
 
@@ -78,6 +90,29 @@ public class HealthController : MonoBehaviour
             float fillValue = (float)currentHealth / maxHealth;
             healthBarFill.rectTransform.localScale = new Vector3 (Mathf.Max(fillValue, 0), 1, 1);
             healthBarFill.color = healthGradient.Evaluate(fillValue);
+        }
+    }
+
+    private void Flash() //Done in a way to call each object the enemy is composed of
+    {
+        for (int i = 0; i < renderers.Count; i++)
+        {
+            StartCoroutine(DoFlashOnObject(i));
+        }
+    }
+
+    private IEnumerator DoFlashOnObject(int index)
+    {
+        renderers[index].material.color = flashColor;
+        yield return new WaitForSeconds(flashDuration);
+        renderers[index].material.color = originalColors[index];
+    }
+
+    private void SaveOriginalColors()
+    {
+        foreach (Renderer rend in renderers)
+        {
+            originalColors.Add(rend.material.color);
         }
     }
 }

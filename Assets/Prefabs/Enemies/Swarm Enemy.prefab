@@ -165,7 +165,6 @@ MonoBehaviour:
   projectile: {fileID: 7571415286639365578, guid: 70fc5a460be697648bf0a5967ac31ca2, type: 3}
   deathEffect: {fileID: 652128869994542547, guid: eba5a8e140a639230b8edaf9d626455f, type: 3}
   moveSpeed: 8
-  attackRange: 3
   attackDamage: 1
   attackCooldown: 1
   coinObject: {fileID: 3468169790337004887, guid: db4a639905be5ef4aaf3c9fec80c64a4, type: 3}
@@ -216,6 +215,20 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  renderers:
+  - {fileID: 7432715586746882079}
+  - {fileID: 1583436752756305598}
+  - {fileID: 5932103943045589931}
+  - {fileID: 4569838159943880585}
+  - {fileID: 6722703620678679084}
+  - {fileID: 8499789293062882528}
+  - {fileID: 1813380930481013272}
+  - {fileID: 5365924960109228370}
+  flashColor: {r: 1, g: 1, b: 1, a: 0}
+  flashDuration: 0.1
+  OnTakeDamage:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!54 &-5206858353310395084
 Rigidbody:
   m_ObjectHideFlags: 0
