@@ -2406,7 +2406,7 @@ GameObject:
   - component: {fileID: 732355083}
   - component: {fileID: 732355082}
   - component: {fileID: 732355081}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Platform
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4544,6 +4544,9 @@ MonoBehaviour:
     m_ColorSpace: -1
     m_NumColorKeys: 4
     m_NumAlphaKeys: 2
+  renderers: []
+  flashColor: {r: 0, g: 0, b: 0, a: 0}
+  flashDuration: 0.1
   OnTakeDamage:
     m_PersistentCalls:
       m_Calls: []
@@ -6238,7 +6241,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enable: 1
-  promptObject: {fileID: 0}
+  promptObject: {fileID: 1038038506}
 --- !u!1 &2003058957
 GameObject:
   m_ObjectHideFlags: 0
