@@ -56,7 +56,14 @@ public class SpawnManager : MonoBehaviour
         else if (!waveInProgress)
         {
             if (numCurrentWave != 0)
-                waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + " Complete! Next wave in " + (waveCooldown-timeSinceWaveEnded).ToString("F1") + "s";
+            {
+                string end = (waveCooldown - timeSinceWaveEnded).ToString("F1");
+                if (float.Parse(end) <= 0.0f)
+                    end = "soon";
+                else
+                    end = "in " + end + "s";
+                waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + " Complete! Next wave " + end;
+            }
             if (timeSinceWaveEnded > waveCooldown && !TutorialManager.Instance.HasUnclosedPrompts())
                 beginNewWave();
             else
