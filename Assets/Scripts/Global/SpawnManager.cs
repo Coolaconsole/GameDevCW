@@ -57,7 +57,7 @@ public class SpawnManager : MonoBehaviour
         {
             if (numCurrentWave != 0)
                 waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + " Complete! Next wave in " + (waveCooldown-timeSinceWaveEnded).ToString("F1") + "s";
-            if (timeSinceWaveEnded > waveCooldown)
+            if (timeSinceWaveEnded > waveCooldown && !TutorialManager.Instance.HasUnclosedPrompts())
                 beginNewWave();
             else
                 timeSinceWaveEnded += Time.deltaTime;
@@ -263,6 +263,8 @@ public class SpawnManager : MonoBehaviour
                 return " - New <color=red>Enemy</color> Encountered\nThey're slow, but tanky!";
             case 11:
                 return " - New <color=red>Enemy</color> Encountered\nWatch the skies!";
+            case 14:
+                return " - New <color=red>Enemy</color> Encountered\nDon't let them reach the castle!";
             default:
                 if (numCurrentWave % 5 == 0 && numCurrentWave >= 10)
                     return " - Boss Wave!";
@@ -310,6 +312,10 @@ public class SpawnManager : MonoBehaviour
             case 10:
                 if (!startOfWave)
                     TutorialManager.Instance.QueuePrompt("flyingEnemy");
+                break;
+            case 14:
+                if (!startOfWave)
+                    TutorialManager.Instance.QueuePrompt("kamikaze");
                 break;
         }
     }
