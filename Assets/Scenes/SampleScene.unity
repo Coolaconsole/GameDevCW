@@ -5218,7 +5218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 7
-  coinCount: 1000
+  coinCount: 8
   knockbackForce: 10
   camera: {fileID: 330585545}
   rb: {fileID: 1688191729}
@@ -6152,7 +6152,7 @@ MonoBehaviour:
   - entity: {fileID: 6422489059913816815, guid: 6b563495f4f5505488423f6707c7f4a1, type: 3}
     cost: 7
     waveUnlocked: 11
-    height: 6
+    height: 10
   - entity: {fileID: 5778101773612441105, guid: e444e415227096c4e8b0df71e871882e, type: 3}
     cost: 7
     waveUnlocked: 14
