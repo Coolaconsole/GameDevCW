@@ -263,11 +263,13 @@ public class PlayerHotBarManager : MonoBehaviour
                 TutorialManager.Instance.onTowerDrop.Invoke();
                 
                 tooltipText.text = "Tower Placed from Hold!";
-                
-                if (anim != null)
-                    anim.SetTrigger("Attack"); //Looks like they are placing it down!
-                anim.SetBool("Holding", holdingTower);
 
+                if (anim != null)
+                {
+                    anim.SetTrigger("Attack"); //Looks like they are placing it down!
+                    anim.SetBool("Holding", holdingTower);
+                }
+                
                 heldTower.transform.localScale *= (1 / playerHeldTowerSizeMultiplier);
                 heldTower = null;
             }
@@ -276,7 +278,7 @@ public class PlayerHotBarManager : MonoBehaviour
 
     }
     
-    public bool CanCostTower(int tower)
+    private bool CanCostTower(int tower)
     {
         int cost = towerCosts[tower];
         int currentCoins = GetComponent<PlayerController>().coinCount;
@@ -350,6 +352,4 @@ public class PlayerHotBarManager : MonoBehaviour
     {
         return holdingTower;
     }
-    
-     public int getCurrentTowerIndex() { return currentTowerIndex; }
 }

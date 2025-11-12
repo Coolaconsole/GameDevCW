@@ -99,10 +99,10 @@ public class PlaceManager : MonoBehaviour
         Material materialToPaintTower = transparent;
         if (!currentTower.GetComponent<DefaultTower>() || !playerController || !playerHotBarManager) return;
 
-        // if (!playerHotBarManager.CanCostTower(playerHotBarManager.getCurrentTowerIndex()) && !playerHotBarManager.getHoldingTower())
-        // {
-        materialToPaintTower = errorTransparent;
-        //}
+        if (currentTower.GetComponent<DefaultTower>().GetCost() > playerController.coinCount && !playerHotBarManager.getHoldingTower())
+        {
+            materialToPaintTower = errorTransparent;
+        }
         
         //Remove all components the parent except visual ones
         foreach (Component component in currentTower.GetComponents<Component>())
