@@ -14,7 +14,7 @@ public class CoinController : MonoBehaviour
         {
             other.gameObject.GetComponent<PlayerController>().UpdateCoinCount(value);
 
-            AudioManager.Instance.PlaySFX("coin");
+            AudioManager.Instance.PlaySFX("coin", 0.6f);
             
             TutorialManager.Instance.onMoneyPickup.Invoke(); //Tells the tutorial manager we MANAGED to do it (lol sorry I've been coding for too long)
             

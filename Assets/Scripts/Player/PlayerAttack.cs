@@ -55,6 +55,7 @@ public class PlayerAttack : MonoBehaviour
         isAttacking = true;
         hitbox.SetActive(true);
         hitboxTimer = hitboxActiveTime;
+        AudioManager.Instance.PlaySFX("player attack", 0.6f, 0.7f, 1.3f);
 
         Instantiate(attackExplosion, placeManager.getWorldPlacingCoord(), Quaternion.identity);
         animator.SetTrigger("Attack");

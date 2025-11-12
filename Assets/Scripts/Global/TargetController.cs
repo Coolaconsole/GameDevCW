@@ -22,7 +22,7 @@ public class TargetController : MonoBehaviour
 
     private void Update()
     {
-        
+        /*
         for (int i = possibleTargets.Count - 1; i >= 0; i--)
         {
             GameObject target = possibleTargets[i];
@@ -32,7 +32,7 @@ public class TargetController : MonoBehaviour
                 if (currentTarget == target)
                     currentTarget = null;
             }
-        }
+        }*/
     }
 
     private void OnTriggerExit(Collider other)

@@ -47,6 +47,7 @@ public class BaseController : MonoBehaviour
         {
 
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
+            AudioManager.Instance.PlaySFX("base hit", 0.2f, 0.6f, 1.3f);
             hc.TakeDamage(shot.GetDamage());
             if (proj.CompareTag("Enemy"))
                 SpawnManager.Instance.decrementNumAliveEnemies();

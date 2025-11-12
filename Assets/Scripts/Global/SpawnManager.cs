@@ -73,6 +73,8 @@ public class SpawnManager : MonoBehaviour
 
     public void beginNewWave()
     {
+        AudioManager.Instance.PlaySFX("wave", 0.4f, 1.2f, 1.2f);
+
         numAliveEnemies = FindObjectsOfType<EnemyController>().Length;
 
         numCurrentWave += 1;
