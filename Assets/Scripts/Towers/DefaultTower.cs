@@ -63,6 +63,8 @@ public class DefaultTower : MonoBehaviour
         {
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
             hc.TakeDamage(shot.GetDamage());
+            if (proj.CompareTag("Enemy"))
+                SpawnManager.Instance.decrementNumAliveEnemies();
             Destroy(proj);
 
             if (hc.currentHealth <= 0)

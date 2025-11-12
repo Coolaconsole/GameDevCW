@@ -31,7 +31,11 @@ public class Projectile : MonoBehaviour
     {
         ttl -= Time.deltaTime;
         if (ttl < 0)
+        {
+            if (CompareTag("Enemy"))
+                SpawnManager.Instance.decrementNumAliveEnemies();
             Destroy(gameObject);
+        }
 
         if (target == null)
         {
@@ -45,7 +49,10 @@ public class Projectile : MonoBehaviour
             // projectile close to target but not destroed
             if (Vector3.Distance(transform.position, target.transform.position) < 0.05f)
             {
+                if (CompareTag("Enemy"))
+                    SpawnManager.Instance.decrementNumAliveEnemies();
                 Destroy(gameObject);
+                
             }
         }
 

@@ -12,7 +12,7 @@ public class KamikazeEnemy : EnemyController
             SpawnManager.Instance.decrementNumAliveEnemies();
 
             GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Random.rotation);
-            coin.GetComponent<CoinController>().value = coinValue;
+            coin.GetComponent<CoinController>().setValue(coinValue);
             Destroy(gameObject);
         }
 

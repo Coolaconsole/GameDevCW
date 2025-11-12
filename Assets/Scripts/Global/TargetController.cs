@@ -13,15 +13,20 @@ public class TargetController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (targetableTags.Contains(other.gameObject.tag))
+        {
+            Projectile pc = GetComponentInParent<Projectile>();
+            if (pc) pc.target = other.gameObject;
             possibleTargets.Add(other.gameObject);
+        }
     }
 
     private void Update()
     {
+        
         for (int i = possibleTargets.Count - 1; i >= 0; i--)
         {
             GameObject target = possibleTargets[i];
-            if (Vector3.Distance(transform.position, target.transform.position) > GetComponent<SphereCollider>().radius)
+            if (Vector3.Distance(transform.position, target.transform.position) > GetComponent<SphereCollider>().radius*3)
             {
                 possibleTargets.RemoveAt(i);
                 if (currentTarget == target)

@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 public class BaseController : MonoBehaviour
@@ -36,6 +37,8 @@ public class BaseController : MonoBehaviour
 
             Projectile shot = (Projectile)proj.GetComponent(typeof(Projectile));
             hc.TakeDamage(shot.GetDamage());
+            if (proj.CompareTag("Enemy"))
+                SpawnManager.Instance.decrementNumAliveEnemies();
             Destroy(proj);
 
             if (hc.currentHealth <= 0)

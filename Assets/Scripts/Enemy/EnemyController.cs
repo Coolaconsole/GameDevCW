@@ -49,7 +49,7 @@ public class EnemyController : MonoBehaviour
             SpawnManager.Instance.decrementNumAliveEnemies();
 
             GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Quaternion.identity);
-            coin.GetComponent<CoinController>().value = coinValue;
+            coin.GetComponent<CoinController>().setValue(coinValue);
             
             Death();
         }

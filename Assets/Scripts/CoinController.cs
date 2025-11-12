@@ -3,9 +3,11 @@ using UnityEngine;
 
 public class CoinController : MonoBehaviour
 {
-    public int value = 1;
+    private int value = 1;
 
     [SerializeField] private GameObject coinDeathParticles;
+    private Vector3 baseScale;
+
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -17,6 +19,18 @@ public class CoinController : MonoBehaviour
             Death();
         }
     }
+
+    private void Awake()
+    {
+        baseScale = transform.localScale;
+        setValue(value);
+    }
+
+    public void setValue(int newValue)
+    {
+        value = newValue;
+    }
+
     void Update()
     {
         if (value <= 0)
