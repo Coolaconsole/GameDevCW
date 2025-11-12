@@ -6306,19 +6306,19 @@ MonoBehaviour:
     height: 0.35
   - entity: {fileID: 1416403142941157825, guid: 01ca576ea077b404d976b9a90a061fc2, type: 3}
     cost: 3
-    waveUnlocked: 7
+    waveUnlocked: 8
     height: 0.2
   - entity: {fileID: 9016296728663265688, guid: 6c6ca4d6065077d48aa066b0b15502cb, type: 3}
     cost: 2
-    waveUnlocked: 4
+    waveUnlocked: 5
     height: 0
   - entity: {fileID: 6422489059913816815, guid: 6b563495f4f5505488423f6707c7f4a1, type: 3}
     cost: 7
-    waveUnlocked: 11
+    waveUnlocked: 12
     height: 10
   - entity: {fileID: 5778101773612441105, guid: e444e415227096c4e8b0df71e871882e, type: 3}
     cost: 7
-    waveUnlocked: 14
+    waveUnlocked: 17
     height: 1
   bossEnemyCostInfo:
     entity: {fileID: 1416403142941157825, guid: 5d7e0e2541cbb8045b39b60025f73a8f, type: 3}

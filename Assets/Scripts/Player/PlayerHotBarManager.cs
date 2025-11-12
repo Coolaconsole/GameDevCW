@@ -203,7 +203,7 @@ public class PlayerHotBarManager : MonoBehaviour
     private void PickUpTower()
     {
         // Pick up plced tower
-        if (Input.GetKeyDown(KeyCode.E) && !holdingTower)
+        if ((Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E)) && !holdingTower)
         {
             Vector2Int placingCoord = placingManager.getPlacingCoord();
             OccupationType placePosType = CoordinateManager.Instance.getCoordinateOccupation(placingCoord);
@@ -238,7 +238,7 @@ public class PlayerHotBarManager : MonoBehaviour
 
             }
         }
-        else if (holdingTower && (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown((KeyCode.E))))
+        else if (holdingTower && (Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.E)))
         {
             // Place held tower
             Vector2Int placingCoord = placingManager.getPlacingCoord();

@@ -28,7 +28,7 @@ public class SpawnManager : MonoBehaviour
     public bool waveInProgress = false;
     public int waveSpawnBudget;  // potential bug: if cant reach 0 (i.e. no enemy with cost 1), then wave will never end
     public int numAliveEnemies;
-    public float spawnCooldown = 1.0f;
+    public float spawnCooldown = 1.5f;
     public float timeSinceLastSpawn;
     private int totalCost;
     private int maxWaveSpawnBudget;
@@ -87,20 +87,20 @@ public class SpawnManager : MonoBehaviour
                 {
                     waveSpawnBudget += 10;
 
-                    spawnCooldown -= 0.0005f * (numCurrentWave - 10);
+                    spawnCooldown -= 0.0001f * (numCurrentWave - 10);
                     if (spawnCooldown < 0.5f)
                         spawnCooldown = 0.5f;
-                    
                 }
                 else
                 {
                     waveSpawnBudget += i; // triangular number
+                    spawnCooldown -= 0.05f;
                 }
             }
         }
         waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + ExtraWaveInfo();
 
-        if (new TriangleNumber().Check(numCurrentWave)) { createNewEnemyPath(); }
+        if (new TriangleNumber().Check(numCurrentWave-1)) { createNewEnemyPath(); }
 
         waveInProgress = true;
 
@@ -138,11 +138,11 @@ public class SpawnManager : MonoBehaviour
         if (numCurrentWave % 5 == 0)
         {
             int threshold = 0;
-            if (numCurrentWave == 10)
+            if (numCurrentWave == 10 || numCurrentWave == 15)
                 threshold = maxWaveSpawnBudget / 2;
-            else if (numCurrentWave == 15)
+            else if (numCurrentWave == 20)
                 threshold = maxWaveSpawnBudget * 2 / 3;
-            else if (numCurrentWave >= 20)
+            else if (numCurrentWave >= 30)
                 threshold = maxWaveSpawnBudget * 3 / 4;
 
             if (waveSpawnBudget <= threshold)
@@ -159,6 +159,9 @@ public class SpawnManager : MonoBehaviour
             GameObject newEnemy = Instantiate(enemyToSpawn.entity, CoordinateManager.Instance.getCoordinateWorldPos(randomSpawn), Quaternion.identity);
             newEnemy.GetComponent<EnemyController>().path = PathManager.Instance.getAPath(randomSpawn);
             newEnemy.GetComponent<EnemyController>().pathOffset = new Vector3(Random.Range(-0.5f, 0.5f), enemyToSpawn.height, Random.Range(-0.5f, 0.5f));
+
+            if(numCurrentWave < 4)
+                newEnemy.GetComponent<EnemyController>().moveSpeed -= 1;
 
             //waveSpawnBudget -= enemyCostInfos[0].cost;
             waveSpawnBudget -= enemyToSpawn.cost;
@@ -262,21 +265,21 @@ public class SpawnManager : MonoBehaviour
                 return "\nSelect your towers with <b>1-4</b> - Place with <b>SPACE</b>.";
             case 3:
                 return "\nTry picking your tower up with <b>E</b>, place it back down with <b>Q</b>.";
-            case 4:
-                return " - New <color=red>Enemy</color> Encountered\nYour attack will be the most effective here.";
             case 5:
+                return " - New <color=red>Enemy</color> Encountered\nYour attack will be the most effective here.";
+            case 4:
                 return "\nYour towers heal some of the damage they take at the end of each round.";
-            case 6:
-                return " - New <color=yellow>Enemy Path</color>";
-            case 7:
+            case 8:
                 return " - New <color=red>Enemy</color> Encountered\nThey're slow, but tanky!";
-            case 11:
+            case 12:
                 return " - New <color=red>Enemy</color> Encountered\nWatch the skies!";
-            case 14:
+            case 17:
                 return " - New <color=red>Enemy</color> Encountered\nDon't let them reach the castle!";
             default:
                 if (numCurrentWave % 5 == 0 && numCurrentWave >= 10)
                     return " - Boss Wave!";
+                else if (new TriangleNumber().Check(numCurrentWave-1))
+                    return " - New <color=yellow>Enemy Path</color>";
                 break;
         }
         return "";
@@ -303,39 +306,45 @@ public class SpawnManager : MonoBehaviour
                     TutorialManager.Instance.QueuePrompt("towerExplanation");
                 break;
             case 3:
-                if (startOfWave)
-                {
+                if (startOfWave){
                     TutorialManager.Instance.QueuePrompt("newPath");
                     TutorialManager.Instance.QueuePrompt("moveTower");
-                }
-                break;
-            case 4:
-                if (startOfWave)
-                    TutorialManager.Instance.QueuePrompt("newEnemy");
-                break;
+                }else
+                    TutorialManager.Instance.QueuePrompt("healing");
+                    break;
             case 5:
                 if (startOfWave)
+                    TutorialManager.Instance.QueuePrompt("newEnemy");
+                else
                     TutorialManager.Instance.QueuePrompt("pathColour");
-                break;
+                    break;
             case 6:
-                if (startOfWave)
-                    TutorialManager.Instance.QueuePrompt("healing");
+                if (!startOfWave)
+                    TutorialManager.Instance.QueuePrompt("anotherPath");
                 break;
             case 7:
                 if (!startOfWave)
                     TutorialManager.Instance.QueuePrompt("checkIn");
+                break;
+            case 8:
+                if (startOfWave)
+                    TutorialManager.Instance.QueuePrompt("toughEnemy");
                 break;
             case 9:
                 if (!startOfWave)
                     {TutorialManager.Instance.QueuePrompt("bossEnemy"); 
                     TutorialManager.Instance.QueuePrompt("bossPrep");}
                 break;
-            case 10:
-                if (!startOfWave)
+            case 12:
+                if (startOfWave)
                     TutorialManager.Instance.QueuePrompt("flyingEnemy");
                 break;
             case 14:
                 if (!startOfWave)
+                    TutorialManager.Instance.QueuePrompt("bossLevels");
+                break;
+            case 17:
+                if (startOfWave)
                     TutorialManager.Instance.QueuePrompt("kamikaze");
                 break;
             case 25:
@@ -359,6 +368,10 @@ public class TriangleNumber
 {
     public bool Check(int n)
     {
+        if (n == 0) { return true; }
+        if (n == 1) { return false; }
+        if (n == 3) { return true; }
+        if (n == 4) { return false; }
         int x = 8 * n + 1;
         int s = (int)Mathf.Sqrt(x);
         return s * s == x;
