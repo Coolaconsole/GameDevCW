@@ -174,6 +174,7 @@ public class PlayerHotBarManager : MonoBehaviour
     {
         if ((Input.GetMouseButtonDown(0) || Input.GetKeyDown(KeyCode.Space)) && canPlaceTower)
         {
+            AudioManager.Instance.PlaySFX("tower built");
             //Placing direction handled by the placing manager and shown with the hover indicator
             Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingManager.getPlacingCoord());
             OccupationType placePosType = CoordinateManager.Instance.getCoordinateOccupation(placingManager.getPlacingCoord());
@@ -245,7 +246,7 @@ public class PlayerHotBarManager : MonoBehaviour
             if (placePosType != OccupationType.Base && placePosType != OccupationType.Tower)
             {
                 //Actual put down code
-                
+                AudioManager.Instance.PlaySFX("tower built");
                 Vector3 placePos = CoordinateManager.Instance.getCoordinateWorldPos(placingCoord);
                 //GameObject t = Instantiate(currentTower, placePos, Quaternion.identity);
                 currentTower.transform.position = placePos;

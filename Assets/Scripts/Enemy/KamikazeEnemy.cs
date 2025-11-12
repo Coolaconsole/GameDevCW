@@ -10,7 +10,7 @@ public class KamikazeEnemy : EnemyController
                 PathManager.Instance.pathTileMap[CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)].GetComponent<PathTileController>().updateActivity(attackDamage / 40);
 
             SpawnManager.Instance.decrementNumAliveEnemies();
-
+            AudioManager.Instance.PlaySFX("enemy dies", 0.3f, 0.6f, 1.4f);
             GameObject coin = Instantiate(coinObject, transform.position + Vector3.up, Random.rotation);
             coin.GetComponent<CoinController>().setValue(coinValue);
             Destroy(gameObject);

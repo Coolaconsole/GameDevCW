@@ -73,7 +73,7 @@ public class TutorialManager : MonoBehaviour
         tutorialPrompts["move"] = ("Brave hero!\nI'd join you in battle, but someone must relay the oracle's <color=lightblue>prophecies</color>!", new Vector3(0, 0, 0), null, false);
         tutorialPrompts["welcome2"] = ("Speak of the devil!\nHere comes another of her <color=lightblue>prophecies</color>...", new Vector3(0, 0, 0), null, false);
         tutorialPrompts["attack"] = ("<color=lightblue>Move with <b>WASD</b></color> and <color=lightblue>attack using <b>Left Click</b>.</color>", Vector3.zero, null, false);
-        tutorialPrompts["defend"] = ("The kingdom grants you the power to deploy <color=lightblue>towers</color>. But the royal reserves are low � <color=red>we can't afford them yet!</color>", new Vector3(-300, -30, 0), onMoneyPickup, true);
+        tutorialPrompts["defend"] = ("The kingdom grants you the power to deploy <color=lightblue>towers</color>.\nBut the royal reserves are low <color=red>we can't afford them yet!</color>", new Vector3(-300, -30, 0), onMoneyPickup, true);
 
         Instance.QueuePrompt("welcome");
         Instance.QueuePrompt("move");
@@ -81,7 +81,7 @@ public class TutorialManager : MonoBehaviour
         Instance.QueuePrompt("attack");
         Instance.QueuePrompt("defend");
 
-        tutorialPrompts["lowHealth"] = ("Hey uhhh dude, your base is taking damage! This is the last time I'll warn you or something", new Vector3(0, 0, 0), null, true);
+        tutorialPrompts["lowHealth"] = ("Watch out, hero!\n The <color=red>castle is under enemy fire!</color> Watch out for enemies that hide <color=red> behind </color> the castle in its shadow!", new Vector3(0, 0, 0), null, true);
 
         // Wave 1 prompts
         tutorialPrompts["wave1"] = ("O hero, the oracle foretells our first trial!\n<color=red>Enemies</color> march forth along the <color=yellow>yellow path</color>. Stand firm and defend the realm!", new Vector3(0, 0, 0), onEnemyDeath, true);
@@ -128,7 +128,10 @@ public class TutorialManager : MonoBehaviour
             if (!typingComplete)
                 CompleteInstantly();
             else
+            {
+                AudioManager.Instance.PlaySFX("click", 0.1f, 1f, 1f);
                 ClosePrompt();
+            }
             return;
         }
 

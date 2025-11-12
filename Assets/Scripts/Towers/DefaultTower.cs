@@ -37,6 +37,7 @@ public class DefaultTower : MonoBehaviour
             if (targetController.currentTarget != null)
             {
                 //Shoot!
+                AudioManager.Instance.PlaySFX("tower shoot", 0.2f, 0.5f, 1.2f);
                 animator.SetTrigger("Shoot");
                 Instantiate(muzzleFlash, muzzle.position, muzzle.rotation);
                 Instantiate(muzzleSmoke, muzzle.position, muzzle.rotation);
@@ -71,6 +72,7 @@ public class DefaultTower : MonoBehaviour
             {
                 CoordinateManager.Instance.occupyCoordinate(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position), PathManager.Instance.pathTileMap.ContainsKey(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position)) ? OccupationType.Path : OccupationType.None);
                 Destroy(gameObject);
+                AudioManager.Instance.PlaySFX("tower destroyed");
             }
         }
     }
