@@ -16,6 +16,20 @@ public class TargetController : MonoBehaviour
             possibleTargets.Add(other.gameObject);
     }
 
+    private void Update()
+    {
+        for (int i = possibleTargets.Count - 1; i >= 0; i--)
+        {
+            GameObject target = possibleTargets[i];
+            if (Vector3.Distance(transform.position, target.transform.position) > GetComponent<SphereCollider>().radius)
+            {
+                possibleTargets.RemoveAt(i);
+                if (currentTarget == target)
+                    currentTarget = null;
+            }
+        }
+    }
+
     private void OnTriggerExit(Collider other)
     {
         if (targetableTags.Contains(other.gameObject.tag) && currentTarget != null)
