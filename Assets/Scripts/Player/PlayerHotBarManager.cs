@@ -189,8 +189,8 @@ public class PlayerHotBarManager : MonoBehaviour
             if (anim != null)
                 anim.SetTrigger("Attack"); //Looks like they are placing it down!
             
-            SpendCoin(towerCosts[currentTowerIndex]);
             towerCosts[currentTowerIndex] += currentTower.GetComponent<DefaultTower>().baseCostIncrease; //Increase cost for next time
+            SpendCoin(towerCosts[currentTowerIndex]);
             tooltipText.text = "Tower Placed!\nCost increased to " + towerCosts[currentTowerIndex].ToString() + " coins.";
             
             //Events

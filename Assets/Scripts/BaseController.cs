@@ -9,6 +9,8 @@ public class BaseController : MonoBehaviour
     public GameObject gameOverCanvas;
     public GameObject gameOverText;
     public GameObject resumeButton;
+    private HealthController hc;
+    private bool hasLostHalfHealth = false;
 
     void Awake()
     {
@@ -17,11 +19,21 @@ public class BaseController : MonoBehaviour
 
         gameOverCanvas.SetActive(false);
     }
-    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         CoordinateManager.Instance.occupyCoordinate(CoordinateManager.Instance.getNearestWorldPosCoordinate(transform.position), OccupationType.Base);
+        hc = GetComponent<HealthController>();
+    }
+
+    void Update()
+    {
+        if(hc.currentHealth < hc.maxHealth * 2 / 3 && !hasLostHalfHealth)
+        {
+            TutorialManager.Instance.QueuePrompt("lowHealth");
+            hasLostHalfHealth = true;
+        }
     }
 
     void OnTriggerEnter(Collider other)
@@ -31,7 +43,6 @@ public class BaseController : MonoBehaviour
         if (projectileComponent == null || projectileComponent.target == null || !projectileComponent.target.Equals(gameObject))
             return;
 
-        HealthController hc = GetComponent<HealthController>();
         if (hc != null)
         {
 
@@ -51,7 +62,7 @@ public class BaseController : MonoBehaviour
     public void GameOver()
     {
         // Show UI and pause game
-        gameOverText.GetComponent<TextMeshProUGUI>().text = "Game Over!\nYou survived " + SpawnManager.Instance.numCurrentWave.ToString() + " waves!\nYou collected " + FindObjectOfType<PlayerController>().coinCount.ToString() + " coins!";
+        gameOverText.GetComponent<TextMeshProUGUI>().text = "Game Over!\nYou survived " + SpawnManager.Instance.numCurrentWave.ToString() + " waves!\nYou collected " + FindObjectOfType<PlayerController>().totalCoins.ToString() + " coins!";
         gameOverCanvas.SetActive(true);
         resumeButton.SetActive(false);
         Time.timeScale = 0f; 
