@@ -62,10 +62,24 @@ public class BaseController : MonoBehaviour
     
     public void GameOver()
     {
+        int waveReached = SpawnManager.Instance.numCurrentWave;
+        int coinCollected = FindObjectOfType<PlayerController>().totalCoins;
+        int highestWave = PlayerPrefs.GetInt("MaxWave", 0);
+        int highestCoin = PlayerPrefs.GetInt("MaxCoin", 0);
+        if (waveReached > highestWave)
+        {
+            PlayerPrefs.SetInt("MaxWave", waveReached);  // save new high score
+        }
+        if (coinCollected > highestCoin)
+        {
+            PlayerPrefs.SetInt("MaxCoin", highestCoin);
+        }
+        PlayerPrefs.Save();
         // Show UI and pause game
-        gameOverText.GetComponent<TextMeshProUGUI>().text = "Game Over!\nYou survived " + SpawnManager.Instance.numCurrentWave.ToString() + " waves!\nYou collected " + FindObjectOfType<PlayerController>().totalCoins.ToString() + " coins!";
+        gameOverText.GetComponent<TextMeshProUGUI>().text = "Game Over!\nYou survived " + waveReached + " waves! Highest: "+ highestWave +"\nYou collected " + coinCollected + " coins! Highest: "+highestCoin;
         gameOverCanvas.SetActive(true);
         resumeButton.SetActive(false);
+        
         Time.timeScale = 0f; 
     }
 
