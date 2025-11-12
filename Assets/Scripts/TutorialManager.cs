@@ -113,7 +113,8 @@ public class TutorialManager : MonoBehaviour
         tutorialPrompts["flyingEnemy"] = ("Splendid, O valiant hero!\nYet the oracle warns of new peril � <color=red>flying enemies</color> can only be struck by towers with <color=red>sufficient range</color>. Take care!", new Vector3(-200, 100, 0), null, true);
         tutorialPrompts["kamikaze"] = ("Terrible fortune!\n<color=red>Another adversary</color> has been revealed by the oracle. This mysterious foe bears <color=red>explosive power</color>! Catch it before it tears a hole in our <b>defenses</b>!", new Vector3(-200, 100, 0), null, true);
 
-
+        // Wave 25 prompts
+        tutorialPrompts["success"] = ("Huzzah! You have protected us long enough to secure our future.\nYou should be proud that you have survived this long!", new Vector3(0, 0, 0), null, true);
     }
 
     private void Update()

@@ -346,6 +346,10 @@ public class SpawnManager : MonoBehaviour
             case 21:
                 AudioManager.Instance.PlayMusic("3", 0.9f);
                 break;
+            case 25:
+                if (!startOfWave)
+                    TutorialManager.Instance.QueuePrompt("success");
+                break;
         }
     }
 }

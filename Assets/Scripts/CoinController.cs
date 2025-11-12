@@ -1,4 +1,6 @@
+using System.Data.SqlTypes;
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class CoinController : MonoBehaviour
@@ -31,6 +33,24 @@ public class CoinController : MonoBehaviour
     public void setValue(int newValue)
     {
         value = newValue;
+        float scale = 1;
+        switch (value)
+        {
+            case 5:
+                scale = 1.3f;
+                break;
+            case 7:
+                scale = 1.5f;
+                break;
+            case 10:
+                scale = 2f;
+                break;
+            case 20:
+                scale = 3f;
+                break;
+        }
+
+        transform.localScale = baseScale * scale;
     }
 
     void Update()
