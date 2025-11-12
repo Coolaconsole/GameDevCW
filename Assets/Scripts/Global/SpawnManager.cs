@@ -379,6 +379,8 @@ public class TriangleNumber
     {
         if (n == 0) { return true; }
         if (n == 1) { return false; }
+        if (n == 2) { return true; }
+        if (n == 3) { return false; }
         int x = 8 * n + 1;
         int s = (int)Mathf.Sqrt(x);
         return s * s == x;
