@@ -42,6 +42,8 @@ public class SpawnManager : MonoBehaviour
         }
 
         Instance = this;
+
+        AudioManager.Instance.PlayMusic("1", 0.7f);
     }
 
     private void Update()
@@ -334,9 +336,15 @@ public class SpawnManager : MonoBehaviour
                 if (!startOfWave)
                     TutorialManager.Instance.QueuePrompt("flyingEnemy");
                 break;
+            case 11:
+                AudioManager.Instance.PlayMusic("2", 0.7f);
+                break;
             case 14:
                 if (!startOfWave)
                     TutorialManager.Instance.QueuePrompt("kamikaze");
+                break;
+            case 21:
+                AudioManager.Instance.PlayMusic("3", 0.9f);
                 break;
         }
     }
