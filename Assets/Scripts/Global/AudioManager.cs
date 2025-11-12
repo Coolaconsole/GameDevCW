@@ -13,12 +13,17 @@ public class AudioManager : MonoBehaviour
     }
 
     public List<SoundEntry> sounds = new();
+    public List<SoundEntry> musicTracks = new();
 
     public int initialPoolSize = 10;  // like thread pools, so multiple instances can play at once without killing the other.
 
     private Dictionary<string, AudioClip> soundDict;
     private List<AudioSource> pool;
     private Transform poolParent;
+
+    private Dictionary<string, AudioClip> musicDict;
+    private AudioSource musicSource;
+    private Transform musicParent;
 
     void Awake()
     {
@@ -41,6 +46,23 @@ public class AudioManager : MonoBehaviour
 
         for (int i = 0; i < initialPoolSize; i++)
             CreateNewSource();
+
+        musicDict = new Dictionary<string, AudioClip>();
+        foreach (var m in musicTracks)
+            musicDict[m.name] = m.clip;
+
+        musicParent = new GameObject("Music Sources").transform;
+        musicParent.SetParent(transform);
+        musicSource = musicParent.gameObject.AddComponent<AudioSource>();
+        musicSource.loop = true;
+        musicSource.playOnAwake = false;
+        musicSource.volume = 1f;
+    }
+
+    private void Start()
+    {
+
+        Instance.PlayMusic("1", 0.7f);
     }
 
     private AudioSource CreateNewSource()
@@ -56,8 +78,8 @@ public class AudioManager : MonoBehaviour
         foreach (var s in pool)
             if (!s.isPlaying)
                 return s;
-        // create a new one if we ran out
-        return CreateNewSource();
+
+        return null;
     }
 
     public void PlaySFX(string name, float volume = 1f, float minPitch = 0.95f, float maxPitch = 1.05f)
@@ -65,9 +87,20 @@ public class AudioManager : MonoBehaviour
         if (!soundDict.TryGetValue(name, out var clip)) return;
 
         var src = GetAvailableSource();
+        if (!src) return;
         src.clip = clip;
         src.pitch = Random.Range(minPitch, maxPitch);  // for variety of sounds
         src.volume = volume;
         src.Play();
+    }
+
+    public void PlayMusic(string name, float volume = 1f)
+    {
+        if (!musicDict.TryGetValue(name, out var clip)) return;
+
+        musicSource.Stop();
+        musicSource.clip = clip;
+        musicSource.volume = volume;
+        musicSource.Play();
     }
 }

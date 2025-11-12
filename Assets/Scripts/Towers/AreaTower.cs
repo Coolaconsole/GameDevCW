@@ -13,7 +13,6 @@ public class AreaTower : DefaultTower
             foreach (var target in targetController.possibleTargets)
             {
 
-                AudioManager.Instance.PlaySFX("tower shoot", 0.2f, 0.5f, 1.2f);
                 if (target == null) continue;  // clean up destroyed objects
                 else if (target.tag == "Enemy")
                 {
