@@ -5218,7 +5218,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerController
   speed: 7
-  coinCount: 1000
+  coinCount: 100
   knockbackForce: 10
   camera: {fileID: 330585545}
   rb: {fileID: 1688191729}

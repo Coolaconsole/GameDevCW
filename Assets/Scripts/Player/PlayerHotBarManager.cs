@@ -263,11 +263,13 @@ public class PlayerHotBarManager : MonoBehaviour
                 TutorialManager.Instance.onTowerDrop.Invoke();
                 
                 tooltipText.text = "Tower Placed from Hold!";
-                
-                if (anim != null)
-                    anim.SetTrigger("Attack"); //Looks like they are placing it down!
-                anim.SetBool("Holding", holdingTower);
 
+                if (anim != null)
+                {
+                    anim.SetTrigger("Attack"); //Looks like they are placing it down!
+                    anim.SetBool("Holding", holdingTower);
+                }
+                
                 heldTower.transform.localScale *= (1 / playerHeldTowerSizeMultiplier);
                 heldTower = null;
             }
