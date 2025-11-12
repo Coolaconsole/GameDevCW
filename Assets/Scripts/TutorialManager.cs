@@ -70,10 +70,10 @@ public class TutorialManager : MonoBehaviour
     {
         // Starting Prompts
         tutorialPrompts["welcome"] = ("O hero!\nThe court oracle has foreseen <color=red>grave danger</color> for the castle!", new Vector3(0, 0, 0), null, true);
-        tutorialPrompts["move"] = ("Brave hero!\nIï¿½d join you in battle, but someone must relay the oracleï¿½s <color=lightblue>prophecies</color>!", new Vector3(0, 0, 0), null, false);
+        tutorialPrompts["move"] = ("Brave hero!\nI’d join you in battle, but someone must relay the oracle’s <color=lightblue>prophecies</color>!", new Vector3(0, 0, 0), null, false);
         tutorialPrompts["welcome2"] = ("Speak of the devil!\nHere comes another of her <color=lightblue>prophecies</color>...", new Vector3(0, 0, 0), null, false);
         tutorialPrompts["attack"] = ("<color=lightblue>Move with <b>WASD</b></color> and <color=lightblue>attack using <b>Left Click</b>.</color>", Vector3.zero, null, false);
-        tutorialPrompts["defend"] = ("The kingdom grants you the power to deploy <color=lightblue>towers</color>. But the royal reserves are low ï¿½ <color=red>we canï¿½t afford them yet!</color>", new Vector3(-300, -30, 0), onMoneyPickup, false);
+        tutorialPrompts["defend"] = ("The kingdom grants you the power to deploy <color=lightblue>towers</color>. But the royal reserves are low — <color=red>we can’t afford them yet!</color>", new Vector3(-300, -30, 0), onMoneyPickup, true);
 
         Instance.QueuePrompt("welcome");
         Instance.QueuePrompt("move");
@@ -93,22 +93,22 @@ public class TutorialManager : MonoBehaviour
         tutorialPrompts["moveTower"] = ("Fret not, dear hero!\nYou can <color=lightblue>pick up the tower</color> you placed with <color=lightblue>E</color> and place it back down with <color=lightblue>q</color>.", new Vector3(-300, -30, 0), onTowerDrop, false);
 
         // Wave 4 prompts
-        tutorialPrompts["newEnemy"] = ("Another dire omen!\nThe oracle has revealed a <color=red>new breed of enemy</color> approaching! These ones are <color=red>fast</color> on their feet, but they donï¿½t have much <color=red>health</color>.", new Vector3(-200, 100, 0), null, true);
+        tutorialPrompts["newEnemy"] = ("Another dire omen!\nThe oracle has revealed a <color=red>new breed of enemy</color> approaching! These ones are <color=red>fast</color> on their feet, but they don’t have much <color=red>health</color>.", new Vector3(-200, 100, 0), null, true);
 
         // Wave 5 prompts
-        tutorialPrompts["pathColour"] = ("Hear the oracleï¿½s counsel!\nThe <color=red>enemies grow stronger</color> in tiles <color=red>stained red with their blood</color>! Too many slain in one place, and the path itself may <b>split</b>! Attack the enemies from different angles to prevent catastrophe...", new Vector3(-200, 100, 0), null, true);
+        tutorialPrompts["pathColour"] = ("Hear the oracle’s counsel!\nThe <color=red>enemies grow stronger</color> in tiles <color=red>stained red with their blood</color>! Too many slain in one place, and the path itself may <b>split</b>! Attack the enemies from different angles to prevent catastrophe...", new Vector3(-200, 100, 0), null, true);
 
         // Wave 6 promppt
         tutorialPrompts["pathColour"] = ("O weary hero\nKnow that you do not fight alone! The kingdom sends it best craftsmen to <color=lightblue> repair your standing structures between each wave of foes.</color>", new Vector3(0, 0, 0), null, true);
         tutorialPrompts["pathSplit"] = ("Hark, hero!\nA tile on the map has <color=red>absorbed enough of our enemies blood</color> and is <color=red>about to split</color>! Consider <color=lightblue> relocating your towers</color>, lest you fight this war on more fronts...", new Vector3(-200, 100, 0), null, true);
 
         // Wave 7 prompts
-        tutorialPrompts["checkIn"] = ("I commend your valor, O persistent hero!\nDonï¿½t forget you can  <color=lightblue>move towers</color> with  <color=lightblue>E</color> and  <color=lightblue>Q</color>.", new Vector3(-300, -30, 0), null, false);
+        tutorialPrompts["checkIn"] = ("I commend your valor, O persistent hero!\nDon’t forget you can  <color=lightblue>move towers</color> with  <color=lightblue>E</color> and  <color=lightblue>Q</color>.", new Vector3(-300, -30, 0), null, false);
 
         // Wave 10 prompts
-        tutorialPrompts["bossEnemy"] = ("The castle trembles ï¿½ a <color=red>boss enemy</color> is approaching!", new Vector3(-200, 100, 0), null, true);
-        tutorialPrompts["bossPrep"] = ("Make haste with preparation!\nDonï¿½t let it get close to the <b>castle</b>, lest the kingdom fall!", new Vector3(-200, 100, 0), null, true);
-        tutorialPrompts["flyingEnemy"] = ("Splendid, O valiant hero!\nYet the oracle warns of new peril ï¿½ <color=red>flying enemies</color> can only be struck by towers with <color=red>sufficient range</color>. Take care!", new Vector3(-200, 100, 0), null, true);
+        tutorialPrompts["bossEnemy"] = ("The castle trembles — a <color=red>boss enemy</color> is approaching!", new Vector3(-200, 100, 0), null, true);
+        tutorialPrompts["bossPrep"] = ("Make haste with preparation!\nDon’t let it get close to the <b>castle</b>, lest the kingdom fall!", new Vector3(-200, 100, 0), null, true);
+        tutorialPrompts["flyingEnemy"] = ("Splendid, O valiant hero!\nYet the oracle warns of new peril — <color=red>flying enemies</color> can only be struck by towers with <color=red>sufficient range</color>. Take care!", new Vector3(-200, 100, 0), null, true);
         tutorialPrompts["kamikaze"] = ("Terrible fortune!\n<color=red>Another adversary</color> has been revealed by the oracle. This mysterious foe bears <color=red>explosive power</color>! Catch it before it tears a hole in our <b>defenses</b>!", new Vector3(-200, 100, 0), null, true);
 
 
