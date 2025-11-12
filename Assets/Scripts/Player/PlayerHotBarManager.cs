@@ -276,7 +276,7 @@ public class PlayerHotBarManager : MonoBehaviour
 
     }
     
-    private bool CanCostTower(int tower)
+    public bool CanCostTower(int tower)
     {
         int cost = towerCosts[tower];
         int currentCoins = GetComponent<PlayerController>().coinCount;
@@ -350,4 +350,6 @@ public class PlayerHotBarManager : MonoBehaviour
     {
         return holdingTower;
     }
+    
+     public int getCurrentTowerIndex() { return currentTowerIndex; }
 }
