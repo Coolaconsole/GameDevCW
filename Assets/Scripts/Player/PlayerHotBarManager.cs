@@ -192,6 +192,7 @@ public class PlayerHotBarManager : MonoBehaviour
 
             SpendCoin(towerCosts[currentTowerIndex]);
             towerCosts[currentTowerIndex] += currentTower.GetComponent<DefaultTower>().baseCostIncrease; //Increase cost for next time
+            SpendCoin(0);
             tooltipText.text = "Tower Placed!\nCost increased to " + towerCosts[currentTowerIndex].ToString() + " coins.";
             
             //Events
@@ -328,7 +329,7 @@ public class PlayerHotBarManager : MonoBehaviour
 
         for (int i = 0; i < towers.Count; i++)
         {
-            int cost = towerCosts[i]+towers[i].GetComponent<DefaultTower>().baseCostIncrease;
+            int cost = towerCosts[i];
             if (cost > coinCount)
             {
                 int childCount = HotbarDisplayUI[i].transform.childCount;
