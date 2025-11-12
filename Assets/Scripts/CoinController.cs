@@ -1,4 +1,5 @@
 using Unity.VisualScripting;
+using Unity.VisualScripting.Dependencies.NCalc;
 using UnityEngine;
 
 public class CoinController : MonoBehaviour
@@ -31,6 +32,8 @@ public class CoinController : MonoBehaviour
     public void setValue(int newValue)
     {
         value = newValue;
+        float scale = 1 + (value - 1) / 10;
+        transform.localScale = baseScale * scale;
     }
 
     void Update()

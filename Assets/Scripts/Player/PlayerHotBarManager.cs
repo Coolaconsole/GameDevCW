@@ -188,9 +188,9 @@ public class PlayerHotBarManager : MonoBehaviour
             Instantiate(towerPlaceEffect, placePos, Quaternion.identity);
             if (anim != null)
                 anim.SetTrigger("Attack"); //Looks like they are placing it down!
-            
-            towerCosts[currentTowerIndex] += currentTower.GetComponent<DefaultTower>().baseCostIncrease; //Increase cost for next time
+
             SpendCoin(towerCosts[currentTowerIndex]);
+            towerCosts[currentTowerIndex] += currentTower.GetComponent<DefaultTower>().baseCostIncrease; //Increase cost for next time
             tooltipText.text = "Tower Placed!\nCost increased to " + towerCosts[currentTowerIndex].ToString() + " coins.";
             
             //Events
@@ -304,13 +304,13 @@ public class PlayerHotBarManager : MonoBehaviour
         }
         else if (currentTowerIndex <= -1)
         {
-            HotbarDisplayUI[index].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            HotbarDisplayUI[index].transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             currentTowerIndex = index;
         }
         else
         {
             HotbarDisplayUI[currentTowerIndex].transform.localScale = new Vector3(1f, 1f, 1f);
-            HotbarDisplayUI[index].transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
+            HotbarDisplayUI[index].transform.localScale = new Vector3(1.3f, 1.3f, 1.3f);
             currentTowerIndex = index;
         }
     }
@@ -327,7 +327,7 @@ public class PlayerHotBarManager : MonoBehaviour
 
         for (int i = 0; i < towers.Count; i++)
         {
-            int cost = towerCosts[i];
+            int cost = towerCosts[i]+towers[i].GetComponent<DefaultTower>().baseCostIncrease;
             if (cost > coinCount)
             {
                 int childCount = HotbarDisplayUI[i].transform.childCount;
