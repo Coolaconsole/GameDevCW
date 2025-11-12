@@ -338,6 +338,10 @@ public class SpawnManager : MonoBehaviour
                 if (!startOfWave)
                     TutorialManager.Instance.QueuePrompt("kamikaze");
                 break;
+            case 25:
+                if (!startOfWave)
+                    TutorialManager.Instance.QueuePrompt("success");
+                break;
         }
     }
 }
