@@ -43,7 +43,6 @@ public class SpawnManager : MonoBehaviour
 
         Instance = this;
 
-        AudioManager.Instance.PlayMusic("1", 0.7f);
     }
 
     private void Update()

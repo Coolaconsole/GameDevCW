@@ -59,6 +59,12 @@ public class AudioManager : MonoBehaviour
         musicSource.volume = 1f;
     }
 
+    private void Start()
+    {
+
+        Instance.PlayMusic("1", 0.7f);
+    }
+
     private AudioSource CreateNewSource()
     {
         var src = poolParent.gameObject.AddComponent<AudioSource>();
