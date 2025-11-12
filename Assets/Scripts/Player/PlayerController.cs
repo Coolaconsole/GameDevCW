@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [Header("PlayerStats")]
     [SerializeField] private float speed = 10f; //[SerializeField] makes it show up in the editor but doesn't make it public to other scripts
     public int coinCount;
+    public int totalCoins;
     [SerializeField] private float knockbackForce = 10f;
 
     [Header("Other Components")]
@@ -24,6 +25,11 @@ public class PlayerController : MonoBehaviour
     public GameObject resumeButton;
 
     private bool hasMovedYet = false;
+
+    void Start()
+    {
+        totalCoins += coinCount;
+    }
 
     void Update() // Input called in the update
     {
@@ -45,11 +51,11 @@ public class PlayerController : MonoBehaviour
                 pauseText.GetComponent<TextMeshProUGUI>().text = "Game Paused"; 
             }
         }
-        else if (resumeButton.activeSelf)
-        {
-            Time.timeScale = 1; //Unpause
-            pauseScreen.SetActive(false);
-        }
+        // else if (resumeButton.activeSelf)
+        // {
+        //     Time.timeScale = 1; //Unpause
+        //     pauseScreen.SetActive(false);
+        // }
         
     }
     void FixedUpdate() //Actual movement in fixed update so isn't frame dependant
@@ -97,6 +103,7 @@ public class PlayerController : MonoBehaviour
     public void UpdateCoinCount(int value) 
     {
         coinCount += value;
+        totalCoins += value;
         GetComponent<PlayerHotBarManager>().onCoinCountChanged?.Invoke(coinCount);
     }
 
