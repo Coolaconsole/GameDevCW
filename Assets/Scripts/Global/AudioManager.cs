@@ -61,7 +61,7 @@ public class AudioManager : MonoBehaviour
 
     private void Start()
     {
-
+        AudioListener.volume = 0.5f; // Lowered the volume, OUCH!
         Instance.PlayMusic("1", 0.7f);
     }
 
