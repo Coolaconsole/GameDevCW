@@ -92,7 +92,7 @@ public class SpawnManager : MonoBehaviour
             }
             if (numCurrentWave > 10)
             {
-                spawnCooldown -= 0.001f * (numCurrentWave - 10);
+                spawnCooldown -= 0.01f * (numCurrentWave/2 - 5);
                 if (spawnCooldown < 0.5f)
                     spawnCooldown = 0.5f;
             }
@@ -141,7 +141,7 @@ public class SpawnManager : MonoBehaviour
             int threshold = 0;
             if (numCurrentWave == 10 || numCurrentWave == 15)
                 threshold = maxWaveSpawnBudget / 2;
-            else if (numCurrentWave == 20)
+            else if (numCurrentWave == 20 || numCurrentWave == 25)
                 threshold = maxWaveSpawnBudget * 2 / 3;
             else if (numCurrentWave >= 30)
                 threshold = maxWaveSpawnBudget * 3 / 4;
