@@ -67,6 +67,11 @@ public class TutorialManager : MonoBehaviour
         return (promptQueue.Count > 0) || promptObject.activeSelf;
     }
 
+    public void SetEnable(bool value)
+    {
+        enable = value;
+    }
+
     private void Start()
     {
         // Starting Prompts

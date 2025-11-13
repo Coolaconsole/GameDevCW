@@ -25,6 +25,21 @@ public class AudioManager : MonoBehaviour
     private AudioSource musicSource;
     private Transform musicParent;
 
+    public void SetVolume(float volume)
+    {
+        volume = Mathf.Clamp01(volume);
+        AudioListener.volume = volume;
+        
+        if (musicSource != null)
+            musicSource.volume = volume;
+
+        foreach (var src in pool)
+        {
+            if (src != null)
+                src.volume = volume;
+        }
+    }
+
     void Awake()
     {
         if (Instance != null && Instance != this)
