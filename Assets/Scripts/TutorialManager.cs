@@ -96,7 +96,7 @@ public class TutorialManager : MonoBehaviour
         tutorialPrompts["firstTower3"] = ("Remeber to <color=lightblue> deselect </color> the tower by pressing <color=lightblue> 1 </color> again! You can't attack while holding a tower.", new Vector3(-300, 0, 0), null, false);
 
         // Wave 2 prompts
-        tutorialPrompts["towerExplanation"] = ("Each tower has its strengths!\nPress <color=lightblue>Keys 1 - 4</color> to reveal their stats. I will leave their strategic deployment to you, O wise hero!", new Vector3(-300, 0, 0), null, false);
+        tutorialPrompts["towerExplanation"] = ("Each tower has its strengths!\nPress <color=lightblue>Keys 1 - 4</color> to reveal their stats.\nI will leave their strategic deployment to you, O wise hero!", new Vector3(-300, 0, 0), null, false);
 
         // Wave 3 prompts
         tutorialPrompts["newPath"] = ("By the heavens!\nOur adversaries are carving <color=yellow> a new path</color> into our realm!\nYour tower may not stand in the most... strategic spot.", new Vector3(0, -100, 0), null, true);

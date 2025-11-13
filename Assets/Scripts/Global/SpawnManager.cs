@@ -324,7 +324,7 @@ public class SpawnManager : MonoBehaviour
                 if (startOfWave)
                 {
                     TutorialManager.Instance.QueuePrompt("newEnemy");
-                    TutorialManager.Instance.QueuePrompt("newEnemy");
+                    TutorialManager.Instance.QueuePrompt("newEnemy2");
                 }
                 else
                 {
