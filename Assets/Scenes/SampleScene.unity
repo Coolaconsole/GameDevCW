@@ -504,8 +504,8 @@ RectTransform:
   - {fileID: 1770938432}
   - {fileID: 1314442300}
   - {fileID: 671683778}
-  - {fileID: 1038038507}
   - {fileID: 2020566741}
+  - {fileID: 1038038507}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -6315,7 +6315,7 @@ MonoBehaviour:
   - entity: {fileID: 6422489059913816815, guid: 6b563495f4f5505488423f6707c7f4a1, type: 3}
     cost: 7
     waveUnlocked: 12
-    height: 10
+    height: 6
   - entity: {fileID: 5778101773612441105, guid: e444e415227096c4e8b0df71e871882e, type: 3}
     cost: 7
     waveUnlocked: 17

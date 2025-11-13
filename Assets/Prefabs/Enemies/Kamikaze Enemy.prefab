@@ -526,7 +526,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbf9b50fb67b194da20507f651b8943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 10
+  maxHealth: 25
   healthBarFill: {fileID: 3052704052475291259}
   healthGradient:
     serializedVersion: 2

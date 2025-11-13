@@ -104,7 +104,8 @@ public class PlayerController : MonoBehaviour
     public void UpdateCoinCount(int value) 
     {
         coinCount += value;
-        totalCoins += value;
+        if (value > 0)
+            totalCoins += value;
         GetComponent<PlayerHotBarManager>().onCoinCountChanged?.Invoke(coinCount);
     }
 
