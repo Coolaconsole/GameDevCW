@@ -504,8 +504,8 @@ RectTransform:
   - {fileID: 1770938432}
   - {fileID: 1314442300}
   - {fileID: 671683778}
-  - {fileID: 1038038507}
   - {fileID: 2020566741}
+  - {fileID: 1038038507}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4724,10 +4724,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1509360519}
-  serializedVersion: 5
+  serializedVersion: 4
   m_Mass: 1
-  m_LinearDamping: 0
-  m_AngularDamping: 0.05
+  m_Drag: 0
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -5635,10 +5635,10 @@ Rigidbody:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1688191720}
-  serializedVersion: 5
+  serializedVersion: 4
   m_Mass: 1
-  m_LinearDamping: 100
-  m_AngularDamping: 0.05
+  m_Drag: 100
+  m_AngularDrag: 0.05
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -6451,7 +6451,7 @@ MonoBehaviour:
   - entity: {fileID: 6422489059913816815, guid: 6b563495f4f5505488423f6707c7f4a1, type: 3}
     cost: 7
     waveUnlocked: 12
-    height: 10
+    height: 6
   - entity: {fileID: 5778101773612441105, guid: e444e415227096c4e8b0df71e871882e, type: 3}
     cost: 7
     waveUnlocked: 17

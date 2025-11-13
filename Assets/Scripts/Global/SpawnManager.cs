@@ -83,7 +83,7 @@ public class SpawnManager : MonoBehaviour
         // recalculate spawn budget via some function:
         if (numCurrentWave <= 3) {waveSpawnBudget = numCurrentWave * 2;}
         else {
-            for (int i = 0; i < numCurrentWave; i++)
+            for (int i = 0; i <= numCurrentWave; i++)
             {
                 if (i > 10)
                 {
@@ -137,7 +137,7 @@ public class SpawnManager : MonoBehaviour
         // to do - make more elaborate
         EntityCostInfo enemyToSpawn = GetWeightedRandomEnemy(currentEnemies, currentEnemyWeights);
         // If wave multiple of 10, spawn boss halfway through the wave, but each third of the wave in wave 20, each quarter of the wave wave 30
-        if (numCurrentWave % 5 == 0)
+        if (numCurrentWave % 5 == 0 || numCurrentWave > 30)
         {
             int threshold = 0;
             if (numCurrentWave == 10 || numCurrentWave == 15)

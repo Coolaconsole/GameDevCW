@@ -204,9 +204,9 @@ MonoBehaviour:
   targetController: {fileID: 0}
   projectile: {fileID: 7571415286639365578, guid: 70fc5a460be697648bf0a5967ac31ca2, type: 3}
   deathEffect: {fileID: 652128869994542547, guid: eba5a8e140a639230b8edaf9d626455f, type: 3}
-  moveSpeed: 2
+  moveSpeed: 2.5
   attackDamage: 15
-  attackCooldown: 5
+  attackCooldown: 4
   coinObject: {fileID: 3468169790337004887, guid: db4a639905be5ef4aaf3c9fec80c64a4, type: 3}
   coinValue: 20
   effectiveAttack: 0
@@ -224,7 +224,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ddbf9b50fb67b194da20507f651b8943, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 500
+  maxHealth: 600
   healthBarFill: {fileID: 2896838987371107712}
   healthGradient:
     serializedVersion: 2

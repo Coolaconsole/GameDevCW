@@ -76,7 +76,7 @@ public class BaseController : MonoBehaviour
         }
         PlayerPrefs.Save();
         // Show UI and pause game
-        gameOverText.GetComponent<TextMeshProUGUI>().text = "Game Over!\nYou survived " + waveReached + " waves! Highest: "+ highestWave +"\nYou collected " + coinCollected + " coins! Highest: "+highestCoin;
+        gameOverText.GetComponent<TextMeshProUGUI>().text = "Game Over!\nYou survived " + waveReached + " waves!\nHigh score: "+ highestWave +"\nYou collected " + coinCollected + " coins!\nHigh score: "+highestCoin;
         gameOverCanvas.SetActive(true);
         resumeButton.SetActive(false);
         
