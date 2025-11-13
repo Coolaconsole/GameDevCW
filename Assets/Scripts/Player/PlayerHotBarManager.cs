@@ -61,6 +61,7 @@ public class PlayerHotBarManager : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
     void Start()
     {

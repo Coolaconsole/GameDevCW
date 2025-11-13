@@ -87,7 +87,11 @@ public class BaseController : MonoBehaviour
     {
         Time.timeScale = 1f; 
         resumeButton.SetActive(true);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+
+        Destroy(AudioManager.Instance.gameObject);
+        Destroy(PlayerHotBarManager.Instance.gameObject);
+
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void QuitGame()
