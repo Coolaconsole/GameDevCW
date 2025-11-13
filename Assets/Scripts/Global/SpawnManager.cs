@@ -79,6 +79,8 @@ public class SpawnManager : MonoBehaviour
 
         numAliveEnemies = FindObjectsOfType<EnemyController>().Length;
 
+        waveCooldown = 10f + (numCurrentWave / 2);
+
         numCurrentWave += 1;
         // recalculate spawn budget via some function:
         if (numCurrentWave <= 3) {waveSpawnBudget = numCurrentWave * 2;}
