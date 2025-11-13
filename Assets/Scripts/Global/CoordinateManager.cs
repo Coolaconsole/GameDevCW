@@ -30,6 +30,7 @@ public class CoordinateManager : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public Vector3 getCoordinateWorldPos(Vector2Int coord)
