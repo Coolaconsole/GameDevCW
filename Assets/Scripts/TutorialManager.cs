@@ -114,7 +114,7 @@ public class TutorialManager : MonoBehaviour
         tutorialPrompts["bossEnemy"] = ("The castle trembles a <color=red>boss enemy</color> is approaching!", new Vector3(-200, 100, 0), null, true);
         tutorialPrompts["bossPrep"] = ("Make haste with preparation!\nDon't let it get close to the <b>castle</b>, lest the kingdom fall!", new Vector3(-200, 100, 0), null, true);
         tutorialPrompts["flyingEnemy"] = ("Splendid, O valiant hero!\nYet the oracle warns of new peril <color=red>flying enemies</color> can only be struck by towers with <color=red>sufficient range</color>. Take care!", new Vector3(-200, 100, 0), null, true);
-        tutorialPrompts["kamikaze"] = ("Terrible fortune!\n<color=red>Another adversary</color> has been revealed by the oracle.\nThis mysterious foe bears <color=red>explosive power</color>!\nCatch it before it tears a hole in our <b>defenses</b>!", new Vector3(-200, 100, 0), null, true);
+        tutorialPrompts["kamikaze"] = ("Terrible fortune!\n<color=red>Another adversary</color> has been revealed by the oracle.\nThis one packs some <color=red>explosive power</color>!\nListen for its <color=red>cackle</color> and catch it before it tears a hole in our <b>defenses</b>!", new Vector3(-200, 100, 0), null, true);
         
         tutorialPrompts["bossLevels"] = ("The tremors grow in numbers, the oracle forsees a <color=red>boss wave</color> every <color=yellow>five waves</color>!\nOur foes sure seem to be determined yet.", new Vector3(-200, 100, 0), null, false);
 

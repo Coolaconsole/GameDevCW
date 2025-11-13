@@ -44,7 +44,9 @@ public class Projectile : MonoBehaviour
             return;
         }else
         {
+            transform.LookAt(target.transform);
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, speed * Time.deltaTime);
+
 
             // projectile close to target but not destroed
             if (Vector3.Distance(transform.position, target.transform.position) < 0.05f)

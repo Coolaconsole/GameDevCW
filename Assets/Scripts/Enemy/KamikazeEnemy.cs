@@ -25,6 +25,11 @@ public class KamikazeEnemy : EnemyController
             followPath();
     }
 
+    private void Start()
+    {
+        AudioManager.Instance.PlaySFX("laugh", 0.4f, 0.8f, 1.3f);
+    }
+
     public override void OnTriggerEnter(Collider other)
     {
         GameObject proj = other.gameObject;
