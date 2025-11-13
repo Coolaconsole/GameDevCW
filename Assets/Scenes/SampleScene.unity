@@ -7369,11 +7369,11 @@ MonoBehaviour:
     waveUnlocked: 5
     height: 0
   - entity: {fileID: 6422489059913816815, guid: 6b563495f4f5505488423f6707c7f4a1, type: 3}
-    cost: 7
+    cost: 9
     waveUnlocked: 12
     height: 6
   - entity: {fileID: 5778101773612441105, guid: e444e415227096c4e8b0df71e871882e, type: 3}
-    cost: 7
+    cost: 11
     waveUnlocked: 17
     height: 1
   bossEnemyCostInfo:

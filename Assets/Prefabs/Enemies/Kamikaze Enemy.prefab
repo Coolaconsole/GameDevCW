@@ -668,7 +668,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   speed: 20
-  damage: 7
+  damage: 12
 --- !u!1 &6263123795667023224
 GameObject:
   m_ObjectHideFlags: 0
