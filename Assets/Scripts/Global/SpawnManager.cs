@@ -82,19 +82,22 @@ public class SpawnManager : MonoBehaviour
         // recalculate spawn budget via some function:
         if (numCurrentWave <= 3) {waveSpawnBudget = numCurrentWave * 2;}
         else {
+            for (int i = 0; i < numCurrentWave; i++)
+            {
+                if (numCurrentWave > 10)
+                {
+                    waveSpawnBudget += 10;
+                } else
+                    waveSpawnBudget += numCurrentWave; // triangular number
+            }
             if (numCurrentWave > 10)
             {
-                waveSpawnBudget += 10;
-
                 spawnCooldown -= 0.001f * (numCurrentWave - 10);
                 if (spawnCooldown < 0.5f)
                     spawnCooldown = 0.5f;
             }
             else
-            {
-                waveSpawnBudget += numCurrentWave; // triangular number
                 spawnCooldown -= 0.05f;
-            }
         }
         waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + ExtraWaveInfo();
 
@@ -249,6 +252,7 @@ public class SpawnManager : MonoBehaviour
                 inventoryUI.transform.localScale = new Vector3(1.2f, 1.2f, 1.2f);
                 waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + " Complete! Next wave in " + waveCooldown.ToString("F1") + "s";
                 TutorialPrompt(false);
+                AudioManager.Instance.PlaySFX("coin", 0.6f);
             }
         }
     }
