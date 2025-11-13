@@ -85,11 +85,11 @@ public class SpawnManager : MonoBehaviour
         else {
             for (int i = 0; i < numCurrentWave; i++)
             {
-                if (numCurrentWave > 10)
+                if (i > 10)
                 {
                     waveSpawnBudget += 10;
                 } else
-                    waveSpawnBudget += numCurrentWave; // triangular number
+                    waveSpawnBudget += i; // triangular number
             }
             if (numCurrentWave > 10)
             {
