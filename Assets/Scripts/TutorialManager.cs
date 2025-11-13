@@ -182,8 +182,8 @@ public class TutorialManager : MonoBehaviour
             promptObject.SetActive(false);
             currentPromptKey = "";
         }
-
-        Time.timeScale = 1f;
+        if (promptQueue.Count == 0)
+            Time.timeScale = 1f;
     }
 
     public void QueuePrompt(string key)
