@@ -48,7 +48,8 @@ public class PlayerController : MonoBehaviour
             {
                 Time.timeScale = 0; //Pause
                 pauseScreen.SetActive(true);
-                pauseText.GetComponent<TextMeshProUGUI>().text = "Game Paused"; 
+                pauseText.GetComponent<TextMeshProUGUI>().text = "Game Paused";
+                // MUSIC PAUSES TOO?? 
             }
         }
         // else if (resumeButton.activeSelf)
