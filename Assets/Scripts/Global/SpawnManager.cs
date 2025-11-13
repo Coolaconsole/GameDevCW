@@ -82,21 +82,18 @@ public class SpawnManager : MonoBehaviour
         // recalculate spawn budget via some function:
         if (numCurrentWave <= 3) {waveSpawnBudget = numCurrentWave * 2;}
         else {
-            for (int i = numCurrentWave; i > 0; i--)
+            if (numCurrentWave > 10)
             {
-                if (i > 10)
-                {
-                    waveSpawnBudget += 10;
+                waveSpawnBudget += 10;
 
-                    spawnCooldown -= 0.0001f * (numCurrentWave - 10);
-                    if (spawnCooldown < 0.5f)
-                        spawnCooldown = 0.5f;
-                }
-                else
-                {
-                    waveSpawnBudget += i; // triangular number
-                    spawnCooldown -= 0.05f;
-                }
+                spawnCooldown -= 0.001f * (numCurrentWave - 10);
+                if (spawnCooldown < 0.5f)
+                    spawnCooldown = 0.5f;
+            }
+            else
+            {
+                waveSpawnBudget += numCurrentWave; // triangular number
+                spawnCooldown -= 0.05f;
             }
         }
         waveInfoUI.GetComponent<TextMeshProUGUI>().text = "Wave " + numCurrentWave.ToString() + ExtraWaveInfo();
