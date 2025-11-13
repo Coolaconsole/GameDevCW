@@ -1,9 +1,4 @@
-using NUnit.Framework.Constraints;
-using UnityEditor.Experimental.GraphView;
-using UnityEditor.Rendering;
-using UnityEditor.Search;
 using UnityEngine;
-using UnityEngine.AI;
 
 public class PlaceManager : MonoBehaviour
 {
