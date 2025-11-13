@@ -144,7 +144,7 @@ public class SpawnManager : MonoBehaviour
                 threshold = maxWaveSpawnBudget / 2;
             else if (numCurrentWave == 20 || numCurrentWave == 25)
                 threshold = maxWaveSpawnBudget * 2 / 3;
-            else if (numCurrentWave >= 30)
+            else if (numCurrentWave >= 30 && numCurrentWave%3 == 0)
                 threshold = maxWaveSpawnBudget * 3 / 4;
 
             if (waveSpawnBudget <= threshold)
