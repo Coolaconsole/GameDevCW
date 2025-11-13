@@ -120,35 +120,35 @@ public class PlayerHotBarManager : MonoBehaviour
             currentTower = towers[0];
             buildMode = true;
             ScaleUI(0);
-            tooltipText.text = "Basic Tower - Cost: " + towerCosts[0].ToString() + " Coins\nRange: 3 Tiles - Damage: Low";
+            tooltipText.text = "<b>Basic Tower</b> - Cost: " + towerCosts[0].ToString() + "\nRange: 3 Tiles - Damage: Low";
         }
         if (Input.GetKeyDown(KeyCode.Alpha2))
         {
             currentTower = towers[1];
             buildMode = true;
             ScaleUI(1);
-            tooltipText.text = "Fast-shooting Tower - Cost: " + towerCosts[1].ToString() + " Coins\nRange: 2 Tiles - Damage: Average";
+            tooltipText.text = "<b>Fast-shooting Tower</b> - Cost: " + towerCosts[1].ToString() + "\nRange: 2 Tiles - Damage: Average";
         }
         if (Input.GetKeyDown(KeyCode.Alpha3))
         {
             currentTower = towers[2];
             buildMode = true;
             ScaleUI(2);
-            tooltipText.text = "Long-range Tower - Cost: " + towerCosts[2].ToString() + " Coins\nRange: 4 Tiles - Damage: High";
+            tooltipText.text = "<b>Long-range Tower</b> - Cost: " + towerCosts[2].ToString() + "\nRange: 4 Tiles - Damage: High";
         }
         if (Input.GetKeyDown(KeyCode.Alpha4))
         {
             currentTower = towers[3];
             buildMode = true;
             ScaleUI(3);
-            tooltipText.text = "Area Damage Tower - Cost: " + towerCosts[3].ToString() + " Coins\nRange: 2 Tiles - Damage: Low (Area Effect)";
+            tooltipText.text = "<b>Area Tower</b> - Cost: " + towerCosts[3].ToString() + " Coins\nRange: 2 Tiles - Damage: Low";
         }
 
         if (currentTowerIndex == -1)
         { 
             buildMode = false;
             currentTower = null;
-            tooltipText.text = "Tower Costs:\n "+towerCosts[0]+" Coins -  "+towerCosts[1]+" Coins -  "+towerCosts[2]+" Coins -  "+ towerCosts[3]+" Coins";
+            tooltipText.text = "Tower Costs:\n "+towerCosts[0]+" -  "+towerCosts[1]+" -  "+towerCosts[2]+" -  "+ towerCosts[3]+"";
             
             TutorialManager.Instance.onTowerDeselected.Invoke();
         }

@@ -303,6 +303,9 @@ public class SpawnManager : MonoBehaviour
                 {
                     TutorialManager.Instance.QueuePrompt("pickupMoney");
                     TutorialManager.Instance.QueuePrompt("firstTower");
+
+                    TutorialManager.Instance.QueuePrompt("firstTower2");
+                    TutorialManager.Instance.QueuePrompt("firstTower3");
                     TutorialManager.Instance.QueuePrompt("backToAttack");
                 }
                 break;
@@ -319,10 +322,16 @@ public class SpawnManager : MonoBehaviour
                     break;
             case 5:
                 if (startOfWave)
+                {
                     TutorialManager.Instance.QueuePrompt("newEnemy");
+                    TutorialManager.Instance.QueuePrompt("newEnemy");
+                }
                 else
+                {
                     TutorialManager.Instance.QueuePrompt("pathColour");
-                    break;
+                    TutorialManager.Instance.QueuePrompt("pathColour2");
+                }
+                break;
             case 6:
                 if (!startOfWave)
                     TutorialManager.Instance.QueuePrompt("anotherPath");
@@ -342,7 +351,10 @@ public class SpawnManager : MonoBehaviour
                 break;
             case 12:
                 if (startOfWave)
+                {
                     TutorialManager.Instance.QueuePrompt("flyingEnemy");
+                    TutorialManager.Instance.QueuePrompt("flyingEnemy2");
+                }
                 break;
             case 11:
                 if (startOfWave)
@@ -354,7 +366,10 @@ public class SpawnManager : MonoBehaviour
                 break;
             case 17:
                 if (startOfWave)
+                {
                     TutorialManager.Instance.QueuePrompt("kamikaze");
+                    TutorialManager.Instance.QueuePrompt("kamikaze2");
+                }
                 break;
             case 25:
                 if (!startOfWave)

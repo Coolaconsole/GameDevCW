@@ -53,7 +53,8 @@ public class PathTileController : MonoBehaviour
 
         if (activity >= 0.8)
         {
-            TutorialManager.Instance.QueuePrompt("pathSplit");
+            TutorialManager.Instance.QueuePrompt("pathSplit1");
+            TutorialManager.Instance.QueuePrompt("pathSplit2");
         }
 
         if (activity >= 1 && !hassplit)
