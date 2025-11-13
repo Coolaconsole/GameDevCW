@@ -59,6 +59,7 @@ public class TutorialManager : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public bool HasUnclosedPrompts()

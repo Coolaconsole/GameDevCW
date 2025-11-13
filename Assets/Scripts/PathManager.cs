@@ -24,6 +24,7 @@ public class PathManager : MonoBehaviour
         }
 
         Instance = this;
+        DontDestroyOnLoad(gameObject);
     }
 
     public List<Vector2Int> generateAPath(Vector2Int start, Vector2Int end)

@@ -57,6 +57,8 @@ public class AudioManager : MonoBehaviour
         musicSource.loop = true;
         musicSource.playOnAwake = false;
         musicSource.volume = 1f;
+
+        DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
